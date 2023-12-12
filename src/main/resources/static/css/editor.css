@@ -1,0 +1,201 @@
+button{
+  background: black;
+}
+
+p {
+  color: black;
+  margin: -3px;
+}
+.p-2 {
+  padding: 0.5rem !important;
+}
+
+span {
+  display: inline-block;
+}
+
+div {
+  display: block;
+}
+
+#colorDropdown option {
+  color: white;
+}
+
+body {
+  /* 색 줄높이를 미리 잡고 시작한다 */
+  font-family: "Noto Sans KR", sans-serif;
+  color: #222;
+  line-height: 1.5em;
+}
+/* 보통 바디태그에 주고나서 a태그에 색상을 주는게 기본이다!!! (상속이 안되니까 별도로) */
+a {
+  color: #222;
+  text-decoration: none;
+}
+
+.mainArea{
+  /*margin: 50px;*/
+  width: 600px;
+}
+
+.dropdown {
+  /* 보더를 통해서 틀을 봐주는게 좋다 ! */
+  /* border: 1px solid #000; */
+  /* width: 200px; */
+  display: inline-block;
+}
+.dropdown-btn {
+  width: 200px;
+  /* 패딩으로 크기 늘려주기 */
+  padding: 10px;
+  font-size: 18px;
+  background-color: yellowgreen;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-submenu {
+  /* border: 1px solid #000; */
+  width: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.192);
+  display: none;
+}
+
+.dropdown-submenu a {
+  display: block;
+  padding: 7px;
+  text-align: center;
+}
+
+.dropdown-submenu a:hover {
+  background-color: #eee;
+}
+
+.dropdown:hover .dropdown-submenu {
+  display: block;
+}
+
+.dropdown-toggle {
+  white-space: nowrap;
+}
+
+.btn-outline-dark {
+  color: #212529;
+  border-color: #212529;
+  background-color: transparent;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #5c636a;
+  border-color: #565e64;
+}
+
+.btn-secondary:focus {
+  box-shadow: 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
+}
+
+.btn-secondary:active {
+  color: #fff;
+  background-color: #565e64;
+  border-color: #51585e;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.btn-secondary:disabled,
+.btn-secondary[disabled] {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-light {
+  color: #000;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+
+.btn-light:hover {
+  color: #000;
+  background-color: #d3d4d5;
+  border-color: #c6c7c8;
+}
+
+.btn-light:focus {
+  box-shadow: 0 0 0 0.25rem rgba(211, 212, 213, 0.5);
+}
+
+.btn-light:active {
+  color: #000;
+  background-color: #c6c7c8;
+  border-color: #babbbc;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.btn-light:disabled,
+.btn-light[disabled] {
+  color: #000;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+
+select {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+select:focus {
+  outline: none;
+}
+
+[contenteditable] {
+  padding: 10px;
+  border: none;
+}
+
+.flex-row{
+  border: solid #5c636a;
+
+}
+.editorArea{
+  border: solid #5c636a;
+  margin-bottom: 10px;
+}
+
+.registerArea{
+  display: flex;
+  flex-direction: column;
+  margin:50px
+}
+
+.boardtitle{
+  width: 590px;
+  margin-bottom: 10px;
+  height: 30px;
+
+}
+
+.submitBtn{
+  display: inline-block;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 10px;
+  width: 80px;
+}

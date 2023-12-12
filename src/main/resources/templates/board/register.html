@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시물 등록</title>
+  <link rel="stylesheet" th:href="@{/css/editor.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/uploader.css}" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Brush+Script"
+        rel="stylesheet">
+</head>
+  <div class="registerArea">
+    <input type="text" name="title" class="boardtitle" placeholder="제목을 입력해 주세요.">
+    <div class="mainArea">
+    </div>
+    <div class="uploader-main">
+      <div style="display: flex; flex-direction: column; align-items:center">
+        <input type="hidden" id="hiddeneditorinput" name="content"/>
+        <div id="uploaderArea">
+          파일을 끌어다 놓으세요
+          <div id="fileUploader"></div>
+        </div>
+        <div style="display: flex; margin-right:auto ">
+          <label class="append-btn">
+            파일추가
+            <input type="file" multiple id="fileAddBtn" style="display: none"/>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="submitBtn">등록</button>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script th:src="@{/js/editor/PracEditor-config/loadscripts.js}"></script>
+<script th:src="@{/js/board.js}"></script>
+<script th:src="@{/js/register.js}"></script>
+<script th:src="@{/js/modify.js}"></script>
+<script th:src="@{/js/uploader/uploader.js}"></script>
+</html>

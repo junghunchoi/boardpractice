@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boardpractice.mapper.BoardMapper">
+  <select id="selectById" resultType="com.boardpractice.entity.Board">
+    SELECT bno, title, content, regdate, moddate
+    FROM board
+    where bno = #{bno}
+  </select>
+
+  <insert id="insertBoard" parameterType="com.boardpractice.entity.Board" useGeneratedKeys="true" keyProperty="bno">
+    INSERT INTO board (title, content, view)
+    VALUES (#{title}, #{content}, 0)
+  </insert>
+
+  <update id="updateBoard" parameterType="com.boardpractice.entity.Board">
+    UPDATE board
+    SET title   = #{title},
+        content = #{content},
+        moddate = now()
+    WHERE bno = #{bno}
+  </update>
+
+  <delete id="deleteBoard" parameterType="long">
+    DELETE
+    FROM board
+    WHERE bno = #{bno}
+  </delete>
+
+  <update id="addViewCount" parameterType="long">
+    UPDATE board
+    SET view = view + 1
+    WHERE bno = #{bno}
+  </update>
+
+
+  <select id="selectBoardList" resultType="com.boardpractice.dto.BoardDTO">
+    SELECT board.bno, title, board.regdate, view, ifnull(files.bno,0) as files
+    FROM board board
+      LEFT OUTER JOIN (SELECT DISTINCT bno FROM files) files
+    on files.bno = board.bno
+    ORDER BY bno DESC
+      LIMIT #{skip}, #{size}
+  </select>
+
+  <select id="getCount"  resultType="int">
+    SELECT count(*)
+    FROM board
+  </select>
+
+  <select id="selectFilesByID" resultType="com.boardpractice.entity.Files">
+    SELECT filename
+    FROM files
+    WHERE bno = #{bno}
+  </select>
+
+  <insert id="insertFiles" parameterType="com.boardpractice.entity.Files">
+    INSERT INTO files (bno, filename, uuid)
+    VALUES (#{bno}, #{filename}, #{uuid})
+  </insert>
+
+  <delete id="deleteFiles" parameterType="long">
+    DELETE
+    FROM files
+    WHERE bno = #{bno}
+  </delete>
+
+</mapper>

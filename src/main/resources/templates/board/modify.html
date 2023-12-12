@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 수정</title>
+    <link rel="stylesheet" th:href="@{/css/editor.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/uploader.css}" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Brush+Script"
+          rel="stylesheet">
+</head>
+    <div class="registerArea">
+        <button type="button" class="submitBtn">수정</button>
+        <input type="text" name="title" class="boardtitle" th:value="${board.title}"  placeholder="제목을 입력해 주세요.">
+        <div class="mainArea">
+        </div>
+        <div class="uploader-main">
+            <div style="display: flex; flex-direction: column; align-items:center">
+                <input type="hidden" id="hiddeneditorinput" name="content"/>
+                <div id="uploaderArea">
+                    <div id="fileUploader" th:if="${files != null and not #lists.isEmpty(files)}">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Filename</th>
+                            </tr>
+                            </thead>
+                            <tbody class="tb_files">
+                            <tr th:each="files : ${files}">
+                                <td><input type="checkbox" name="fileCheckbox" th:value="${files.filename}"></td>
+                                <td th:text="${files.filename}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 파일 목록이 존재하지 않는 경우 파일 업로더 표시 -->
+                    <div id="fileUploader" th:unless="${files != null and not #lists.isEmpty(files)}" >
+                        파일을 끌어다 놓으세요
+                    </div>
+                </div>
+                <div class="append-btn" >
+                    <label >
+                        파일추가
+                        <input type="file" multiple id="fileAddBtn" name="file" style="display: none"/>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+<script  th:inline="javascript">
+    const board = [[${board}]];
+    let intervalId = setInterval(functionToRun, 10);
+
+    function functionToRun() {
+        let editorArea = document.querySelector('.editorArea');
+        if (editorArea) {
+            const board = [[${board}]]; // Thymeleaf 표현식은 HTML 문서 내에서만 유효
+            editorArea.innerHTML = board.content;
+            clearInterval(intervalId);
+        }
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script th:src="@{/js/editor/PracEditor-config/loadscripts.js}"></script>
+<script th:src="@{/js/uploader/append.js}"></script>
+<script th:src="@{/js/modify.js}"></script>
+<script th:src="@{/js/uploader/uploader.js}"></script>
+
+</html>

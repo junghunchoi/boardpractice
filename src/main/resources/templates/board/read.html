@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시물</title>
+  <link rel="stylesheet" th:href="@{/css/read.css}" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Brush+Script"
+        rel="stylesheet">
+
+</head>
+
+<head>
+  <title>Board Read</title>
+</head>
+<div class="readArea">
+  <div class="buttonArea">
+    <a href="/board/list" class="backBtn">목록</a>
+    <a th:href="@{/board/modify(bno=${board.bno})}" class="updateBtn" onclick="">수정</a>
+    <a th:href="@{/board/remove(bno=${board.bno})}" class="deleteBtn">삭제</a>
+  </div>
+  <div class="titleArea" th:text="${board.title}"></div>
+  <div class="contentArea" th:utext="${board.content}"></div>
+
+  <div class="fileBox">
+    <div class="fileList">
+      <table>
+        <thead>
+        <tr>
+          <th></th>
+          <th>Filename</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="files : ${files}">
+          <td><input type="checkbox" name="fileCheckbox" th:value="${files.filename}"></td>
+          <td th:text="${files.filename}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <button type="button" id="button_download">다운로드</button>
+  </div>
+</div>
+
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script th:src="@{/js/read.js}"></script>
+<script th:inline="javascript">
+  // function confirm(process) {
+  //     return confirm(`${process}하시겠습니까?`);
+  // }
+
+  document.querySelector(".deleteBtn").addEventListener("click", function (e) {
+    if (confirm("삭제하시겠습니까?")) {
+      axios.post(`/board/remove?bno=${[[${board.bno}]]}`)
+      .then((response) => {
+        alert("삭제되었습니다.");
+        location.href = "/board/list";
+      })
+      .catch((error) => {
+        console.log(`/board/remove/${[[${board.bno}]]}`)
+        console.log(error);
+      });
+    }
+    e.preventDefault();
+  });
+
+
+</script>
