@@ -80,11 +80,9 @@ var uploadFiles = (function () {
             file: file
           });
           clearDownloadProgress(encodeURI(file.name));
-          createUploadedFileList();
           removeFileList(file);
         } else {
           options.onProgress({
-            // 여기서 스프레드 연산자(...) 대신 객체의 속성을 직접 복사합니다.
             url: options.url,
             startingByte: options.startingByte,
             fileName: options.fileName,
@@ -392,6 +390,25 @@ fileInput[0].addEventListener('click', function (e) {
     return;
   }
 
+  checkProgressedFiles(function (error, progressedFileString) {
+    if (error) {
+      console.error(error);
+    } else {
+      if (progressedFileString.length !== 0) {
+        alert(progressedFileString
+            + ' 파일은 이전에 업로드가 진행되었던 파일입니다. 이어서 업로드를 진행합니다.');
+      }
+      try{
+        uploadAndTrackFiles(globalFileList);
+        requestJavaToSave();
+      }catch (e) {
+        console.log(e);
+      }
+
+
+    }
+  });
+
   function checkSavedServerFiles(fileName, callback) {
     var saveFileSize = 0;
     var url = 'http://10.10.0.157:1234/upload-status?fileName='
@@ -463,19 +480,6 @@ fileInput[0].addEventListener('click', function (e) {
 
     checkNext();
   }
-
-  checkProgressedFiles(function (error, progressedFileString) {
-    if (error) {
-      console.error(error);
-    } else {
-      if (progressedFileString.length !== 0) {
-        alert(progressedFileString
-            + ' 파일은 이전에 업로드가 진행되었던 파일입니다. 이어서 업로드를 진행합니다.');
-      }
-      uploadAndTrackFiles(globalFileList);
-      // globalFileList.length = 0;
-    }
-  });
 });
 
 
@@ -488,17 +492,9 @@ function clearDownloadProgress(fileName) {
   localStorage.removeItem(decodeURIComponent(fileName));
 }
 
-// //화면 에디터 영역 랜더링
-// document.addEventListener("DOMContentLoaded", function () {
-//   const $editorArea = document.querySelector(".editorArea");
-//   debugger;
-//   $editorArea.innerHTML = board.content;
-// });
-
-
 // 서버 요청 로직
-document.querySelector(".submitBtn").addEventListener("click", function (e) {
 
+function requestJavaToSave(){
   const title = document.getElementsByClassName("boardtitle")[0].value
   const content = document.getElementsByClassName("editorArea")[0].innerHTML;
   const requestData = {};
@@ -514,7 +510,7 @@ document.querySelector(".submitBtn").addEventListener("click", function (e) {
   globalFileList.forEach(
       row => {
         const files = {}
-        files.filename = row.name.slice(26);
+        files.filename = row.name.slice(25);
         files.uuid = row.name.split("-")[0]
         requestData.files.push(files)
       }
@@ -529,9 +525,8 @@ document.querySelector(".submitBtn").addEventListener("click", function (e) {
     , body: JSON.stringify(requestData)
   }).then(response => {
     if (response.ok) {
-      window.location.href = '/board/read?bno='+urlSearch.get('bno');
+      // window.location.href = '/board/read?bno='+urlSearch.get('bno');
       return response.json();
     }
   })
-
-}, false)
+}

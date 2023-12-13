@@ -11,18 +11,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @Log4j2
@@ -42,6 +44,7 @@ public class BoardController {
 	@GetMapping("/read")
 	public void read(@RequestParam Long bno, Model model) {
 		Board board = boardService.selectById(bno);
+
 		boardService.addViewCount(bno);
 		model.addAttribute("board", board);
 		model.addAttribute("files", boardService.selectFilesByID(bno));
@@ -54,14 +57,13 @@ public class BoardController {
 
 	@PostMapping("/register")
 	@Transactional
-	public String register(@RequestBody RequestData requestData) {
+	public void register(@RequestBody RequestData requestData) {
 		int bno = boardService.insertBoard(requestData.getBoard());
 		requestData.getFiles().forEach(files -> {
 			files.setBno((long) bno);
 			boardService.insertFiles(files);
 		});
 
-		return "redirect:/board/read?bno=" + bno;
 	}
 
 	@GetMapping("/modify")
@@ -78,10 +80,8 @@ public class BoardController {
 	@PostMapping("/modify")
 	public ResponseEntity<Map<String, String>> modify(@RequestBody RequestData requestData,
 		RedirectAttributes redirectAttributes) {
-		log.info("-------------modify-------------");
 		Board board = requestData.getBoard();
 		List<Files> files = requestData.getFiles();
-		log.info("requestData" + requestData);
 
 		boardService.updateBoard(board);
 		files.forEach(file -> {
@@ -90,13 +90,11 @@ public class BoardController {
 		});
 
 		redirectAttributes.addFlashAttribute("result", "modified");
-
 		redirectAttributes.addAttribute("bno", board.getBno());
 
 		String redirectURL = "/board/read?bno=" + board.getBno();
 		Map<String, String> response = new HashMap<>();
 		response.put("redirectUrl", redirectURL);
-		log.info(response.toString());
 		return ResponseEntity.ok(response);
 
 	}

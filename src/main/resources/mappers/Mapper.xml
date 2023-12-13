@@ -51,7 +51,7 @@
   </select>
 
   <select id="selectFilesByID" resultType="com.boardpractice.entity.Files">
-    SELECT filename
+    SELECT filename, uuid
     FROM files
     WHERE bno = #{bno}
   </select>

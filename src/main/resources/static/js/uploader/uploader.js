@@ -299,6 +299,7 @@ var uploadAndTrackFiles = (function() {
     closetBtn.addEventListener('click', function() {
       removeModal();
       unblurBackground();
+      window.location.href = '/board/list'
     });
 
     progressBox.querySelector('.file-progress-wrapper').appendChild(fileElement);
@@ -467,92 +468,6 @@ fileInput[0].addEventListener('click', function(e) {
   });
 });
 
-
-// 저장된 파일 리스트 반환
-// document.addEventListener('DOMContentLoaded', function () {
-//   createUploadedFileList();
-// });
-//
-// function createUploadedFileList() {
-//   var $downloadList = document.getElementsByClassName('download-list-area')[0];
-//   $downloadList.innerHTML = '';
-//
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('GET', 'http://10.10.0.157:1234/files', true);
-//
-//   xhr.onload = function() {
-//     if (xhr.status === 200) {
-//       var files = JSON.parse(xhr.responseText);
-//       for (var i = 0; i < files.length; i++) {
-//         $downloadList.appendChild(createListElement(files[i]));
-//       }
-//     } else {
-//       console.error('Error fetching files:', xhr.statusText);
-//     }
-//   };
-//
-//   xhr.onerror = function() {
-//     console.error('Network error');
-//   };
-//
-//   xhr.send();
-// }
-
-
-// function createListElement(file) {
-//   var ul = document.createElement('ul');
-//   var li = document.createElement('li');
-//   var convertFileName = file.slice(25);
-//
-//   li.className = 'list-group-item d-flex justify-content-between align-items-center';
-//   li.innerHTML = `
-// 		<div class="custom-control custom-checkbox">
-// 			<input type="checkbox" class="custom-control-input" id="${file}" name="file" value="${convertFileName}">
-// 			<label class="custom-control-label" for="${file}">${convertFileName}</label>
-// 		</div>
-// 	`;
-//   ul.appendChild(li);
-//   return ul;
-// }
-
-// document.getElementsByClassName('download-btn')[0].addEventListener('click', function(e) {
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('POST', 'http://10.10.0.157:1234/download', true);
-//   xhr.setRequestHeader('Content-Type', 'application/json');
-//   xhr.responseType = 'blob';
-//
-//   xhr.onload = function() {
-//     if (xhr.status === 200) {
-//       var blob = xhr.response;
-//       var url = window.URL || window.webkitURL;
-//       var downloadUrl = url.createObjectURL(blob);
-//       var a = document.createElement('a');
-//
-//       a.href = downloadUrl;
-//       a.download = 'files.zip';
-//       document.body.appendChild(a);
-//       a.click();
-//
-//       // 필요에 따라 setTimeout을 사용하여 URL을 해제
-//       setTimeout(function() {
-//         URL.revokeObjectURL(downloadUrl);
-//       }, 100); // 100ms 후에 URL 해제
-//
-//       a.remove();
-//     } else {
-//       console.error('Error fetching files:', xhr.statusText);
-//     }
-//   };
-//
-//   xhr.onerror = function() {
-//     console.error('Network error');
-//   };
-//
-//   var data = JSON.stringify({
-//     fileList: getCheckedFileList()
-//   });
-//   xhr.send(data);
-// });
 
 // 이어올리기 로컬스토리지
 function setDownloadProgress(fileName, bytesDownloaded) {

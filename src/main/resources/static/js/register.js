@@ -119,7 +119,7 @@ document.querySelector(".submitBtn").addEventListener("click", function (e) {
   globalFileList.forEach(
       row => {
         const files = {}
-        files.filename = row.name.slice(26);
+        files.filename = row.name.slice(25);
         files.uuid = row.name.split("-")[0]
         requestData.files.push(files)
       }
@@ -133,7 +133,6 @@ document.querySelector(".submitBtn").addEventListener("click", function (e) {
     , body: JSON.stringify(requestData)
   }).then(response => {
     if (response.ok) {
-      window.location.href = '/board/list'
       return response.json();
     }
   })

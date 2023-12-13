@@ -34,7 +34,7 @@
         </thead>
         <tbody>
         <tr th:each="files : ${files}">
-          <td><input type="checkbox" name="fileCheckbox" th:value="${files.filename}"></td>
+          <td><input type="checkbox" name="fileCheckbox" th:value="${files.uuid}+'-'+${files.filename}"></td>
           <td th:text="${files.filename}"></td>
         </tr>
         </tbody>
