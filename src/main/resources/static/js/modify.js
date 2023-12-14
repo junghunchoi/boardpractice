@@ -390,96 +390,71 @@ fileInput[0].addEventListener('click', function (e) {
     return;
   }
 
-  checkProgressedFiles(function (error, progressedFileString) {
-    if (error) {
-      console.error(error);
-    } else {
-      if (progressedFileString.length !== 0) {
-        alert(progressedFileString
-            + ' 파일은 이전에 업로드가 진행되었던 파일입니다. 이어서 업로드를 진행합니다.');
-      }
-      try{
-        uploadAndTrackFiles(globalFileList);
-        requestJavaToSave();
-      }catch (e) {
-        console.log(e);
-      }
-
-
-    }
+  checkProgressedFiles()
+  .then(() => {
+    uploadAndTrackFiles(globalFileList);
+    globalFileList.length = 0;
+  })
+  .then(requestJavaToSave())
+  .catch((e) => {
+    console.log('error', e);
   });
 
-  function checkSavedServerFiles(fileName, callback) {
-    var saveFileSize = 0;
-    var url = 'http://10.10.0.157:1234/upload-status?fileName='
-        + encodeURIComponent(fileName);
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
+  async function checkSavedServerFiles(fileName) {
+    let saveFileSize = 0;
+    const url = `http://10.10.0.157:1234/upload-status?fileName=${fileName}`;
 
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        var data = JSON.parse(xhr.responseText);
-        saveFileSize = data.totalChunkUploaded;
-        callback(null, saveFileSize);
-      } else {
-        callback(new Error('Error fetching file size'));
-      }
-    };
-
-    xhr.onerror = function () {
-      callback(new Error('Network error'));
-    };
-
-    xhr.send();
-  }
-
-  function checkProgressedFiles(callback) {
-    var localStorageList = [];
-    var progressedFileString = '';
-
-    for (var i = 0; i < localStorage.length; i++) {
-      var key = localStorage.key(i).slice(25);
-      var value = localStorage.getItem(localStorage.key(i));
-      localStorageList.push({key, value});
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      saveFileSize = data.totalChunkUploaded;
+    } catch (error) {
+      console.error('Error:', error);
     }
 
-    var completed = 0;
-    var checkNext = function () {
-      if (completed >= globalFileList.length) {
-        callback(null, progressedFileString);
-        return;
-      }
+    return saveFileSize;
+  }
 
-      var file = globalFileList[completed];
-      for (var j = 0; j < localStorageList.length; j++) {
+
+
+  async function checkProgressedFiles() {
+    const localStorageList = [];
+    let progressedFileString = '';
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i).slice(25);
+      const value = localStorage.getItem(localStorage.key(i));
+      localStorageList.push({ key, value });
+    }
+
+
+    for (let i = 0; i < globalFileList.length; i++) {
+      for (let j = 0; j < localStorageList.length; j++) {
         if (
-            file.name.slice(25) === localStorageList[j].key &&
-            Number(file.originLastModified) === Number(
-                localStorageList[j].value.split('|')[3]) &&
-            file.size === Number(localStorageList[j].value.split('|')[2])
+            globalFileList[i].name.slice(25) === localStorageList[j].key &&
+            Number(globalFileList[i].originLastModified) === Number(localStorageList[j].value.split('|')[3]) &&
+            globalFileList[i].size === Number(localStorageList[j].value.split('|')[2])
         ) {
-          var newFileName = localStorage.key(j);
-          checkSavedServerFiles(newFileName, function (error, size) {
-            if (error) {
-              console.error(error);
-              completed++;
-              checkNext();
-            } else {
-              file.startingByte = size;
-              progressedFileString += file.name.slice(25) + ' ';
-              completed++;
-              checkNext();
-            }
+          const newFileName = localStorage.key(j);
+          const newFile = new File([globalFileList[i]], newFileName, {
+            type: globalFileList[i].type,
           });
-          return;
+
+          globalFileList[i] = newFile;
+          globalFileList[i].startingByte = await checkSavedServerFiles(newFileName);
+
+          progressedFileString += globalFileList[i].name.slice(25) + ' ';
+          break;
         }
       }
-      completed++;
-      checkNext();
-    };
+    }
 
-    checkNext();
+    if (progressedFileString.length !== 0) {
+      alert(`${progressedFileString} 파일은 이전에 업로드가 진행되었던 파일입니다. 이어서 업로드를 진행합니다.`);
+    }
   }
+
+
 });
 
 
@@ -525,7 +500,6 @@ function requestJavaToSave(){
     , body: JSON.stringify(requestData)
   }).then(response => {
     if (response.ok) {
-      // window.location.href = '/board/read?bno='+urlSearch.get('bno');
       return response.json();
     }
   })

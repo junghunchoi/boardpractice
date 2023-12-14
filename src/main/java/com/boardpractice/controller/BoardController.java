@@ -72,7 +72,6 @@ public class BoardController {
 
 		model.addAttribute("board", board);
 		model.addAttribute("files", boardService.selectFilesByID(bno));
-		log.info(boardService.selectFilesByID(bno));
 
 	}
 
