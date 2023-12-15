@@ -36,13 +36,14 @@ public class BoardController {
 
 	@GetMapping("/list")
 	public void list(PageRequestDTO pageRequestDTO, Model model) {
-
+		log.info("/list");
 		PageResponseDTO<BoardDTO> responseDTO = boardService.selectBoardList(pageRequestDTO);
 		model.addAttribute("responseDTO", responseDTO);
 	}
 
 	@GetMapping("/read")
 	public void read(@RequestParam Long bno, Model model) {
+		log.info("/read");
 		Board board = boardService.selectById(bno);
 
 		boardService.addViewCount(bno);
@@ -57,13 +58,13 @@ public class BoardController {
 
 	@PostMapping("/register")
 	@Transactional
-	public void register(@RequestBody RequestData requestData) {
+	public RedirectView register(@RequestBody RequestData requestData) {
 		int bno = boardService.insertBoard(requestData.getBoard());
 		requestData.getFiles().forEach(files -> {
 			files.setBno((long) bno);
 			boardService.insertFiles(files);
 		});
-
+		return new RedirectView("/board/read?bno=" + bno);
 	}
 
 	@GetMapping("/modify")
@@ -77,7 +78,7 @@ public class BoardController {
 
 
 	@PostMapping("/modify")
-	public ResponseEntity<Map<String, String>> modify(@RequestBody RequestData requestData,
+	public void modify(@RequestBody RequestData requestData,
 		RedirectAttributes redirectAttributes) {
 		Board board = requestData.getBoard();
 		List<Files> files = requestData.getFiles();
@@ -90,12 +91,6 @@ public class BoardController {
 
 		redirectAttributes.addFlashAttribute("result", "modified");
 		redirectAttributes.addAttribute("bno", board.getBno());
-
-		String redirectURL = "/board/read?bno=" + board.getBno();
-		Map<String, String> response = new HashMap<>();
-		response.put("redirectUrl", redirectURL);
-		return ResponseEntity.ok(response);
-
 	}
 
 	@PostMapping("/remove")
@@ -107,16 +102,12 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 
-	@PostMapping("/test")
-	public void test(@RequestBody RequestData requestData) {
-		log.info("-------------test-------------");
-		log.info(requestData);
-		log.info(requestData.getBoard());
-		int bno = boardService.insertBoard(requestData.getBoard());
-		requestData.getFiles().forEach(files -> {
-			files.setBno((long) bno);
-		});
-		log.info("files" + requestData.getFiles());
+	@GetMapping("/editor")
+	public void editor(@RequestParam Long bno, Model model) {
+		log.info("/editor");
+		Board board = boardService.selectById(bno);
+
+		model.addAttribute("board", board);
 	}
 
 }

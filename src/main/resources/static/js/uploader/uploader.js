@@ -385,6 +385,18 @@ fileInput[0].addEventListener('click', function(e) {
     return;
   }
 
+  checkProgressedFiles(function(error, progressedFileString) {
+    if (error) {
+      console.error(error);
+    } else {
+      if (progressedFileString.length !== 0) {
+        alert(progressedFileString + ' 파일은 이전에 업로드가 진행되었던 파일입니다. 이어서 업로드를 진행합니다.');
+      }
+      uploadAndTrackFiles(globalFileList); // 파일 업로드 시작
+      globalFileList.length = 0;
+    }
+  });
+
   function checkSavedServerFiles(fileName, callback) {
     var saveFileSize = 0;
     var url = 'http://10.10.0.157:1234/upload-status?fileName=' + encodeURIComponent(fileName);
@@ -454,18 +466,6 @@ fileInput[0].addEventListener('click', function(e) {
 
     checkNext();
   }
-
-  checkProgressedFiles(function(error, progressedFileString) {
-    if (error) {
-      console.error(error);
-    } else {
-      if (progressedFileString.length !== 0) {
-        alert(progressedFileString + ' 파일은 이전에 업로드가 진행되었던 파일입니다. 이어서 업로드를 진행합니다.');
-      }
-      uploadAndTrackFiles(globalFileList); // 파일 업로드 시작
-      globalFileList.length = 0;
-    }
-  });
 });
 
 

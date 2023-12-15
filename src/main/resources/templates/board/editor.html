@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시물 작성</title>
+  <link rel="stylesheet" th:href="@{/css/read.css}" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Brush+Script"
+        rel="stylesheet">
+</head>
+<body>
+<div class="titleArea" th:text="${board.title}"></div>
+<div class="contentArea" th:utext="${board.content}"></div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script th:src="@{/js/read.js}"></script>
+</body>
+</html>
