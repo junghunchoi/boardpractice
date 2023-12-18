@@ -533,3 +533,22 @@ template {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+
+.titleArea {
+  width: 560px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  height: 30px;
+  border: 1px solid #b8babc;
+}
+
+.contentArea {
+  width: 560px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  height: 100%;
+  border: 1px solid #b8babc;
+}

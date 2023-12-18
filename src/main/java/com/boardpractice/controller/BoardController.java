@@ -105,9 +105,19 @@ public class BoardController {
 	@GetMapping("/editor")
 	public void editor(@RequestParam Long bno, Model model) {
 		log.info("/editor");
-		Board board = boardService.selectById(bno);
 
+		Board board = boardService.selectById(bno);
+		log.info("board", board);
 		model.addAttribute("board", board);
 	}
+
+	@GetMapping("/uploader")
+	public void uploader(@RequestParam Long bno, Model model) {
+		log.info("/uploader");
+		log.info("files", boardService.selectFilesByID(bno));
+
+		model.addAttribute("files", boardService.selectFilesByID(bno));
+	}
+
 
 }

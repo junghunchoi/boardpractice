@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>게시물 작성</title>
+  <title>게시물 조회</title>
   <link rel="stylesheet" th:href="@{/css/read.css}" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Brush+Script"
         rel="stylesheet">
@@ -17,29 +17,15 @@
     <a th:href="@{/board/remove(bno=${board.bno})}" class="deleteBtn">삭제</a>
   </div>
   <div id="editor_iframe_wrapper">
-  <iframe th:src="@{http://localhost:8080/board/editor(bno=${board.bno})}" scrolling="no"></iframe>
+    <iframe id="editor_iframe" th:src="@{http://localhost:8080/board/editor(bno=${board.bno})}"
+            scrolling="no"></iframe>
   </div>
-  <div class="fileBox">
-    <div class="fileList">
-      <table>
-        <thead>
-        <tr>
-          <th></th>
-          <th>Filename</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="files : ${files}">
-          <td><input type="checkbox" name="fileCheckbox" th:value="${files.uuid}+'-'+${files.filename}"></td>
-          <td th:text="${files.filename}"></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <button type="button" id="button_download">다운로드</button>
+  <div class="upload_iframe_wrapper">
+      <iframe id="uploader_iframe"
+              th:src="@{http://localhost:8080/board/uploader(bno=${board.bno})}"
+              scrolling="no"></iframe>
   </div>
 </div>
-
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -59,6 +45,29 @@
     }
     e.preventDefault();
   });
+
+  adjustIframeHeight('editor_iframe');
+  adjustIframeHeight('uploader_iframe');
+
+  function adjustIframeHeight(iframeId) {
+    var iframe = document.getElementById(iframeId);
+    iframe.onload = function () {
+      var iframeBody = iframe.contentWindow.document.body;
+      var height = calculateTotalHeight(iframeBody);
+      console.log(iframeId, height)
+      iframe.style.height = height + 'px';
+    };
+  }
+
+  function calculateTotalHeight(element) {
+    var totalHeight = 0;
+    for (var child of element.childNodes) {
+      if (child.offsetHeight) {
+        totalHeight += child.offsetHeight;
+      }
+    }
+    return Number(totalHeight) + 40;
+  }
 
 
 </script>

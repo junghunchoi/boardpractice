@@ -1,4 +1,4 @@
-function filesDownload(){
+document.getElementById('button_download').addEventListener('click', function(e) {
   return fetch('http://10.10.0.157:1234/download', {
     method: 'POST',
     headers: {
@@ -19,7 +19,7 @@ function filesDownload(){
     a.remove();
   })
   .catch((error) => console.error('Error fetching files:', error));
-}
+});
 
 function getCheckedFileList() {
   var checkboxes = document.querySelectorAll(".fileList input[type='checkbox']");
@@ -31,7 +31,3 @@ function getCheckedFileList() {
   }
   return checked;
 }
-
-var $iframe = document.getElementById('uploader_iframe');
-const message = {url: window.location.pathname};
-$iframe.contentWindow.postMessage(message, '*');
