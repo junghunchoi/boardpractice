@@ -30,7 +30,15 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script th:src="@{/js/read.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+
 <script th:inline="javascript">
+  window.addEventListener('load', function () {
+    console.log("load")
+    adjustIframeHeight('editor_iframe');
+    adjustIframeHeight('uploader_iframe');
+  });
+
   document.querySelector(".deleteBtn").addEventListener("click", function (e) {
     if (confirm("삭제하시겠습니까?")) {
       axios.post(`/board/remove?bno=${[[${board.bno}]]}`)
@@ -46,28 +54,7 @@
     e.preventDefault();
   });
 
-  adjustIframeHeight('editor_iframe');
-  adjustIframeHeight('uploader_iframe');
 
-  function adjustIframeHeight(iframeId) {
-    var iframe = document.getElementById(iframeId);
-    iframe.onload = function () {
-      var iframeBody = iframe.contentWindow.document.body;
-      var height = calculateTotalHeight(iframeBody);
-      console.log(iframeId, height)
-      iframe.style.height = height + 'px';
-    };
-  }
-
-  function calculateTotalHeight(element) {
-    var totalHeight = 0;
-    for (var child of element.childNodes) {
-      if (child.offsetHeight) {
-        totalHeight += child.offsetHeight;
-      }
-    }
-    return Number(totalHeight) + 40;
-  }
 
 
 </script>

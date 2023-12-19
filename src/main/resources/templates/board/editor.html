@@ -6,32 +6,14 @@
   <title></title>
   <link rel="stylesheet" th:href="@{/css/read.css}" type="text/css">
   <link rel="stylesheet" th:href="@{/css/editor.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/css/uploader.css}" type="text/css">
+<!--  <link rel="stylesheet" th:href="@{/css/uploader.css}" type="text/css">-->
   <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Brush+Script"
         rel="stylesheet">
 </head>
 <body>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-  //js/editor/PracEditor-core/src/praceditor.js
-  if (window.location.pathname === '/board/read') {
-    const $script1 = document.createElement('script');
-    const $div = document.createElement('div');
-    $script1.src = '/js/read.js';
-    $div.className = 'contentArea'
-    document.body.appendChild($div);
-    document.body.appendChild($script1);
-  } else {
-    const $script = document.createElement('script');
-    const $div = document.createElement('div');
-
-    $script.src = '/js/editor/PracEditor-config/loadscripts.js';
-    $div.className = 'mainArea'
-    document.body.appendChild($div);
-    document.body.appendChild($script);
-  }
-
-</script>
+<script th:inline="javascript">const board = [[${board}]];</script>
+<script th:src="@{/js/editor.js}"></script>
 </body>
 </html>

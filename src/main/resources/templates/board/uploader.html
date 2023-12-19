@@ -21,7 +21,7 @@
           </thead>
           <tbody class="tb_files">
           <tr th:each="files : ${files}">
-            <td><input type="checkbox" name="fileCheckbox" th:value="${files.filename}"></td>
+            <td><input type="checkbox" name="fileCheckbox" th:value="${files.uuid} + '-' + ${files.filename}"></td>
             <td th:text="${files.filename}"></td>
           </tr>
           </tbody>
@@ -31,10 +31,11 @@
       <div id="fileUploader" th:unless="${files != null and not #lists.isEmpty(files)}">
         파일을 끌어다 놓으세요
       </div>
+      <div class="append-btn"><label>파일추가<input type="file" multiple="" id="fileAddBtn" name="file" style="display: none;"></label></div>
     </div>
   </div>
 </div>
-<!--<script th:src="@{/js/read.js}"></script>-->
+
 <script>
   const $uploaderArea = document.querySelector("#uploaderArea");
 
@@ -47,25 +48,7 @@
       $button.id = "button_download";
       $button.onclick = filesDownload;
       $uploaderArea.after($button, $uploaderArea.firstChild);
-    } else {//register, update
-      const $uploaderArea = document.querySelector("#uploaderArea");
-      var divElement = document.createElement('div');
-      divElement.className = 'append-btn';
-
-      var labelElement = document.createElement('label');
-      labelElement.textContent = '파일추가';
-
-      var inputElement = document.createElement('input');
-      inputElement.type = 'file';
-      inputElement.multiple = true;
-      inputElement.id = 'fileAddBtn';
-      inputElement.name = 'file';
-      inputElement.style.display = 'none';
-
-      labelElement.appendChild(inputElement);
-      divElement.appendChild(labelElement);
-
-      $uploaderArea.after(divElement, $uploaderArea.firstChild);
+      document.getElementsByClassName('append-btn')[0].remove();
     }
   })
 
@@ -93,15 +76,18 @@
   }
 
   function getCheckedFileList() {
-    var checkboxes = document.querySelectorAll(".fileList input[type='checkbox']");
+    var checkboxes = document.querySelectorAll(".uploader-main input[type='checkbox']");
     var checked = [];
     for (var i = 0; i < checkboxes.length; i++) {
       if (checkboxes[i].checked) {
         checked.push(checkboxes[i].defaultValue);
       }
     }
+    console.log(checked)
     return checked;
   }
 </script>
+<script th:src="@{/js/uploader/uploader.js}"></script>
+
 </body>
 </html>

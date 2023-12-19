@@ -22,7 +22,7 @@ document.getElementById('button_download').addEventListener('click', function(e)
 });
 
 function getCheckedFileList() {
-  var checkboxes = document.querySelectorAll(".fileList input[type='checkbox']");
+  var checkboxes = document.querySelectorAll(".uploader-main input[type='checkbox']");
   var checked = [];
   for (var i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked) {

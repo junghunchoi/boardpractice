@@ -114,7 +114,6 @@ public class BoardController {
 	@GetMapping("/uploader")
 	public void uploader(@RequestParam Long bno, Model model) {
 		log.info("/uploader");
-		log.info("files", boardService.selectFilesByID(bno));
 
 		model.addAttribute("files", boardService.selectFilesByID(bno));
 	}

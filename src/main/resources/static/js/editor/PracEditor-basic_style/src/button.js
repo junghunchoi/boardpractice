@@ -28,7 +28,7 @@ var btnModule = (function () {
 
   function createButton(title, svgPath, btnId) {
     var buttonSpan = document.createElement("span");
-    buttonSpan.className = "buttonArea";
+    buttonSpan.className = "editorbuttonArea";
     buttonSpan.style.height = "10px";
     buttonSpan.style.padding = "5px";
 

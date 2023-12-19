@@ -106,6 +106,7 @@ tr:hover {
   transition: background-color 0.3s;
   padding: 8px 16px;
   margin-top: 10px;
+  margin-right: auto;
 }
 
 #uploader_iframe{

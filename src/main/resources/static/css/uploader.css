@@ -552,3 +552,7 @@ template {
   height: 100%;
   border: 1px solid #b8babc;
 }
+
+#uploader_iframe{
+	width: 100%;
+}
