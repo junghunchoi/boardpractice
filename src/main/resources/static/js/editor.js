@@ -1,7 +1,6 @@
 let url = ''
 
   window.addEventListener('message', function (e) {
-    console.log(e.data.url)
     url = e.data.url
 
     if (url === '/board/read') {
@@ -13,7 +12,6 @@ let url = ''
       document.body.appendChild($div);
       document.body.appendChild($script1);
     } else {
-      console.log('else')
       const $script = document.createElement('script');
       const $div = document.createElement('div');
 
@@ -22,7 +20,6 @@ let url = ''
       document.body.appendChild($div);
       document.body.appendChild($script);
     }
-
     if (document.getElementsByClassName("contentArea").length > 0) {
       document.getElementsByClassName("contentArea")[0].innerHTML = board.content;
     }

@@ -1,3 +1,5 @@
+let globalFileList = ''
+
 var uploadFiles = (function () {
   var fileRequests = new WeakMap();
   var ENDPOINTS = {
@@ -386,6 +388,7 @@ var fileInput = document.getElementsByClassName('submitBtn');
 
 fileInput[0].addEventListener('click', function (e) {
   e.preventDefault();
+  globalFileList = document.getElementById("uploader_iframe").contentWindow.iframeGlobalFileList;
 
   if (globalFileList.length === 0) {
     requestJavaToSave();

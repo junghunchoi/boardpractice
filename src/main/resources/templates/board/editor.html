@@ -6,7 +6,7 @@
   <title></title>
   <link rel="stylesheet" th:href="@{/css/read.css}" type="text/css">
   <link rel="stylesheet" th:href="@{/css/editor.css}" type="text/css">
-<!--  <link rel="stylesheet" th:href="@{/css/uploader.css}" type="text/css">-->
+  <!--  <link rel="stylesheet" th:href="@{/css/uploader.css}" type="text/css">-->
   <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Brush+Script"
         rel="stylesheet">
 </head>
@@ -15,5 +15,22 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script th:inline="javascript">const board = [[${board}]];</script>
 <script th:src="@{/js/editor.js}"></script>
+<script th:inline="javascript">
+  const callback = function(mutationsList, observer) {
+    for(let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        if (document.getElementsByClassName("editorArea")[0]) {
+          document.getElementsByClassName("editorArea")[0].innerHTML = board.content;
+          window.parent.postMessage("editorLoaded", "*");
+          observer.disconnect();
+        }
+      }
+    }
+  };
+
+  const observer = new MutationObserver(callback);
+  observer.observe(document.body, {childList: true, subtree: true});
+
+</script>
 </body>
 </html>

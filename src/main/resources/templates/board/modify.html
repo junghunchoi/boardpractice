@@ -15,7 +15,7 @@
          placeholder="제목을 입력해 주세요.">
   <div id="editor_iframe_wrapper">
     <iframe id="editor_iframe" th:src="@{http://localhost:8080/board/editor(bno=${board.bno})}"
-            scrolling="no"></iframe>
+            scrolling="no" ></iframe>
   </div>
   <div class="upload_iframe_wrapper">
     <iframe id="uploader_iframe"
@@ -37,18 +37,17 @@
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script th:src="@{/js/modify.js}"></script>
-<script th:src="@{/js/common.js}"></script>
+
+
 <script>
-  document.getElementById("editor_iframe").addEventListener('load', function () {
-    console.log("editor_iframe load")
-    // document.getElementsByClassName("editorArea")[0].innerHTML = board.content;
-  });
+  window.addEventListener('message', (event) => {
+    console.log("checkmessage", event.data);
+    if(event.data ==='editorLoaded'){adjustIframeHeight('editor_iframe');}
+    else if(event.data ==='uploaderLoaded'){adjustIframeHeight('uploader_iframe');}
 
-  window.addEventListener('load', function () {
-    adjustIframeHeight('editor_iframe');
-    adjustIframeHeight('uploader_iframe');
-  });
+  })
+
 </script>
-
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/modify.js}"></script>
 </html>
