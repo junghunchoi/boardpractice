@@ -488,6 +488,16 @@ var fileInput = document.getElementsByClassName('submitBtn');
 fileInput[0].addEventListener('click', function(e) {
   e.preventDefault();
 
+  if(document.getElementsByClassName('boardtitle')[0].value===''){
+    alert('제목을 입력해주세요');
+    return;
+  }
+
+  if(document.getElementsByClassName('editorArea')[0].textContent===''){
+    alert('내용을 입력해주세요');
+    return;
+  }
+
   if(globalFileList.length === 0) {
     requestJavaToSave();
   }else {
@@ -620,5 +630,16 @@ function requestJavaToSave(){
       "Content-Type": "application/json",
     }
     , body: JSON.stringify(requestData)
-  }).catch((error) => console.error('Error fetching files:', error));
+  }).then(()=>{
+    location.href="/board/list"
+  })
+  .catch((error) => console.error('Error fetching files:', error));
 }
+
+document.getElementById('goToListButton').addEventListener('click', function() {
+  if(confirm('목록으로 돌아가시겠습니까? \n작성중인 글은 저장되지 않습니다.')){
+    location.href="/board/list"
+  }else{
+
+  }
+});

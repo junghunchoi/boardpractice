@@ -84,7 +84,7 @@ var PracEditorApp = (function () {
     var ptag = document.createElement("p");
     var brtag = document.createElement("br");
     editorArea.className = "editorArea";
-    editorArea.style.height = "500px";
+    editorArea.style.height = "450px";
     editorArea.contentEditable = "true";
     ptag.appendChild(brtag);
     $mainArea.appendChild(editorArea);

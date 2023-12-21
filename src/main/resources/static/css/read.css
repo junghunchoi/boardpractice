@@ -107,6 +107,7 @@ tr:hover {
   padding: 8px 16px;
   margin-top: 10px;
   margin-right: auto;
+  z-index: 10;
 }
 
 #uploader_iframe{

@@ -8,9 +8,7 @@ function sendUrlToIframe() {
     $iframe_editor.contentWindow.postMessage(message, '*');
   });
 
-  $iframe_uploader.addEventListener('load', function () {
-    $iframe_uploader.contentWindow.postMessage(message, '*');
-  });
+  $iframe_uploader.contentWindow.postMessage(message, '*');
 
 
 }

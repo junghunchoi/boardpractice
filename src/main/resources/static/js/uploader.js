@@ -1,3 +1,6 @@
+const $uploaderArea = document.querySelector("#uploaderArea");
+
+
 /// 첨부파일 드래그 엔 드랍 로직
 var dropbox = document.querySelector('#uploaderArea');
 var $fileAddBtn = document.getElementById("fileAddBtn");
@@ -71,6 +74,7 @@ function makeFileList(file) {
   $tr.appendChild($td);
 
   $tb_files.appendChild($tr);
+  window.parent.postMessage("uploaderLoaded", "*");
 }
 
 $fileAddBtn.addEventListener("change", function (e) {
@@ -139,3 +143,47 @@ function getCheckedFileList() {
   }
   return checked;
 }
+
+function filesDownload() {
+  return fetch('http://10.10.0.157:1234/download', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      fileList: getCheckedFileList(),
+    }),
+  })
+  .then((response) => {
+    console.log(response);
+    return response.blob();
+  })
+  .then((blob) => {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'files.zip';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  })
+  .catch((error) => console.error('Error fetching files:', error));
+}
+
+window.addEventListener('message', function (e) {
+  let url = e.data.url;
+  if (url === "/board/read") {
+    console.log("파일추가삭제로직시작")
+    const $button = document.createElement("button");
+    $button.innerText = "다운로드";
+    $button.type = "button";
+    $button.id = "button_download";
+    $button.onclick = filesDownload;
+    $uploaderArea.after($button, $uploaderArea.firstChild);
+    document.getElementsByClassName('append-btn')[0].remove();
+  }
+})
+
+// 랜더링 완료 후 부모에게 메시지 전달
+window.parent.postMessage("uploaderLoaded", "*");
+

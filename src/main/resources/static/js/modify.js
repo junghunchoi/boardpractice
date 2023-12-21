@@ -222,7 +222,7 @@ var uploadFiles = (function () {
 
   var progressBox = document.createElement('div');
 
-  progressBox.className = 'upload-progress-tracker expanded';
+  progressBox.className = 'upload-progress-tracker';
   progressBox.textContent = 'Uploading...';
   progressBox.innerHTML = `
 				<div class="uploads-progress-bar" style="width: 0;"></div>
@@ -249,11 +249,16 @@ var uploadFiles = (function () {
 
 var uploadAndTrackFiles = (function () {
   var files = {}; // Map 대신 일반 객체 사용
-  var $progressArea = document.getElementsByClassName('progress-area')[0];
+
+  // var $progressArea = document.getElementsByClassName('progress-area')[0];
   var progressBox = document.createElement('div');
+  var closetBtn = document.createElement('span')
   var uploader = null;
 
-  progressBox.className = 'upload-progress-tracker expanded';
+  closetBtn.className = 'close-btn';
+  closetBtn.textContent = 'Close';
+
+  progressBox.className = 'upload-progress-tracker';
   progressBox.innerHTML =
       '<div class="uploads-progress-bar" style="width: 0;"></div>' +
       '<div class="file-progress-wrapper" style="width: 100%"></div>';
@@ -306,8 +311,15 @@ var uploadAndTrackFiles = (function () {
       uploader.resumeFileUpload(file);
     });
 
-    progressBox.querySelector('.file-progress-wrapper').appendChild(
-        fileElement);
+    closetBtn.addEventListener('click', function() {
+      const URLSearch = new URLSearchParams(location.search);
+      removeModal();
+      unblurBackground();
+      window.location.href = '/board/read?bno='+URLSearch.get('bno');
+    });
+
+    progressBox.querySelector('.file-progress-wrapper').appendChild(fileElement);
+    progressBox.appendChild(closetBtn);
 
     return fileElement;
   };
@@ -336,7 +348,7 @@ var uploadAndTrackFiles = (function () {
   }
 
   function onComplete(file) {
-    var fileObj = files.get(file.file);
+    var fileObj = files[file.file.name];
 
     fileObj.status = 'COMPLETED';
     fileObj.percentage = 100;
@@ -345,7 +357,7 @@ var uploadAndTrackFiles = (function () {
   }
 
   function onProgress(file) {
-    var fileObj = files.get(file.file);
+    var fileObj = files[file.file.name];
 
     fileObj.status = 'UPLOADING';
     fileObj.percentage = file.percentage;
@@ -354,7 +366,7 @@ var uploadAndTrackFiles = (function () {
   }
 
   function onError(file) {
-    var fileObj = files.get(file.file);
+    var fileObj = files[file.file.name];
 
     fileObj.status = 'FAILED';
     fileObj.percentage = 100;
@@ -363,7 +375,7 @@ var uploadAndTrackFiles = (function () {
   }
 
   function onAbort(file) {
-    var fileObj = files.get(file);
+    var fileObj = files[file.file.name];
     fileObj.status = 'PAUSED';
 
     updateFileElement(fileObj);
@@ -373,8 +385,8 @@ var uploadAndTrackFiles = (function () {
     for (var i = 0; i < globalFileList.length; i++) {
       globalFileList[i].element = setFileElement(globalFileList[i]);
     }
-    $progressArea.appendChild(progressBox);
-
+    document.body.appendChild(progressBox);
+    blurBackground();
     uploader = uploadFiles(globalFileList, {
       onProgress: onProgress,
       onError: onError,
@@ -473,8 +485,9 @@ function clearDownloadProgress(fileName) {
 // 서버 요청 로직
 
 function requestJavaToSave() {
+  const $editor_iframe = document.getElementById("editor_iframe").contentWindow.document;
   const title = document.getElementsByClassName("boardtitle")[0].value
-  const content = document.getElementsByClassName("editorArea")[0].innerHTML;
+  const content = $editor_iframe.getElementsByClassName("editorArea")[0].innerHTML;
   const requestData = {};
   const board = {};
 
@@ -500,7 +513,43 @@ function requestJavaToSave() {
       "Content-Type": "application/json",
     }
     , body: JSON.stringify(requestData)
-  }).catch((e) => {
+  }).then(response => {
+    if (response.ok) {
+      return response.text();
+    }
+    throw new Error(response.status);
+  }).then(url => {
+    window.location.href = url;
+  })
+  .catch((e) => {
     console.log('error', e);
   });
+}
+
+
+function blurBackground() {
+  // body의 모든 자식 요소에 블러 스타일 적용RF
+  const bodyChildren = document.body.children;
+  for (let i = 0; i < bodyChildren.length; i++) {
+    if (bodyChildren[i].className !== 'upload-progress-tracker') {
+      bodyChildren[i].style.filter = 'blur(8px)';
+    }
+  }
+}
+
+function removeModal() {
+  const modal = document.getElementsByClassName('upload-progress-tracker');
+  if (modal) {
+    document.body.removeChild(modal[0]);
+  }
+
+  unblurBackground();
+}
+
+function unblurBackground() {
+  // 블러 스타일 제거
+  const bodyChildren = document.body.children;
+  for (let i = 0; i < bodyChildren.length; i++) {
+    bodyChildren[i].style.filter = '';
+  }
 }

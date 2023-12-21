@@ -1,10 +1,10 @@
 let url = ''
 
+
   window.addEventListener('message', function (e) {
     url = e.data.url
 
     if (url === '/board/read') {
-      console.log('read')
       const $script1 = document.createElement('script');
       const $div = document.createElement('div');
       $script1.src = '/js/read.js';
@@ -22,6 +22,8 @@ let url = ''
     }
     if (document.getElementsByClassName("contentArea").length > 0) {
       document.getElementsByClassName("contentArea")[0].innerHTML = board.content;
+      window.parent.postMessage("editorLoaded", "*");
     }
   });
+
 

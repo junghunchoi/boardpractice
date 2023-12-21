@@ -17,31 +17,34 @@
     <a th:href="@{/board/remove(bno=${board.bno})}" class="deleteBtn">삭제</a>
   </div>
   <div id="editor_iframe_wrapper">
-    <iframe id="editor_iframe" th:src="@{http://localhost:8080/board/editor(bno=${board.bno})}"
+    <iframe id="editor_iframe" th:src="@{http://10.10.0.157:8080/board/editor(bno=${board.bno})}"
             scrolling="no"></iframe>
   </div>
   <div class="upload_iframe_wrapper">
       <iframe id="uploader_iframe"
-              th:src="@{http://localhost:8080/board/uploader(bno=${board.bno})}"
+              th:src="@{http://10.10.0.157:8080/board/uploader(bno=${board.bno})}"
               scrolling="no"></iframe>
   </div>
 </div>
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script th:src="@{/js/read.js}"></script>
 <script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/read.js}"></script>
+
 
 <script th:inline="javascript">
-  window.addEventListener('load', function () {
-    adjustIframeHeight('editor_iframe');
-    adjustIframeHeight('uploader_iframe');
-  });
+  const files = [[${files}]];
+
+  if(files.length === 0) {
+    document.getElementById('uploader_iframe').remove();
+  }
+
 
   document.querySelector(".deleteBtn").addEventListener("click", function (e) {
     if (confirm("삭제하시겠습니까?")) {
       axios.post(`/board/remove?bno=${[[${board.bno}]]}`)
-      .then((response) => {
+      .then(() => {
         alert("삭제되었습니다.");
         location.href = "/board/list";
       })

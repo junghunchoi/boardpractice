@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -78,8 +79,8 @@ public class BoardController {
 
 
 	@PostMapping("/modify")
-	public void modify(@RequestBody RequestData requestData,
-		RedirectAttributes redirectAttributes) {
+	@ResponseBody
+	public String  modify(@RequestBody RequestData requestData) {
 		Board board = requestData.getBoard();
 		List<Files> files = requestData.getFiles();
 
@@ -89,8 +90,7 @@ public class BoardController {
 			boardService.insertFiles(file);
 		});
 
-		redirectAttributes.addFlashAttribute("result", "modified");
-		redirectAttributes.addAttribute("bno", board.getBno());
+		return "/board/read?bno=" + board.getBno();
 	}
 
 	@PostMapping("/remove")

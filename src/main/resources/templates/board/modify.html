@@ -14,12 +14,12 @@
   <input type="text" name="title" class="boardtitle" th:value="${board.title}"
          placeholder="제목을 입력해 주세요.">
   <div id="editor_iframe_wrapper">
-    <iframe id="editor_iframe" th:src="@{http://localhost:8080/board/editor(bno=${board.bno})}"
-            scrolling="no" ></iframe>
+    <iframe id="editor_iframe" th:src="@{http://10.10.0.157:8080/board/editor(bno=${board.bno})}"
+            scrolling="no"></iframe>
   </div>
   <div class="upload_iframe_wrapper">
     <iframe id="uploader_iframe"
-            th:src="@{http://localhost:8080/board/uploader(bno=${board.bno})}"
+            th:src="@{http://10.10.0.157:8080/board/uploader(bno=${board.bno})}"
             scrolling="no"></iframe>
   </div>
 </div>
@@ -41,10 +41,15 @@
 
 <script>
   window.addEventListener('message', (event) => {
-    console.log("checkmessage", event.data);
-    if(event.data ==='editorLoaded'){adjustIframeHeight('editor_iframe');}
-    else if(event.data ==='uploaderLoaded'){adjustIframeHeight('uploader_iframe');}
-
+    if (event.data === 'editorLoaded') {
+      const $iframe_editor = document.querySelector('#editor_iframe');
+      const editorHeight = $iframe_editor.contentWindow.document.getElementsByClassName('editorArea')[0].offsetHeight + 60;
+      $iframe_editor.style.height = editorHeight + 'px';
+    } else if (event.data === 'uploaderLoaded') {
+      const $iframe_uploader = document.querySelector('#uploader_iframe');
+      const uploaderHeight = $iframe_uploader.contentWindow.document.getElementsByClassName('uploader-main')[0].offsetHeight + 10;
+      $iframe_uploader.style.height = uploaderHeight + 'px';
+    }
   })
 
 </script>
