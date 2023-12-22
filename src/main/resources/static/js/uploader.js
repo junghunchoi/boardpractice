@@ -77,21 +77,22 @@ function makeFileList(file) {
   window.parent.postMessage("uploaderLoaded", "*");
 }
 
-$fileAddBtn.addEventListener("change", function (e) {
+function handleFileChange(e) {
   e.preventDefault();
-  this.style.backgroundColor = 'white'
+  this.style.backgroundColor = 'white';
   var fileList = e.target.files;
 
   for (var i = 0; i < fileList.length; i++) {
-    makeFileList(fileList[i])
+    makeFileList(fileList[i]);
     var newFileName = uniqueAlphaNumericId() + '-' + fileList[i].name;
 
     iframeGlobalFileList.push(
-        new File([fileList[i]], newFileName, {type: fileList[i].type}))
-    iframeGlobalFileList[i].originLastModified = fileList[i].lastModified
+        new File([fileList[i]], newFileName, {type: fileList[i].type})
+    );
+    iframeGlobalFileList[i].originLastModified = fileList[i].lastModified;
   }
   document.getElementById("uploaderArea").childNodes[0].data = "";
-})
+}
 
 function uniqueAlphaNumericId() {
   var heyStack = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -173,17 +174,33 @@ function filesDownload() {
 window.addEventListener('message', function (e) {
   let url = e.data.url;
   if (url === "/board/read") {
-    console.log("파일추가삭제로직시작")
     const $button = document.createElement("button");
     $button.innerText = "다운로드";
     $button.type = "button";
     $button.id = "button_download";
     $button.onclick = filesDownload;
     $uploaderArea.after($button, $uploaderArea.firstChild);
-    document.getElementsByClassName('append-btn')[0].remove();
+  }else{
+    console.log("else")
+    const $div = document.createElement("div");
+    const $label = document.createElement("label");
+    const $input = document.createElement("input");
+    $div.style = "display: flex; margin-right: auto";
+    $label.className = "append-btn";
+    $label.innerText = "파일추가";
+    $input.type = "file";
+    $input.id = "fileAddBtn";
+    $input.style = "display: none";
+    $input.setAttribute("multiple", "");
+    $input.onchange = handleFileChange;
+    $label.appendChild($input);
+    $div.appendChild($label);
+    $uploaderArea.after($div, $uploaderArea.firstChild);
+    window.parent.postMessage("uploaderLoaded", "*");
   }
+
+  // 랜더링 완료 후 부모에게 메시지 전달
+  // window.parent.postMessage("uploaderLoaded", "*");
 })
 
-// 랜더링 완료 후 부모에게 메시지 전달
-window.parent.postMessage("uploaderLoaded", "*");
 

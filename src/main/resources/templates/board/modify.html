@@ -42,10 +42,12 @@
 <script>
   window.addEventListener('message', (event) => {
     if (event.data === 'editorLoaded') {
+      console.log('editorLoaded')
       const $iframe_editor = document.querySelector('#editor_iframe');
       const editorHeight = $iframe_editor.contentWindow.document.getElementsByClassName('editorArea')[0].offsetHeight + 60;
       $iframe_editor.style.height = editorHeight + 'px';
     } else if (event.data === 'uploaderLoaded') {
+      console.log('uploaderLoaded')
       const $iframe_uploader = document.querySelector('#uploader_iframe');
       const uploaderHeight = $iframe_uploader.contentWindow.document.getElementsByClassName('uploader-main')[0].offsetHeight + 10;
       $iframe_uploader.style.height = uploaderHeight + 'px';

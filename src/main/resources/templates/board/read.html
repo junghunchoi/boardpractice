@@ -16,6 +16,7 @@
     <a th:href="@{/board/modify(bno=${board.bno})}" class="updateBtn" onclick="">수정</a>
     <a th:href="@{/board/remove(bno=${board.bno})}" class="deleteBtn">삭제</a>
   </div>
+  <input type="text" name="title" class="boardtitle" th:value="${board.title}" readonly>
   <div id="editor_iframe_wrapper">
     <iframe id="editor_iframe" th:src="@{http://10.10.0.157:8080/board/editor(bno=${board.bno})}"
             scrolling="no"></iframe>
