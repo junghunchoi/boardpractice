@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <h3 class="title">K Editor :: InoutdentDefaultSize</h3>
+    <p class="ttl">XML : &#60;inoutdent default_size=""&#62;.....&#60;/inoutdent&#62;, Script : InoutdentDefaultSize</p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        들여쓰기 및 내어쓰기의 기본 크기값을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        들여쓰기 및 내어쓰기의 기본 크기값을 설정합니다.<br />
+        값 + "px"을 입력하여 설정합니다. 
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>들여쓰기 및 내어쓰기의 기본 크기값을 50px로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;inoutdent default_size="50px"&#62;&#60;/inoutdent&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            InoutdentDefaultSize: '50px'
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

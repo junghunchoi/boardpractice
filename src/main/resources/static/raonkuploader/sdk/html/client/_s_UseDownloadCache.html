@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">           
+    <span class="pl_type">[Agent 전용]</span> 
+    <h3 class="title">K Upload :: UseDownloadCache</h3>
+    <p class="ttl">
+        XML : &#60;use_download_cache&#62;.....&#60;/use_download_cache&#62;, Script : UseDownloadCache <br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        다운로드 시 캐시의 사용 여부를 설정합니다.<br />
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        기본값은 "0" 이며 설정 시 다운로드 시 캐시를 사용하지 않도록 설정하고,<br />
+        "1" 로 설정 시 다운로드 시 캐시를 사용하도록 설정합니다.<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>Agent 다운로드 시 캐시를 사용하도록 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;use_download_cache&#62;1&#60;/use_download_cache&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            UseDownloadCache: "1"
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

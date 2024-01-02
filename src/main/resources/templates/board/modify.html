@@ -8,19 +8,26 @@
   <link rel="stylesheet" th:href="@{/css/uploader.css}" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Brush+Script"
         rel="stylesheet">
+  <script type="text/javascript" src="/raonkeditor/js/raonkeditor.js"></script>
+  <script type="text/javascript" src="/raonkuploader/js/raonkupload.js"></script>
 </head>
 <div class="registerArea">
-  <button type="button" class="submitBtn">수정</button>
+  <button type="button" class="submitBtn" id="submitBtn">수정</button>
   <input type="text" name="title" class="boardtitle" th:value="${board.title}"
          placeholder="제목을 입력해 주세요.">
-  <div id="editor_iframe_wrapper">
-    <iframe id="editor_iframe" th:src="@{http://10.10.0.157:8080/board/editor(bno=${board.bno})}"
-            scrolling="no"></iframe>
+  <div>
+    <script type="text/javascript">
+      var params = {
+        Id: 'editor1',
+      }
+
+      new RAONKEditor(params);
+    </script>
   </div>
-  <div class="upload_iframe_wrapper">
-    <iframe id="uploader_iframe"
-            th:src="@{http://10.10.0.157:8080/board/uploader(bno=${board.bno})}"
-            scrolling="no"></iframe>
+  <div style=" margin-top: 20px;">
+    <script type="text/javascript">
+      new RAONKUpload({Id: 'upload1'});
+    </script>
   </div>
 </div>
 <script th:inline="javascript">
@@ -37,24 +44,11 @@
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!--<script th:src="@{/js/modify.js}"></script>-->
+<script th:inline="javascript">
+  const files = [[${files}]];
 
-
-<script>
-  window.addEventListener('message', (event) => {
-    if (event.data === 'editorLoaded') {
-      console.log('editorLoaded')
-      const $iframe_editor = document.querySelector('#editor_iframe');
-      const editorHeight = $iframe_editor.contentWindow.document.getElementsByClassName('editorArea')[0].offsetHeight + 60;
-      $iframe_editor.style.height = editorHeight + 'px';
-    } else if (event.data === 'uploaderLoaded') {
-      console.log('uploaderLoaded')
-      const $iframe_uploader = document.querySelector('#uploader_iframe');
-      const uploaderHeight = $iframe_uploader.contentWindow.document.getElementsByClassName('uploader-main')[0].offsetHeight + 10;
-      $iframe_uploader.style.height = uploaderHeight + 'px';
-    }
-  })
-
+  RAONKEDITOR.setBodyValue(board.content, 'editor1');
 </script>
-<script th:src="@{/js/common.js}"></script>
-<script th:src="@{/js/modify.js}"></script>
+<script th:src="@{/js/custommodify.js}"></script>
 </html>

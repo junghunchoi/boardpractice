@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>K EDITOR Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="raonkhelp_content_right">
+        <div class="right_con ">
+            <h3 class="title">K Editor :: AddUserJsUrl</h3>
+            <p class="ttl">void AddUserJsUrl(url, editorName)</p>
+            <p class="txt">
+                에디터 작성 영역에 사용자의 JS 파일을 적용합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">url</span>&nbsp;&nbsp;JS 파일 URL을 의미합니다.<br />
+                <span class="firebrick">editorName</span>&nbsp;&nbsp;에디터의 ID를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                에디터의 설정 파일(raonkeditor/config/raonk_editor.xml)의 xss_use 설정 값이 1이고,<br />
+                <b>xss_allow_url 설정의 allow_url에 JS 파일 URL을 설정</b>해야 됩니다.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+    function RAONKEDITOR_CreationComplete() {
+        var url = 'http://www.raonk.com/js/userJs.js';
+
+        RAONKEDITOR.addUserJsUrl(url, 'editor1');
+    }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;
+    &#60;script type="text/javascript"&#62;
+        new RAONKEditor({Id:'editor1'});
+    &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

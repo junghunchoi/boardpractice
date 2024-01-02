@@ -1,0 +1,18 @@
+﻿{
+	"name": "RAONKEditor",
+	"version": "2021.12.28",
+	"description": "RAONKEditor Plugin for nexacro platform N (version 21)",
+	"license": "Commercial license",
+	"scripts": [
+		"raonkeditor/js/raonkeditor.js",
+		"raonkeditor/plugin/nexacro/21/raonkeditor.nexacro21.js"
+	],
+	"objInfo": [
+		"raonkeditor/plugin/nexacro/21/metainfo/raonkeditor.nexacro.enum.info",
+		"raonkeditor/plugin/nexacro/21/metainfo/raonkeditor.nexacro.meta.info",
+		"raonkeditor/plugin/nexacro/21/metainfo/raonkeditor.nexacro.event.info"
+	],
+	"designscripts": [
+		"raonkeditor/plugin/nexacro/21/design/raonkeditor.nexacro.design.js"
+	]
+}

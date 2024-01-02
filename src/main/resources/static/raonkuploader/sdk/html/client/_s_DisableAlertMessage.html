@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">               
+    <h3 class="title">K Upload :: DisableAlertMessage</h3>
+    <p class="ttl">
+        XML : &#60;disable_delete_confirm&#62;.....&#60;/disable_delete_confirm&#62;,<br />
+        Script : DisableDeleteConfirm<br />
+        XML : &#60;duplication&#62;.....&#60;/duplication&#62;,<br />
+        Script : Duplication<br />
+        XML : &#60;delete_unchosen&#62;.....&#60;/delete_unchosen&#62;,<br />
+        Script : DeleteUnchosen<br />
+        XML : &#60;download_unchosen&#62;.....&#60;/download_unchosen&#62;,<br />
+        Script : DisableDeleteConfirm<br />
+        XML : &#60;open_unchosen&#62;.....&#60;/open_unchosen&#62;,<br />
+        Script : DisableDeleteConfirm<br />
+        XML : &#60;file_extension_detect&#62;.....&#60;/file_extension_detect&#62;,<br />
+        Script : FileExtensionDetect<br />
+        XML : &#60;file_max_count_add&#62;.....&#60;/file_max_count_add&#62;,<br />
+        Script : FileMaxCountAdd<br />
+        XML : &#60;disable_upload_cancel_confirm&#62;.....&#60;/disable_upload_cancel_confirm&#62;,<br />
+        Script : DisableUploadCancelConfirm<br />
+        XML : &#60;disable_recovery_confirm&#62;.....&#60;/disable_recovery_confirm&#62;,<br />
+        Script : DisableRecoveryConfirm<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        업로드 모든 confirm창을 표시하거나 숨기는 기능을 설정합니다.<br />
+        각 상황별 alert의 활성화/비활성화 를 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">disable_delete_confirm</span>&nbsp;&nbsp;기본값은 "0" 이고 "모든 confirm창 활성", "1"로 설정시 "모든 confirm창 비활성"입니다.<br />
+            <span style="padding-left:132px">"2"로 설정시 "선택 항목제거만 confirm창 비활성"이고,</span><br />
+            <span style="padding-left:132px">"3"로 설정시 "전체 항목제거만 confirm창 비활성"입니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">duplication</span>&nbsp;&nbsp;"파일 추가 중복 시" alert창 비활성합니다.<br />
+            <span style="padding-left:70px">기본값은 "1" 이고, "0"으로 설정시 파일 추가 중복 시 alert창 활성합니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">delete_unchosen</span>&nbsp;&nbsp;"파일 삭제 시" 선택된 파일이 없을 경우 alert창 비활성합니다.<br />
+            <span style="padding-left:98px">기본값은 "1" 이고, "0"으로 설정시 파일 삭제시 선택된 파일이 없을 경우 alert창 활성합니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">download_unchosen</span>&nbsp;&nbsp;"파일 다운로드 시" 선택된 파일이 없을 경우 alert창 비활성합니다.<br />
+            <span style="padding-left:118px">기본값은 "1" 이고, "0"으로 설정시 파일 삭제시 선택된 파일이 없을 경우 alert창 활성합니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">open_unchosen</span>&nbsp;&nbsp;"파일 열기 시" 선택된 파일이 없을 경우 alert창 비활성합니다.<br />
+            <span style="padding-left:94px">기본값은 "1" 이고, "0"으로 설정시 파일 삭제시 선택된 파일이 없을 경우 alert창 활성합니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">file_extension_detect</span>&nbsp;&nbsp;"확장자 변조 파일 추가시" 선택된 파일의 확장자가 변조된 경우 alert창 비활성합니다.<br />
+            <span style="padding-left:122px">기본값은 "1" 이고, "0"으로 설정시 선택된 파일의 확장자가 변조된 경우 alert창 활성합니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">file_max_count_add</span>&nbsp;&nbsp;"파일 추가 버튼 클릭 시" 파일 최대 개수를 초과할 경우 alert창 비활성합니다.<br />
+            <span style="padding-left:116px">기본값은 "1" 이고, "0"으로 설정시 파일 최대 개수를 초과할 경우 alert창 활성합니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">disable_upload_cancel_confirm</span>&nbsp;&nbsp;업로드 시 전송 취소를 할 경우 confirm창을 비활성합니다.<br />
+            <span style="padding-left:116px">기본값은 "0" 이고, "1"로 설정시 비활성화 됩니다.</span><br />
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">disable_recovery_confirm</span>&nbsp;&nbsp;자동 복구를 할 경우 confirm창을 비활성합니다.<br />
+            <span style="padding-left:116px">기본값은 "0" 이고, "1"로 설정시 비활성화 됩니다.</span><br />
+        </span><br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>모든 confirm창을 표시하거나 숨기는 기능을 설정합니다.</b>
+<b>파일 삭제에 대한 모든 confirm창 비활성으로 설정합니다.</b>
+<b>파일 추가 중복 시 alert창 활성으로 설정합니다.</b>
+<b>파일 삭제 시 alert창 활성으로 설정합니다.</b>
+<b>파일 다운로드 시 alert창 활성으로 설정합니다.</b>
+<b>파일 열기 시 alert창 활성으로 설정합니다.</b>
+<b>파일 확장자 변조 시 alert창 활성으로 설정합니다.</b>
+<b>파일 최대 개수 초과 시 alert창 활성으로 설정합니다.</b>
+<b>파일 최대 개수 초과 시 alert창 활성으로 설정합니다.</b>
+<b>업로드 시 전송 취소를 할 경우 confirm을 비활성으로 설정합니다.</b>
+<b>자동 복구를 할 경우 confirm을 비활성으로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;disable_alert_message&#62;
+        &#60;disable_delete_confirm&#62;1&#60;/disable_delete_confirm&#62;
+        &#60;duplication&#62;0&#60;/duplication&#62;
+        &#60;delete_unchosen&#62;0&#60;/delete_unchosen&#62;
+        &#60;download_unchosen&#62;0&#60;/download_unchosen&#62;
+        &#60;open_unchosen&#62;0&#60;/open_unchosen&#62;
+        &#60;file_extension_detect&#62;0&#60;/file_extension_detect&#62;
+        &#60;file_max_count_add&#62;0&#60;/file_max_count_add&#62;
+        &#60;disable_upload_cancel_confirm&#62;1&#60;/disable_upload_cancel_confirm&#62;
+        &#60;disable_recovery_confirm&#62;1&#60;/disable_recovery_confirm&#62;
+    &#60;/disable_alert_message&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            DisableAlertMessage: {
+                DisableDeleteConfirm: '1',
+                Duplication: '0',
+                DeleteUnchosen: '0',
+                DownloadUnchosen: '0',
+                OpenUnchosen: '0',
+                FileExtensionDetect: '0',
+                FileMaxCountAdd: '0',
+                DisableUploadCancelConfirm: '1',
+                DisableRecoveryConfirm: '1'
+            }
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

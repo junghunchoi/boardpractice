@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con ">        
+    <span class="pl_type">[Agent 전용]</span>   
+    <h3 class="title">K Upload :: IsUpdateRequired</h3>
+    <p class="ttl">void IsUpdateRequired(callBackFunc, mode, versionUrl)</p>
+    <p class="txt">
+        Agent의 업데이트가 필요한 상태인지 확인합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        <b>callBackFunc의 첫번째 파라미터에 return값을 반환받습니다.</b> <br />
+        <span class="firebrick">boolean</span>&nbsp;&nbsp;Agent의 업데이트가 필요한 상태인지를 의미합니다.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">callBackFunc</span>&nbsp;&nbsp;실행할 callback 함수를 의미합니다.. <br />
+        <span class="firebrick">mode</span>&nbsp;&nbsp;0 입력시 PC에 설치된 버전이 최신 버전보다 낮으면 true 반환하고,<br />
+        <span style="margin-left:38px;">1 입력시 PC에 설치된 버전이 최신 버전과 다르면 true를 반환합니다. <br />
+        <span class="firebrick">versionUrl</span>&nbsp;&nbsp;Agent 폴더의 경로를 의미합니다. (Agent 폴더의 위치 변경시 파라미터에 해당 경로를 입력해주시면 됩니다.)<br />
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        없음.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+        var callBackFunc = function(updateReq){
+            // 파라미터에 반환받은 updateReq를 활용하여 동작수행
+        }
+
+        function IsUpdateRequired() {
+            RAONKUPLOAD.IsUpdateRequired(callBackFunc, 0, ".....");
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px;"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new RAONKUpload({Id: 'upload1'});
+        &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

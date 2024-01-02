@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">           
+    <h3 class="title">K Upload :: AddUploadedFileAsObject</h3>
+    <p class="ttl">void AddUploadedFileAsObject(paramObj, callBack)</p>
+    <p class="txt">
+        Object 형태의 이미 업로드 되어 있는 파일 또는 파일리스트를 업로드 리스트 컨트롤에 셋팅합니다. 
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        paramObj에는 flieList, getFileSize, uploadName 값이 포함되며, <br />
+        fileList Object는 다음과 같이 구성됩니다. <br />
+        <span style="line-height: 2.0;"><span class="firebrick">uniqueKey</span>&nbsp;&nbsp;추가 할 파일들의 Unique Key을 포함한 String값을 의미합니다.</span><br />
+        <span style="line-height: 2.0;"><span class="firebrick">originName</span>&nbsp;&nbsp;추가 할 파일들의 이름을 포함한 String값을 의미합니다.</span><br />
+        <span style="line-height: 2.0;"><span class="firebrick">webPath</span>&nbsp;&nbsp;추가 할 파일들의 저장 위치(웹경로)를 포함한 String값을 의미합니다.</span><br />
+        <span style="line-height: 2.0;"><span class="firebrick">size</span>&nbsp;&nbsp;추가 할 파일들의 크기를 포함한 String값을 의미합니다.</span><br />
+        <span style="line-height: 2.0;"><span class="firebrick">customValue</span>&nbsp;&nbsp;Custom Download 사용시 사용될 값을 포함한 String값을 의미합니다.</span><br />
+        <span style="line-height: 2.0;"><span class="firebrick">headerEx</span>&nbsp;&nbsp;커스텀 헤더 구성시 해당 영역에 삽입될 String값을 의미합니다.</span><br /><br />
+
+        getFileSize 및 uploadName은 다음과 같이 설정합니다. <br />
+        <span style="line-height: 2.0;"><span class="firebrick">getFileSize</span>&nbsp;&nbsp;서버에서 파일 사이즈를 구할지의 true/false(boolean)를 의미합니다. (기본값: false)</span><br />
+        <span style="margin-left: 64px;">(true 일 경우 서버에서 size값을 구하며 파라미터 Object에 size 항목은 입력하지 않으셔도 무방합니다.)</span><br />
+        <span style="line-height: 2.0;"><span class="firebrick">uploadName</span>&nbsp;&nbsp;파일들을 추가 할 업로드 객체의 id를 의미합니다.</span><br /><br />
+        두번째 파라미터에 callBack 함수를 설정합니다. <br />
+        <span style="line-height: 2.0;"><span class="firebrick">callBack</span>&nbsp;&nbsp;파일추가 완료 후 발생할 callBack(function)을 의미합니다. (생략 가능)</span><br />
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+       이미 업로드 된 단일 웹파일 / 다중 웹파일 을 Object로 한번에 추가할 수 있습니다.<br />
+       callBack 함수 설정을 통해 파일 추가 완료 후 설정한 callBack 이벤트 발생이 가능합니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+        function RAONKUPLOAD_CreationComplete(uploadID) {
+            
+            <b>// callBack 이벤트 설정</b>
+            // 파일추가 완료 후 발생하며, 파라미터 Object내에 API동작을 완료한 uploadID를 포함하여 반환합니다.
+            var callBackEvt = function(paramObj) {
+                console.log(paramObj.uploadName + ": 파일추가 완료.");
+            }
+
+            <b>// Case_1</b>
+            // fileList로 추가
+            // 파일 Object를 fileList 배열로 추가합니다.
+
+            var fileList = [];
+            var file1 = {uniqueKey: ".....", originName: ".....", webPath: ".....", size: ".....", customValue: "....."};
+            var file2 = {uniqueKey: ".....", originName: ".....", webPath: ".....", size: ".....", customValue: "....."};
+            // 커스텀 헤더 추가한 경우
+            // file1.headerEx = ".....";
+            // file2.headerEx = ".....";
+            fileList.push(file1);
+            fileList.push(file2);
+            var paramObj_1 = {
+                <b>fileList: fileList,</b>
+                uploadName: uploadID
+            };
+
+            RAONKUPLOAD.AddUploadedFileAsObject(paramObj_1, <b>callBackEvt</b>);
+
+            <b>// Case_2</b>
+            // 서버에서 파일사이즈 구한 뒤 파일 추가 (단일/다중)
+            // 파일사이즈 정보가 없을경우 유용합니다. (size 항목 생략 가능)
+
+            var fileList = [];
+            // size 정보 생략
+            var file1 = {uniqueKey: ".....", originName: ".....", webPath: ".....", customValue: "....."};
+            var file2 = {uniqueKey: ".....", originName: ".....", webPath: ".....", customValue: "....."};
+            // 커스텀 헤더 추가한 경우
+            // file1.headerEx = ".....";
+            // file2.headerEx = ".....";
+            fileList.push(file1);
+            fileList.push(file2);
+            var paramObj_2 = {
+                fileList: fileList,
+                <b>getFileSize: true,</b>
+                uploadName: uploadID
+            };
+
+            RAONKUPLOAD.AddUploadedFileAsObject(paramObj_2, <b>callBackEvt</b>);
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px;"&#62;
+        &#60;script type="text/javascript"&#62;
+            new RAONKUpload({Id: 'upload1'});
+        &#60;/script&#62;       
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

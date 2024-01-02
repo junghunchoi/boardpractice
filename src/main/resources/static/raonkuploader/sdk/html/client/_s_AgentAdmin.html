@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">        
+    <span class="pl_type">[Agent 전용]</span>    
+    <h3 class="title">K Upload :: AgentAdmin</h3>
+    <p class="ttl">
+        XML : &#60;agent_admin&#62;&#60;buffer_size&#62;.....&#60;/buffer_size&#62;&#60;/agent_admin&#62;,<br />
+        Script : AgentAdmin.BufferSize <br />
+        XML : &#60;agent_admin&#62;&#60;buffer_size_download&#62;.....&#60;/buffer_size_download&#62;&#60;/agent_admin&#62;,<br />
+        Script : AgentAdmin.BufferSizeDownload <br />
+        XML : &#60;agent_admin&#62;&#60;buffer_size_upload&#62;.....&#60;/buffer_size_upload&#62;&#60;/agent_admin&#62;,<br />
+        Script : AgentAdmin.BufferSizeUpload <br />
+        XML : &#60;agent_admin&#62;&#60;chunk_size&#62;.....&#60;/chunk_size&#62;&#60;/agent_admin&#62;,<br />
+        Script : AgentAdmin.ChunkSize <br />
+        XML : &#60;agent_admin&#62;&#60;download_file_name_suffix&#62;.....&#60;/download_file_name_suffix&#62;&#60;/agent_admin&#62;,<br />
+        Script : AgentAdmin.DownloadFileNameSuffix <br />
+        XML : &#60;agent_admin&#62;&#60;multi_transfer_count&#62;.....&#60;/multi_transfer_count&#62;&#60;/agent_admin&#62;,<br />
+        Script : AgentAdmin.MultiTransferCount <br />
+        XML : &#60;agent_admin&#62;&#60;request_count&#62;.....&#60;/request_count&#62;&#60;/agent_admin&#62;,<br />
+        Script : AgentAdmin.RequestCount <br />
+        XML : &#60;agent_admin&#62;&#60;system_code&#62;.....&#60;/system_code&#62;&#60;/agent_admin&#62;,<br />
+        Script : AgentAdmin.SystemCode <br />
+        XML : &#60;agent_admin&#62;&#60;timeout&#62;.....&#60;/timeout&#62;&#60;/agent_admin&#62;,<br />
+        Script : AgentAdmin.Timeout <br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        업로드/다운로드시 적용될 Admin 설정값을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        사이즈는 Bytes 단위로 입력합니다.<br />
+        <span class="firebrick">buffer_size</span>&nbsp;&nbsp;업로드 및 다운로드 버퍼 사이즈를 설정합니다. (BufferSizeUpload 혹은 BufferSizeDownload 값이 설정될 시 해당값을 우선합니다.)<br />
+        <span class="firebrick">buffer_size_download</span>&nbsp;&nbsp;다운로드 시 버퍼 사이즈를 설정합니다.<br />
+        <span class="firebrick">buffer_size_upload</span>&nbsp;&nbsp;업로드 시 버퍼 사이즈를 설정합니다.<br />
+        <span class="firebrick">chunk_size</span>&nbsp;&nbsp;업로드 및 다운로드 시 청크 사이즈를 설정합니다.<br />
+        <span class="firebrick">download_file_name_suffix</span>&nbsp;&nbsp;다운로드 시 파일 확장자 뒤에 임시로 붙히게 될 임시 확장자를 설정합니다.<br />
+        <span class="firebrick">multi_transfer_count</span>&nbsp;&nbsp;동시 업로드 및 다운로드 처리 개수를 설정합니다.<br />
+        <span class="firebrick">request_count</span>&nbsp;&nbsp;요청(쓰레드)개수를 설정합니다.<br />
+        <span class="firebrick">system_code</span>&nbsp;&nbsp;시스템 코드를 설정합니다.<br />
+        <span class="firebrick">timeout</span>&nbsp;&nbsp;서버 상태에 대한 응답대기 시간을 설정합니다. (단위: 초)<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>업로드/다운로드시 적용될 Admin 설정값을 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;agent_admin&#62;
+        .....
+        &#60;buffer_size&#62;104857600&#60;/buffer_size&#62;
+        &#60;buffer_size_download&#62;104857600&#60;/buffer_size_download&#62;
+        &#60;buffer_size_upload&#62;104857600&#60;/buffer_size_upload&#62;
+        &#60;chunk_size&#62;2097152&#60;/chunk_size&#62;
+        &#60;download_file_name_suffix&#62;.raon&#60;/download_file_name_suffix&#62;
+        &#60;multi_transfer_count&#62;5&#60;/multi_transfer_count&#62;
+        &#60;request_count&#62;5&#60;/request_count&#62;
+        &#60;system_code&#62;.....&#60;/system_code&#62;
+        &#60;timeout&#62;300&#60;/timeout&#62;
+        .....
+    &#60;/agent_admin&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            AgentAdmin: {
+                BufferSize : "104857600",
+                BufferSizeDownload : "104857600",
+                BufferSizeUpload : "104857600",
+                ChunkSize : "2097152",
+                DownloadFileNameSuffix : ".raon",
+                MultiTransferCount : "5",
+                RequestCount : "5",
+                SystemCode : ".....",
+                Timeout : "300"
+            }
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

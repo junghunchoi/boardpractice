@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">           
+    <span class="pl_type">[Agent 전용]</span> 
+    <h3 class="title">K Upload :: UseDropZoneOverClass</h3>
+    <p class="ttl">
+        XML : &#60;use_dropzone_over_class&#62;.....&#60;/use_dropzone_over_class&#62;, Script : UseDropZoneOverClass <br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        드랍존에 마우스 오버시 클래스명을 "raonkdropzone_over"로 변경 여부를 설정합니다.<br />
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        기본값은 "-1" 이며 설정 시 웹 표준 모드에서만 드랍존에 마우스 오버시 클래스명을 변경하고,<br />
+        "0" 으로 설정 시 웹 표준모드와 Agent모드 모두 드랍존에 마우스 오버시 클래스명을 변경하지 않고,<br />
+        "1" 로 설정 시 웹 표준모드와 Agent모드 모두 드랍존에 마우스 오버시 클래스명을 변경하도록 설정합니다.<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>웹 표준모드와 Agent모드 모두 드랍존에 마우스 오버시 클래스명을 변경하도록 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;use_dropzone_over_class&#62;1&#60;/use_dropzone_over_class&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            UseDropZoneOverClass: "1"
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

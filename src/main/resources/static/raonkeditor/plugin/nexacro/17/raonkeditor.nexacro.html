@@ -1,0 +1,155 @@
+﻿<html>
+<head>
+    <title>RAONWIZ with nexacro Runtime</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../../../js/raonkeditor.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+    <script type="text/javascript">
+        var G_EventReturnValue_DoSaveHTML = null;
+        var G_EventReturnValue_DecodeMime = null;
+        var G_EventReturnValue_EncodeMime = null;
+        var G_EventReturnValue_GetHtmlContents = null;
+
+        if (!window.NEXACROHTML) {
+            window.NEXACROHTML = {};
+        }
+
+        var _G_workList = [];
+        var G_EndEvent = false;
+
+        // ref. http://tobetong.com/?p=10955&ckattempt=1
+        window.NEXACROHTML.FireUserNotify = function (userdata) {
+            if (window.NEXACROWEBBROWSER) {
+                // Web runtime environment, iOS/iPadOS NRE 일때
+                window.NEXACROWEBBROWSER.on_fire_onusernotify(window.NEXACROWEBBROWSER, userdata);
+            } else if (typeof nexacro === "undefined") {
+                // Windows NRE 일때
+                _G_workList.push(userdata);
+                if (!G_EndEvent) {
+                    fn_windowsNREFireUserNotify();
+                }
+                //window.document.title = userdata;
+            } else if (nexacro) {
+                // Android NRE, macOS NRE 일때,
+                // nexacro.Webview 일때
+                nexacro.fireUserNotify(userdata);
+            }
+        }
+
+        function fn_windowsNREFireUserNotify() {
+            if (_G_workList.length > 0) {
+                setTimeout(function () {
+                    window.document.title = _G_workList[0];
+                }, 0);
+            }
+        }
+
+        function fn_nextWork() {
+            G_EndEvent = false;
+            _G_workList.shift();
+            fn_windowsNREFireUserNotify();
+        }
+
+        function fn_windowTitleNone() {
+            window.document.title = 'NONE';
+        }
+
+        function fn_bodyOnload() {
+            // iOS 넥사크로 앱에서 로드 안되는 현상 때문에 setTimeout 설정
+            setTimeout(function () {
+                window.NEXACROHTML.FireUserNotify("RAONKEDITOR_WEBBROWSER_INIT");
+            }, 0);
+        }
+        function fn_FireUserNotify(userdata) {
+            window.NEXACROHTML.FireUserNotify(userdata);
+        }
+        function fn_RunFunction(func) {
+            if (typeof func === 'string') {
+                return looseJsonParse(func);
+            }
+        }
+        function looseJsonParse(obj) {
+            return Function('"use strict";return (' + obj + ')')();
+        }
+
+        // loaded
+        function RAONKEDITOR_CreationComplete(editorId) {
+            G_EventReturnValue_CreationComplete = {
+                useAgentMode: RAONKEDITOR.GetEditorByName(editorId)._config.useKManager
+            };
+            G_EventReturnValue_CreationComplete = RAONKEDITOR.util.jsonToString(G_EventReturnValue_CreationComplete);
+            G_EventReturnValue_CreationComplete = RAONKEDITOR.util.base64_encode(G_EventReturnValue_CreationComplete);
+
+            window.NEXACROHTML.FireUserNotify("RAONKEDITOR_CreationComplete");
+        }
+
+        // CustomAction
+        function RAONKEDITOR_CustomAction(editorId, paramObj) {
+            G_EventReturnValue_CustomAction = RAONKEDITOR.util.jsonToString(paramObj);
+            G_EventReturnValue_CustomAction = RAONKEDITOR.util.base64_encode(G_EventReturnValue_CustomAction);
+
+            window.NEXACROHTML.FireUserNotify("RAONKEDITOR_CustomAction");
+        }
+
+        // SetComplete
+        function RAONKEDITOR_SetComplete(editorId) {
+            window.NEXACROHTML.FireUserNotify("RAONKEDITOR_SetComplete");
+        }
+
+        // AfterChangeMode
+        function RAONKEDITOR_AfterChangeMode(editorId, paramObj) {
+            G_EventReturnValue_AfterChangeMode = RAONKEDITOR.util.jsonToString(paramObj);
+            G_EventReturnValue_AfterChangeMode = RAONKEDITOR.util.base64_encode(G_EventReturnValue_AfterChangeMode);
+
+            window.NEXACROHTML.FireUserNotify("RAONKEDITOR_AfterChangeMode");
+        }
+
+        // KeyEvent
+        function RAONKEDITOR_KeyEvent(editorId, paramObj) {
+            G_EventReturnValue_KeyEvent = RAONKEDITOR.util.jsonToString(paramObj);
+            G_EventReturnValue_KeyEvent = RAONKEDITOR.util.base64_encode(G_EventReturnValue_KeyEvent);
+
+            window.NEXACROHTML.FireUserNotify("RAONKEDITOR_KeyEvent");
+        }
+
+        // MouseEvent
+        function RAONKEDITOR_MouseEvent(editorId, paramObj) {
+            G_EventReturnValue_MouseEvent = RAONKEDITOR.util.jsonToString(paramObj);
+            G_EventReturnValue_MouseEvent = RAONKEDITOR.util.base64_encode(G_EventReturnValue_MouseEvent);
+
+            window.NEXACROHTML.FireUserNotify("RAONKEDITOR_MouseEvent");
+        }
+
+        // CommandEvent
+        function RAONKEDITOR_CommandEvent(editorId, paramObj) {
+            G_EventReturnValue_CommandEvent = RAONKEDITOR.util.jsonToString(paramObj);
+            G_EventReturnValue_CommandEvent = RAONKEDITOR.util.base64_encode(G_EventReturnValue_CommandEvent);
+
+            window.NEXACROHTML.FireUserNotify("RAONKEDITOR_CommandEvent");
+        }
+
+        // ResizedEvent
+        function RAONKEDITOR_Resized(editorId, paramObj) {
+            G_EventReturnValue_Resized = RAONKEDITOR.util.jsonToString(paramObj);
+            G_EventReturnValue_Resized = RAONKEDITOR.util.base64_encode(G_EventReturnValue_Resized);
+
+            window.NEXACROHTML.FireUserNotify("RAONKEDITOR_Resized");
+        }
+
+        // SetForbiddenWordCompleteEvent
+        function RAONKEDITOR_SetForbiddenWordComplete(editorId, paramObj) {
+            G_EventReturnValue_SetForbiddenWordComplete = RAONKEDITOR.util.jsonToString(paramObj);
+            G_EventReturnValue_SetForbiddenWordComplete = RAONKEDITOR.util.base64_encode(G_EventReturnValue_SetForbiddenWordComplete);
+
+            window.NEXACROHTML.FireUserNotify("RAONKEDITOR_SetForbiddenWordComplete");
+        }
+    </script>
+</head>
+<body onload="fn_bodyOnload();" style="padding:0; margin:0; height:100%; text-align: center; overflow: hidden; border: 0;">
+    <div id="component_Holder" style="width: 100%; height: 100%; margin: 0 auto; overflow: hidden;"></div>
+</body>
+</html>

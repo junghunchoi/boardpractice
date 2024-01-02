@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>K EDITOR Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="raonkhelp_content_right">
+        <div class="right_con ">
+            <h3 class="title">K Editor :: InsertDiv</h3>
+            <p class="ttl">void InsertDiv(attributesObj, divObj, editorName)</p>
+            <p class="txt">
+                에디터 디자인 영역에 &#60;div&#62; 태그를 삽입합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">attributesObj.name</span>&nbsp;&nbsp;div 태그의 name을 의미합니다.<br />
+                <span class="firebrick">attributesObj.id</span>&nbsp;&nbsp;div 태그의 id를 의미합니다.<br />
+                <span class="firebrick">attributesObj.class</span>&nbsp;&nbsp;div 태그의 class를 의미합니다.<br />
+                <span class="firebrick">attributesObj.title</span>&nbsp;&nbsp;div 태그의 title을 의미합니다.<br />
+                <span class="firebrick">attributesObj.alt</span>&nbsp;&nbsp;div 태그의 alt를 의미합니다.<br />
+                <span class="firebrick">attributesObj.style.width</span>&nbsp;&nbsp;div 태그의 너비를 의미합니다.<br />
+                <span class="firebrick">attributesObj.style.height</span>&nbsp;&nbsp;높이를 의미합니다.<br />
+                <span class="firebrick">attributesObj.style.text_align</span>&nbsp;&nbsp;텍스트 정렬 방향을 의미합니다.<br />
+                <span class="firebrick">divObj</span>&nbsp;&nbsp;div 태그 객체를 의미합니다.<br />
+                <span class="firebrick">editorName</span>&nbsp;&nbsp;에디터의 ID를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                divObj가 null인 경우 div 태그 생성, null이 아닌 경우 기존 div 태그를 변경합니다.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+    function insertDiv() {
+        var attributesObj = {
+            name : 'newName',
+            id : 'newId',
+            class : 'newClass',
+            title : 'newTitle',
+            alt : 'newAlt',
+            'style.width' : '900',
+            'style.height' : '550',
+            'style.text_align' : 'left'
+        };
+
+        // id가 'divId'인 div 태그
+        var _div = RAONKEDITOR.getElementById('divId', 'editor1');
+
+        RAONKEDITOR.insertDiv(attributesObj, _div, 'editor1');
+    }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;
+    &#60;script type="text/javascript"&#62;
+        new RAONKEditor({Id:'editor1'});
+    &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">          
+    <h3 class="title">K Upload :: SetConfigByObject</h3>
+    <p class="ttl">void SetConfigByObject(configObject, uploadID)</p>
+    <p class="txt">
+        업로드 생성 완료 후 설정값 변경 시 객체 형태로 설정합니다. 
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        없음. 
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">configObject</span>&nbsp;&nbsp;업로드 설정값의 객체를 의미합니다. (클라이언트 가이드 > settings 설정값들의 Script 방식으로 객체 생성이 가능합니다.)<br />
+        <span class="firebrick">uploadID</span>&nbsp;&nbsp;실행할 업로드의 id를 의미합니다. (단일 업로드일 경우 생략 가능합니다.)
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <b>※ 넥사크로 전용브라우저에서는 Event 객체 사용이 불가능합니다.</b><br />
+        업로드 생성 후 환경설정 값 변경에 유용합니다.<br />
+
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;          
+        // 업로드 생성 완료 이벤트에서 사이즈, 버튼 리스트, 확장자 제한을 변경합니다.  
+        function RAONKUPLOAD_CreationComplete(uploadID) {
+            var configObject = {
+                // 사이즈
+                Width: '680px',    
+                Height: '400px', 
+  
+                // 버튼 리스트
+                ButtonBarEdit: 'add,open,send',
+                ButtonBarView: 'download,open',
+
+                // 확장자 제한
+                ExtensionAllowOrLimit: '0',
+                ExtensionArr: 'txt,gif'
+            }
+            RAONKUPLOAD.SetConfigByObject(configObject, "upload1");
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new RAONKUpload({Id: 'upload1'});
+        &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

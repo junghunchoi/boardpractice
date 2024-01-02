@@ -1,0 +1,1 @@
+(function(){var a={};try{G_KPlugin&&(G_KPlugin.webfontloader.lang=a,RAONKEditor_lang.plugins.webfontloader=a)}catch(b){KEDITORTOP&&KEDITORTOP.RAONKEDITOR&&KEDITORTOP.RAONKEDITOR.logMode&&window&&window.console&&console.log(b)}})();

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <h3 class="title">K Editor :: Figure</h3>
+    <p class="ttl">
+        XML : &#60;figure use=""&#62;.....&#60;/figure&#62;, Script : Figure.Use<br />
+        XML : &#60;figure figure_style=""&#62;.....&#60;/figure&#62;, Script : Figure.FigureStyle<br />
+        XML : &#60;figure figcaption_style=""&#62;.....&#60;/figure&#62;, Script : Figure.FigcaptionStyle<br />
+        XML : &#60;figure default_caption=""&#62;.....&#60;/figure&#62;, Script : Figure.DefaultCaption<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        이미지 추가시 이미지 설명에 대한 설정들을 적용합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML : use, Script : Use</span>&nbsp;&nbsp;기본값은 "0" 이고 사용 안함, "1"으로 설정 시 이미지 추가할 때 이미지의 설명넣기 기능을 추가합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : figure_style, Script : FigureStyle</span>&nbsp;&nbsp;css style을 입력하여 figure tag의 style을 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : figcaption_style, Script : FigcaptionStyle</span>&nbsp;&nbsp;css style을 입력하여 figcaption의 style을 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : default_caption, Script : DefaultCaption</span>&nbsp;&nbsp;기본값은 "" 이고 설정 안함, 텍스트값 입력시 이미지 설명 추가시 기본값을 설정합니다.
+        </span><br />
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>이미지 추가시 이미지 설명에 대한 설정들을 적용합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;figure use="1" figure_style="border:solid gray" figcaption_style="color:blue;font-size:14pt" default_caption="K Editor"&#62;&#60;/figure&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            Figure: {
+                Use: '1',
+                FigureStyle: 'border:solid gray',
+                FigcaptionStyle: 'color:blue;font-size:14pt',
+                DefaultCaption: 'K Editor',
+            }
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

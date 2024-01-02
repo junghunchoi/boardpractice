@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <span class="pl_type">[Agent 전용]</span>
+    <h3 class="title">K Editor :: OpenDocument</h3>
+    <p class="ttl">
+        <!-- XML : &#60;open_document before_open_event=""&#62;.....&#60;/open_document&#62;, Script : OpenDocument.BeforeOpenEvent<br /> -->
+        XML : &#60;word max_size=""&#62;.....&#60;/word&#62;, Script : Word.MaxSize<br />
+        XML : &#60;word max_page=""&#62;.....&#60;/word&#62;, Script : Word.MaxPage<br />
+        XML : &#60;excel max_size=""&#62;.....&#60;/excel&#62;, Script : Excel.MaxSize<br />
+        XML : &#60;excel max_sheet=""&#62;.....&#60;/excel&#62;, Script : Excel.MaxSheet<br />
+        XML : &#60;powerpoint max_size=""&#62;.....&#60;/powerpoint&#62;, Script : Powerpoint.MaxSize<br />
+        XML : &#60;powerpoint max_slide=""&#62;.....&#60;/powerpoint&#62;, Script : Powerpoint.MaxSlide<br />
+        XML : &#60;open_document use_hwp=""&#62;.....&#60;/open_document&#62;, Script : OpenDocument.UseHwp<br />
+        XML : &#60;open_document use_html5_fileopen=""&#62;.....&#60;/open_document&#62;, Script : OpenDocument.UseHtml5FileOpen<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        <!-- <span class="txt">
+            <span class="firebrick">XML : before_open_event, Script : BeforeOpenEvent</span>&nbsp;&nbsp;파일 오픈전 이벤트 호출여부를 설정합니다.
+        </span><br /> -->
+        <span class="txt">
+            <span class="firebrick">XML : max_size, Script : MaxSize</span>&nbsp;&nbsp;파일 열기할 word, powerpoint, excel파일의 최대 용량을 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : max_page, Script : MaxPage</span>&nbsp;&nbsp;파일 열기할 word파일의 최대 page 수를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : max_sheet, Script : MaxSheet</span>&nbsp;&nbsp;파일 열기할 excel파일의 최대 sheet 수를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : max_slide, Script : MaxSlide</span>&nbsp;&nbsp;파일 열기할 powerpoint파일의 최대 slide 수를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : use_hwp, Script : UseHwp</span>&nbsp;&nbsp;파일 열기기능 사용시 hwp파일 open 가능 여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : use_html5_fileopen, UseHtml5FileOpen : Value</span>&nbsp;&nbsp;파일 열기기능 사용시 html파일 open 가능 여부를 설정합니다.
+        </span><br />
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <!-- <span class="txt">
+            <span class="firebrick">XML : before_open_event, Script : BeforeOpenEvent</span>&nbsp;&nbsp;"0"으로 설정시 이벤트 사용안함, "1"로 설정시 이벤트 사용함으로 설정합니다.
+        </span><br /> -->
+        <span class="txt">
+            <span class="firebrick">XML : use_hwp, Script : UseHwp</span>&nbsp;&nbsp;"0"으로 설정시 파일 열기기능 사용시 hwp파일 open 불가능, "1"로 설정시 가능하도록 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : use_html5_fileopen, UseHtml5FileOpen : Value</span>&nbsp;&nbsp;"0"으로 설정시 파일 열기기능 사용시 html파일 open 불가능, "1"로 설정시 가능하도록 설정합니다.
+        </span><br />
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>파일 열기 기능을 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    <!-- &#60;open_document before_open_event="1" use_hwp="1" use_html5_fileopen="1"&#62; -->
+    &#60;open_document use_hwp="1" use_html5_fileopen="1"&#62;
+        &#60;max_size="10000", word max_page="2"&#62;&#60;word&#62;
+        &#60;max_size="10000", excel max_sheet="2"&#62;&#60;excel&#62;
+        &#60;powerpoint max_size="10000", max_slide="2"&#62;&#60;powerpoint&#62;
+    &#60;/open_document&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            OpenDocument: {
+                <!-- BeforeOpenEvent : '1', -->
+                Word : {
+                    MaxSize : '10000',
+                    MaxPage : '2'
+                },
+                Excel : {
+                    MaxSize : '10000',
+                    MaxSheet : '2'
+                },
+                Powerpoint : {
+                    MaxSize : '10000',
+                    MaxSlide : '2'
+                },
+                UseHwp: '1',
+                UseHtml5FileOpen: '1'
+            }
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

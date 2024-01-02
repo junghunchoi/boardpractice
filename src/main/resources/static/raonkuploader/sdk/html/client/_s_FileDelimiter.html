@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">               
+    <h3 class="title">K Upload :: FileDelimiter</h3>
+    <p class="ttl">
+        XML : &#60;file_delimiter unit_attribute_delimiter="....."&#62;&#60;/file_delimiter&#62;Script : UnitAttributeDelimiter<br />
+        XML : &#60;file_delimiter unit_delimiter="....."&#62;&#60;/file_delimiter&#62;Script : UnitDelimiter<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        return과 parameter의 구분문자를 설정합니다.<br />
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt"> 
+        <span class="txt">
+            <span class="firebrick">unit_attribute_delimiter</span>&nbsp;&nbsp;기본값은 \u000C이며 return의 구분문자로 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">unit_delimiter</span>&nbsp;&nbsp;기본값은 \u000B이며 parameter의 구분문자로 설정합니다.
+        </span><br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>return과 parameter의 구분문자를 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;file_delimiter unit_attribute_delimiter="....." unit_delimiter="....."&#62;&#60;/file_delimiter&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            UnitAttributeDelimiter: ".....",
+            UnitDelimiter: "....."
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

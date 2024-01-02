@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <span class="pl_type">[IE 브라우저 전용]</span>
+    <h3 class="title">K Editor :: Ie11BugFixed</h3>
+    <p class="ttl">
+        XML : &#60;ie11_jaso&#62;.....&#60;/ie11_jaso&#62;, Script : Ie11BugFixedJASO<br />
+        XML : &#60;ie11_jaso replace_br=""&#62;.....&#60;/ie11_jaso&#62;, Script : Ie11BugFixedReplaceBr<br />
+        XML : &#60;ie11_jaso delete_table_align=""&#62;.....&#60;/ie11_jaso&#62;, Script : Ie11BugFixedDeleteTableAlign<br />
+        XML : &#60;ie11_jaso replace_align_margin=""&#62;.....&#60;/ie11_jaso&#62;, Script : Ie11BugFixedReplaceAlignMargin<br />
+        XML : &#60;ie11_typing_bug_in_table&#62;.....&#60;/ie11_jaso&#62;, Script : Ie11BugFixedTypingBugInTable<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        <span class="txt">
+            <span class="firebrick">XML : ie11_jaso, Script : Ie11BugFixedJASO</span>&nbsp;&nbsp;ie11브라우저에서 에디터 사용 시 자소분리 현상 및 align 속성 보정 여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : replace_br, Script : Ie11BugFixedReplaceBr</span>&nbsp;&nbsp;get 할 때에 빈 span에 &amp;nbsp;를 삽입 여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : delete_table_align, Script : Ie11BugFixedDeleteTableAlign</span>&nbsp;&nbsp;ie11브라우저에서 에디터 사용중 표 align 속성을 제거 여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : replace_align_margin, Script : Ie11BugFixedReplaceAlignMargin</span>&nbsp;&nbsp;Set API 사용에서 설정에 의해 align 속성이 제거되면 margin 값으로 대체 여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : ie11_typing_bug_in_table, Script : Ie11BugFixedTypingBugInTable</span>&nbsp;&nbsp;IE11 브라우저 사용중 셀 안의 p태그가 비어있을 경우 br 태그를 추가하여 한글 입력이 오동작 하는 현상을 보정 여부를 설정합니다.
+        </span><br />
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML : ie11_jaso, Script : Ie11BugFixedJASO</span>&nbsp;&nbsp;기본값은 "0" 이고 보정 안함, "1"로 설정 시 보정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : replace_br, Script : Ie11BugFixedReplaceBr</span>&nbsp;&nbsp;기본값은 "0" 이고 보정 안함, "1"로 설정 시 삽입합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : delete_table_align, Script : Ie11BugFixedDeleteTableAlign</span>&nbsp;&nbsp;기본값은 "0" 이고 제거 안함, "1"로 설정 시 제거합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : replace_align_margin, Script : Ie11BugFixedReplaceAlignMargin</span>&nbsp;&nbsp;기본값은 "0" 이고 보정 안함, "1"로 설정 시 대체합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : ie11_typing_bug_in_table, Script : Ie11BugFixedTypingBugInTable</span>&nbsp;&nbsp;기본값은 "0" 이고 반영 안함, "1"로 설정 시 현상을 보정합니다. (Ie11BugFixedJASO가 1일 때 적용됩니다.) 
+        </span><br />
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>ie11브라우저에서 에디터 사용 시 자소분리 현상 및 align 속성 보정 여부를 설정합니다.</b>
+<b>IE11 브라우저 사용중 셀 안의 p태그가 비어있을 경우 br 태그를 추가하여 한글 입력이 오동작 하는 현상을 보정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;browser_bugfixed&#62;
+        &#60;ie11_jaso replace_br="1" delete_table_align="1" replace_align_margin="1"&#62;1&#60;/ie11_jaso&#62;
+        &#60;ie11_typing_bug_in_table&#62;1&#60;/ie11_typing_bug_in_table&#62;
+    &#60;/browser_bugfixed&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            Ie11BugFixedJASO: '1',
+            Ie11BugFixedReplaceBr: '1',
+            Ie11BugFixedDeleteTableAlign: '1',
+            Ie11BugFixedReplaceAlignMargin: '1',
+            Ie11BugFixedTypingBugInTable: '1'
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

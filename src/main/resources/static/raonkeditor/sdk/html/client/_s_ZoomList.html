@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <h3 class="title">K Editor :: ZoomList</h3>
+    <p class="ttl">XML : &#60;zoom&#62;.....&#60;/zoom&#62;, Script : ZoomList</p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        우측 하단의 확대/축소 설정 콤보박스에 표시할 비율을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        Script 설정 시 두개 이상인 경우 ,(쉼표)로 구분합니다.
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>script 설정시 확대/축소 비율을 콤마(,)로 구분하여 입력합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;zoom&#62;
+    .....
+    &#60;item&#62;50%&#60;/item&#62;
+    &#60;item&#62;75%&#60;/item&#62;
+    &#60;item&#62;100%&#60;/item&#62;
+    &#60;item&#62;125%&#60;/item&#62;
+    &#60;item&#62;150%&#60;/item&#62;
+    &#60;item&#62;175%&#60;/item&#62;
+    &#60;item&#62;200%&#60;/item&#62;
+    .....
+&#60;/zoom&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            ZoomList: '50%,75%,100%,125%,150%,175%,200%'
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

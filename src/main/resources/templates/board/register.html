@@ -8,35 +8,37 @@
   <link rel="stylesheet" th:href="@{/css/uploader.css}" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Brush+Script"
         rel="stylesheet">
+  <script type="text/javascript" src="/raonkeditor/js/raonkeditor.js"></script>
+  <script type="text/javascript" src="/raonkuploader/js/raonkupload.js"></script>
+
+
 </head>
   <div class="registerArea">
     <div class = "buttonArea">
-    <button type="button" class="submitBtn">등록</button>
+    <button type="button" class="submitBtn" id="submitBtn">등록</button>
     <button type="button" id ="goToListButton">목록</button>
     </div>
     <input type="text" name="title" class="boardtitle" placeholder="제목을 입력해 주세요.">
-    <div class="mainArea">
+    <div>
+      <script type="text/javascript">
+        var params = {
+          Id: 'editor1',
+        }
+
+        new RAONKEditor(params);
+      </script>
     </div>
-    <div class="uploader-main">
-      <div style="display: flex; flex-direction: column; align-items:center">
-        <input type="hidden" id="hiddeneditorinput" name="content"/>
-        <div id="uploaderArea">
-          파일을 끌어다 놓으세요
-          <div id="fileUploader"></div>
-        </div>
-        <div style="display: flex; margin-right:auto ">
-          <label class="append-btn">
-            파일추가
-            <input type="file" multiple id="fileAddBtn" style="display: none"/>
-          </label>
-        </div>
-      </div>
+    <div style=" margin-top: 20px;">
+      <script type="text/javascript">
+        new RAONKUpload({Id: 'upload1'});
+      </script>
     </div>
   </div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script th:src="@{/js/editor/PracEditor-config/loadscripts.js}"></script>
-<script th:src="@{/js/register.js}"></script>
-<script th:src="@{/js/common.js}"></script>
+<script type="text/javascript" src="/js/customregister.js"> </script>
+<!--<script th:src="@{/js/editor/PracEditor-config/loadscripts.js}"></script>-->
+<!--<script th:src="@{/js/register.js}"></script>-->
+<!--<script th:src="@{/js/common.js}"></script>-->
 </html>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <h3 class="title">K Editor :: ImgDefaultMargin</h3>
+    <p class="ttl">
+        XML : &#60;img_default_margin margin_left=""&#62;.....&#60;/img_default_margin, Script : ImgDefaultMarginLeft&#62;<br />
+        XML : &#60;img_default_margin margin_right=""&#62;.....&#60;/img_default_margin&#62;, Script : ImgDefaultMarginRight<br />
+        XML : &#60;img_default_margin margin_top=""&#62;.....&#60;/img_default_margin&#62;, Script : ImgDefaultMarginTop<br />
+        XML : &#60;img_default_margin margin_bottom=""&#62;.....&#60;/img_default_margin&#62;, Script : ImgDefaultMarginBottom<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        이미지 다이얼로그의 상, 하, 좌, 우 기본 여백을 설정합니다. <br />
+        이미지 삽입시가 아닌 다이얼로그 팝업시 기본적으로 입력되어있는 값을 설정합니다. 
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML : margin_left, Script : ImgDefaultMarginLeft</span>&nbsp;&nbsp;이미지 다이얼로그에 입력될 기본 하여백을 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : margin_right, Script : ImgDefaultMarginRight</span>&nbsp;&nbsp;이미지 다이얼로그에 입력될 기본 좌여백을 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : margin_top, Script : ImgDefaultMarginTop</span>&nbsp;&nbsp;이미지 다이얼로그에 입력될 기본 우여백을 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : margin_bottom, Script : ImgDefaultMarginBottom</span>&nbsp;&nbsp;이미지 다이얼로그에 입력될 기본 상여백을 설정합니다.
+        </span><br />
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>이미지 다이얼로그의 상, 하, 좌, 우 기본 여백을 6으로 설정합니다.</b>
+
+<b>XML</b>
+.....
+&#60;uploader_setting&#62;
+    .....
+    &#60;img_default_margin margin_left="6" margin_right="6" margin_top="6" margin_bottom="6"&#62;&#60;/img_default_margin&#62;
+    .....
+&#60;/uploader_setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            ImgDefaultMarginLeft: '6',
+            ImgDefaultMarginRight: '6',
+            ImgDefaultMarginTop: '6',
+            ImgDefaultMarginBottom: '6'
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

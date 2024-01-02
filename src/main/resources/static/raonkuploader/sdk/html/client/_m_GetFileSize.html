@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con ">        
+    <h3 class="title">K Upload :: GetFileSize</h3>
+    <p class="ttl">void GetFileSize(webPath, callBackFunc)</p>
+    <p class="txt">
+        파라미터에 입력한 서버 webPath에 해당하는 파일 크기를 callBackFunc의 파라미터로 반환받습니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        <b>callBackFunc의 첫번째 파라미터에 return값을 반환받습니다.</b> <br />
+        <span class="firebrick">array</span>&nbsp;&nbsp; webPath에 해당하는 파일 크기를 포함한 array 입니다.
+    </p>            
+    <p class="mttl01">parameters</p>     
+    <p class="txt">
+        <span class="firebrick">webPath</span>&nbsp;&nbsp;서버에 존재하는 파일의 경로(webpath)를 의미합니다. <br />
+        <span class="firebrick">callBackFunc</span>&nbsp;&nbsp;수행할 callBackFunc를 의미합니다. <br />
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        없음.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+        function GetFileSize() {
+            var callBackFunc = function(fileSizeArr){
+                // 파라미터에 반환받은 fileSizeArr(['size'])를 활용하여 동작수행
+            }
+            RAONKUPLOAD.GetFileSize(".....", callBackFunc);
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px;"&#62;  
+        &#60;script type="text/javascript"&#62;
+            new RAONKUpload({Id: 'upload1'});
+        &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

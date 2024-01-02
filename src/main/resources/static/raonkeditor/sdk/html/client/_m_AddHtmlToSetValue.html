@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>K EDITOR Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="raonkhelp_content_right">
+        <div class="right_con ">
+            <h3 class="title">K Editor :: AddHtmlToSetValue</h3>
+            <p class="ttl">void AddHtmlToSetValue(html, preOrSub, editorName)</p>
+            <p class="txt">
+                에디터에 set 하는 API를 사용할때 내용의 앞 또는 뒤에 파라미터의 html 소스를 추가하도록 설정합니다.<br />
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">html</span>&nbsp;&nbsp;삽입할 HTML 소스를 의미합니다.<br />
+                <span class="firebrick">preOrSub</span>&nbsp;&nbsp;HTML 소스를 삽입할 위치를 의미합니다. 추가할 위치를 의미합니다. (0 : 앞, 1 : 뒤)<br />
+                <span class="firebrick">editorName</span>&nbsp;&nbsp;에디터의 ID를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+    function addHtmlToSetValue() {
+        // id가 editor1인 에디터가 set API를 사용하면 입력하는 소스의 앞쪽에 html의 내용을 추가합니다.
+        var html = '&#60;p&#62;Insert HTML&#60;/p&#62;';
+
+        RAONKEDITOR.addHtmlToSetValue(html, 0, 'editor1');
+    }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;
+    &#60;script type="text/javascript"&#62;
+        new RAONKEditor({Id:'editor1'});
+    &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

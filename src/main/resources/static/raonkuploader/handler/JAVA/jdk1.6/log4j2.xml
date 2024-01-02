@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Properties>
+    <Property name="layoutPattern">%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c (%L) - %m%n</Property>
+    <Property name="filePattern">/로그파일 경로/raonkupload</Property>
+  </Properties>
+  <Appenders>
+    <Console name="raonwiz_stdout" target="SYSTEM_OUT">
+      <PatternLayout pattern="${layoutPattern}"/>
+    </Console>
+    <RollingFile name="raonwiz_file" fileName="${filePattern}.log" filePattern="${filePattern}.%d{yyyy-MM-dd}.log">
+      <PatternLayout pattern="${layoutPattern}"/>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+      </Policies>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="com.raonwiz.kupload.util.CommonUtils" level="info">
+      <AppenderRef ref="raonwiz_stdout"/>
+      <AppenderRef ref="raonwiz_file"/>
+    </Logger>
+  </Loggers>
+</Configuration>

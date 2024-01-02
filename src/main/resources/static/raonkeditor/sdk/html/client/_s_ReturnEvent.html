@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <h3 class="title">K Editor :: ReturnEvent</h3>
+    <p class="ttl">
+        XML : &#60;return_event mouse_event=""&#62;.....&#60;/return_event&#62;, Script : ReturnEventMouse<br />
+        XML : &#60;return_event keyboard_event=""&#62;.....&#60;/return_event&#62;, Script : ReturnEventKeyboard<br />
+        XML : &#60;return_event command_event=""&#62;.....&#60;/return_event&#62;, Script : ReturnEventCommand<br />
+        XML : &#60;return_event focus_event=""&#62;.....&#60;/return_event&#62;, Script : ReturnEventFocus<br />
+        XML : &#60;return_event drag_event=""&#62;.....&#60;/return_event&#62;, Script : ReturnEventDrag<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        에디터의 이벤트들의 활성화/비활성화 여부를 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        아래 모든 설정값의 기본값은 "0" 이며 설정값이 "0"일 경우 해당 이벤트 발생하지 않습니다.
+        <span class="txt">
+            <span class="firebrick">XML : mouse_event, Script : ReturnEventMouse</span>&nbsp;&nbsp;"1"로 설정시 RAONKEDITOR_MouseEvent를 사용 가능하도록 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : keyboard_event, Script : ReturnEventKeyboard</span>&nbsp;&nbsp;"1"로 설정시 RAONKEDITOR_KeyEvent를 사용 가능하도록 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : command_event, Script : ReturnEventCommand</span>&nbsp;&nbsp;"1"로 설정시 RAONKEDITOR_CommandEvent를 사용 가능하도록 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : focus_event, Script : ReturnEventFocus</span>&nbsp;&nbsp;"1"로 설정시 RAONKEDITOR_FocusEvent를 사용 가능하도록 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : drag_event, Script : ReturnEventDrag</span>&nbsp;&nbsp;"1"로 설정시 RAONKEDITOR_DragEvent를 사용 가능하도록 설정합니다.
+        </span><br />
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>에디터의 이벤트들을 사용합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;return_event mouse_event="1" keyboard_event="1" command_event="1" focus_event="1" drag_event="1"&#62;&#60;/return_event&#62;
+    .....
+&#60;setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            ReturnEventMouse: '1',
+            ReturnEventKeyboard: '1',
+            ReturnEventCommand: '1',
+            ReturnEventFocus: '1',
+            ReturnEventDrag: '1'
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">            
+    <h3 class="title">K Upload :: UseCompressTransfer</h3>
+    <p class="ttl">
+        XML : &#60;use_compress_transfer&#62;.....&#60;/use_compress_transfer&#62;,<br />
+        Script : UseCompressTransfer<br />
+        XML : &#60;use_compress_transfer use_html5="....."&#62;&#60;/use_compress_transfer&#62;,<br />
+        Script : UseCompressTransferHtml5<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        압축전송 옵션의 사용 여부를 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="firebrick">use_compress_transfer</span>&nbsp;&nbsp;기본값은 "0" 으로 압축전송 옵션을 사용하지 않고, "1" 로 설정 시 Agent 모드에서 압축전송 옵션을 사용 합니다.<br />
+        <span class="firebrick">use_html5</span>&nbsp;&nbsp;기본값은 "0" 으로 웹표준 모드에서 압축전송 옵션을 사용하지 않고, "1" 로 설정 시 웹표준 모드에서 압축전송 옵션을 사용 합니다.<br />
+        <span style="padding-left:66px">(use_compress_transfer 설정값이 "1" 일때 적용됩니다.)</span><br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>Agent 모드와 웹표준 모드에서 압축전송 옵션을 사용하도록 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;use_compress_transfer use_html5="1"&#62;1&#60;/use_compress_transfer&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            UseCompressTransfer: '1',
+            UseCompressTransferHtml5: '1'
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

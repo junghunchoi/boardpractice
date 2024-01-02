@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">           
+    <h3 class="title">K Upload :: HeaderItem</h3>
+    <p class="ttl">
+        XML : &#60;text&#62;&#60;empty_download_file&#62;.....&#60;/empty_download_file&#62;&#60;/text&#62;,<br />
+        Script : EmptyDownloadFileText<br />
+        XML : &#60;text&#62;&#60;empty_download_file bold="....."&#62;&#60;/empty_download_file&#62;&#60;/text&#62;,<br />
+        Script : EmptyDownloadFileTextBold<br />
+        XML : &#60;text&#62;&#60;empty_download_file color="....."&#62;&#60;/empty_download_file&#62;&#60;/text&#62;,<br />
+        Script : EmptyDownloadFileTextColor<br />
+        XML : &#60;text&#62;&#60;empty_download_file italic="....."&#62;&#60;/empty_download_file&#62;&#60;/text&#62;,<br />
+        Script : EmptyDownloadFileTextItalic<br />
+        XML : &#60;text&#62;&#60;empty_download_file strike="....."&#62;&#60;/empty_download_file&#62;&#60;/text&#62;,<br />
+        Script : EmptyDownloadFileTextStrike<br />
+        XML : &#60;text&#62;&#60;empty_download_file underline="....."&#62;&#60;/empty_download_file&#62;&#60;/text&#62;,<br />
+        Script : EmptyDownloadFileTextUnderline<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        업로드가 보기모드(view) 일 경우에 표시됩니다.<br />
+        다운로드할 파일이 없는 경우 파일리스트 영역에 보여줄 메시지및 해당 메시지의 style을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">empty_download_file</span>&nbsp;&nbsp;다운로드할 파일이 없는 경우 파일리스트 영역에 보여줄 메시지를 텍스트를 입력하여 설정합니다.<br />
+        </span>
+        <span class="txt">
+            <span class="firebrick">bold</span>&nbsp;&nbsp;메시지 style의 bold적용 여부를 설정합니다. (0:설정안함, 1:설정함)<br />
+        </span>
+        <span class="txt">
+            <span class="firebrick">color</span>&nbsp;&nbsp;메시지 색상(색상명, RGB, HEX)을 설정합니다. <br />
+        </span>
+        <span class="txt">
+            <span class="firebrick">italic</span>&nbsp;&nbsp;메시지 style의 italic적용 여부를 설정합니다. (0:설정안함, 1:설정함)<br />
+        </span>
+        <span class="txt">
+            <span class="firebrick">strike</span>&nbsp;&nbsp;메시지 style의 취소선 적용 여부를 설정합니다. (0:설정안함, 1:설정함)<br />
+        </span>
+        <span class="txt">
+            <span class="firebrick">underline</span>&nbsp;&nbsp;메시지 style의 밑줄 적용 여부를 설정합니다. (0:설정안함, 1:설정함)<br />
+        </span>
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>다운로드할 파일이 없는 경우 파일리스트 영역에 보여줄 메시지및 해당 메시지의 style을 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;text&#62;
+        &#60;empty_download_file bold="1" color="rgb(50,140,200)" italic="1" strike="0" underline="1"&#62;File List is Empty.&#60;/empty_download_file&#62;
+    &#60;/text&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            EmptyDownloadFileText: 'File List is Empty.',
+            EmptyDownloadFileTextBold: '1',
+            EmptyDownloadFileTextColor: 'rgb(50,140,200)',
+            EmptyDownloadFileTextItalic: '1',
+            EmptyDownloadFileTextStrike: '0',
+            EmptyDownloadFileTextUnderline: '1'
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

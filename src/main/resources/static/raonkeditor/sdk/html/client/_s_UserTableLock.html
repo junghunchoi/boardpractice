@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <h3 class="title">K Editor :: UserTableLock</h3>
+    <p class="ttl">
+        XML : &#60;table_lock_user_mode&#62;&#60;/table_lock_user_mode&#62;, Script : UserTableLock.Use<br />
+        XML : &#60;table_lock_user_mode lock_name=""&#62;&#60;/table_lock_user_mode&#62;, Script : UserTableLock.LockName<br />
+        XML : &#60;table_lock_user_mode default_table_lock_mode=""&#62;&#60;/table_lock_user_mode&#62;, Script : UserTableLock.DefaultTableLockMode<br />
+        XML : &#60;table_lock_user_mode default_show_lock_icon=""&#62;&#60;/table_lock_user_mode&#62;, Script : UserTableLock.DefaultShowLockIcon<br />
+        XML : &#60;table_lock_user_mode allow_change_mode=""&#62;&#60;/table_lock_user_mode&#62;, Script : UserTableLock.AllowChangeMode<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        <span class="txt">
+            <span class="firebrick">XML : default_show_lock_icon_user_mode, Script : Use</span>&nbsp;&nbsp; 잠금 아이콘을 사용자 모드에서 보여주기 여부를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : lock_name, Script : LockName</span>&nbsp;&nbsp;테이블 및 셀 잠금 시 잠금 이름을 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : default_table_lock_mode, Script : DefaultTableLockMode</span>&nbsp;&nbsp;잠금 셀로 체크할 잠금 이름을 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : default_show_lock_icon, Script : DefaultShowLockIcon</span>&nbsp;&nbsp;잠금의 기본 모드를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : allow_change_mode, Script : AllowChangeMode</span>&nbsp;&nbsp;HTML 모드로 변경 가능 여부를 설정합니다.
+        </span><br />
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML : default_show_lock_icon_user_mode, Script : Use</span>&nbsp;&nbsp;0인 경우 잠금 아이콘을 사용자 모드에서 보여 주지 않음, 1인 경우 잠금 아이콘을 사용자 모드에서 보여 줌을 의미합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : lock_name, Script : LockName</span>&nbsp;&nbsp;설정된 속성값이 있는 경우 테이블 또는 셀을 잠급니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : default_table_lock_mode, Script : DefaultTableLockMode</span>&nbsp;&nbsp;여러 개인 경우 콤마 구분자로 넣어주시면 됩니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : default_show_lock_icon, Script : DefaultShowLockIcon</span>&nbsp;&nbsp;1인 경우 리사이즈 잠금, 2인 경우 리사이즈 잠금 및 편집 불가를 의미합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : allow_change_mode, Script : AllowChangeMode</span>&nbsp;&nbsp;0인 경우 HTML 모드로 변경 불가능함, 0 이외의 숫자인 경우 HTML 모드로 변경 가능함을 의미합니다.
+            
+        </span><br />
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>표 잠금을 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;table_lock_user_mode lock_name="keditor_lock" default_table_lock_mode="2" default_show_lock_icon="1" allow_change_mode="0"&#62;1&#60;/table_lock_user_mode&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            UserTableLock: {
+                Use: '1',
+                LockName: 'keditor_lock',
+                DefaultTableLockMode: '2',
+                DefaultShowLockIcon: '1',
+                AllowChangeMode: '0'
+            }
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

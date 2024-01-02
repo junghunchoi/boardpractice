@@ -1,0 +1,2 @@
+(function(){var a={icon:{p_convertimage:"\u753b\u50cf\u3068\u3057\u3066\u4fdd\u5b58"},topmenu:{p_convertimage:"\u753b\u50cf\u3068\u3057\u3066\u4fdd\u5b58"},message:{empty:"\u4f55\u3082\u66f8\u304b\u308c\u3066\u3044\u307e\u305b\u3093\u3002",error:"\u753b\u50cf\u306e\u5909\u63db\u4e2d\u306b\u30a8\u30e9\u30fc\u304c\u767a\u751f\u3057\u307e\u3057\u305f\u3002"}};try{G_KPlugin&&(G_KPlugin.convertimage.lang=a,RAONKEditor_lang.plugins.convertimage=a)}catch(b){KEDITORTOP&&KEDITORTOP.RAONKEDITOR&&KEDITORTOP.RAONKEDITOR.logMode&&
+window&&window.console&&console.log(b)}})();

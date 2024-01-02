@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <h3 class="title">K Upload :: ThumbsSize</h3>
+    <p class="ttl">
+        XML : &#60;thumbs_size&#62;.....&#60;/thumbs_size&#62;, Script : ThumbsSize <br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        썸네일 보기 모드(업로드의 views 모드가 thumbs)시 적용됩니다.<br />
+        업로드 리스트의 썸네일 크기를 설정합니다. <br/>
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        썸네일의 width, height의 기본값은 각각 88, 60 이며, 이를 초과한 값 입력 시 적용됩니다.<br />
+        "가로값, 세로값" 으로 입력합니다..<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>업로드 리스트 썸네일의 width을 200px, height을 100px로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;thumbs_size&#62;200,100&#60;/thumbs_size&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            ThumbsSize: "200,100"
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

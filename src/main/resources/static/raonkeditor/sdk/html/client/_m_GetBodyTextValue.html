@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>K EDITOR Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="raonkhelp_content_right">
+        <div class="right_con ">
+            <h3 class="title">K Editor :: GetBodyTextValue</h3>
+            <p class="ttl">void GetBodyTextValue(paramObj, editorName)</p>
+            <p class="txt">
+                에디터에 작성한 내용을 텍스트로 가지고 옵니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                callback 함수로 에디터 ID와 에디터에 작성한 텍스트가 리턴 됩니다.<br />
+                strEditorId는 에디터 ID를, strData는 에디터에 작성한 텍스트를 의미합니다.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">paramObj.callback</span>&nbsp;&nbsp;에디터에 작성한 텍스트를 리턴 받을 callback 함수를 의미합니다.<br />
+                <span class="firebrick">paramObj.async</span>&nbsp;&nbsp;<br />
+                <span class="firebrick">editorName</span>&nbsp;&nbsp;에디터의 ID를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+    function getBodyTextValue() {
+        // 에디터 ID와 에디터에 작성한 내용을
+        var fn_callback = function(value) {
+            console.log('에디터 ID : ' + value.strEditorId);
+            console.log('작성 내용 : ' + value.strData);
+        }
+        
+        RAONKEDITOR.getBodyTextValue({
+            callback : fn_callback,
+            async : true
+        }, 'editor1');
+    }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;
+    &#60;script type="text/javascript"&#62;
+        new RAONKEditor({Id:'editor1'});
+    &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,240 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>K Upload Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/raonkupload.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        // 생성완료 이벤트
+        function DownloadComponentCreated(uploadID) {
+            var afterDownloadOpt = document.getElementById('afterDownloadOption');
+
+            var autoDecompression = RAONKUPLOAD.GetConfig('agentAutoDecompression', uploadID);
+            afterDownloadOpt.value = autoDecompression;
+
+            loadFileInfoFromLocalStorage();
+        }
+
+        // 전송완료 이벤트
+        function RAONKUPLOAD_UploadComplete(uploadID) {
+            var logBox = document.getElementById("logBox");
+
+            // K Upload는 array, json, xml, text delimit 방식으로 결과값을 제공합니다.
+
+            // 파일에 대한 정보 중 업로드가 완료된 파일의 정보(업로드 된 파일경로,업로드 된 파일명)는
+            // RAONKUPLOAD_UploadComplete 이벤트 안에서만 추출이 가능합니다.
+
+            var dataArray = RAONKUPLOAD.GetListInfo('array', uploadID);
+            //var dataJson = RAONKUPLOAD.GetListInfo('json', uploadID);
+            //var dataText = RAONKUPLOAD.GetListInfo('text', uploadID);
+            //var dataXml = RAONKUPLOAD.GetListInfo('xml', uploadID);
+
+            // 신규 업로드된 파일
+            var arrayNew = dataArray.newFile;
+            if (arrayNew) fn_newArrayToString(arrayNew);
+            //var jsonNew = dataJson.newFile;
+            //if (jsonNew) fn_newJsonToString(jsonNew);
+            //var xmlNew = dataXml.newFile;
+            //if (xmlNew) fn_newXmlToString(xmlNew);
+            //var textNew = dataText.newFile;
+            //if (textNew) fn_newTextToString(textNew, uploadID);
+
+            // 삭제된 파일
+            //var arrayDel = dataArray.deleteFile;
+            //if (arrayDel) fn_delArrayToString(arrayDel);
+            //var jsonDel = dataJson.deleteFile;
+            //if (jsonDel) fn_delJsonToString(jsonDel);
+            //var xmlDel = dataXml.deleteFile;
+            //if (xmlDel) fn_delXmlToString(xmlDel);
+            //var textDel = dataText.deleteFile;
+            //if (textDel) fn_delTextToString(textDel, uploadID);
+
+            logBox.innerHTML += '<br/>' + '업로드 완료 : <br/>';
+
+            var oneList = dataArray.newFile[0];
+
+            var oneInfo = {
+                uploadedPath: oneList.uploadPath,
+                fileName: oneList.originalName,
+                fileSize: oneList.size
+            };
+            
+            addWebFileList(oneInfo, true);
+
+            saveFileInfoToLocalStorage(oneInfo);
+        }
+
+        // 전송 전 이벤트
+        function RAONKUPLOAD_BeforeUpload(uploadID) {
+            var zipFileName = document.getElementById('zipFileName').value;
+            var zipPassword = document.getElementById('zipPassword').value;
+
+            RAONKUPLOAD.SetConfig('CompressUploadAllFile.FileName', zipFileName, uploadID);
+            RAONKUPLOAD.SetConfig('CompressUploadAllFile.Password', zipPassword, uploadID);
+        }
+
+        // 다운로드 전 이벤트
+        function RAONKUPLOAD_BeforeDownloadFile(uploadID) {
+            var afterDownloadOpt = document.getElementById('afterDownloadOption').value;
+            var zipPassword = document.getElementById('zipPassword2').value;
+
+            RAONKUPLOAD.SetConfig('AgentAutoDecompression', afterDownloadOpt, uploadID);
+            RAONKUPLOAD.SetConfig('AgentAutoDecompressionPassword', zipPassword, uploadID);
+        }
+
+        // 오류 이벤트
+        function RAONKUPLOAD_OnError(uploadID, paramObj) {
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += 'Error : ' + paramObj.strCode + ', ' + paramObj.strMessage + '<br/>';
+
+            //if (paramObj.arrUploadedFileList != null && paramObj.arrUploadedFileList != '') {
+            //    logBox.innerHTML += '업로드 된 파일 리스트 - <br/>';
+            //    var uploadedFileLen = paramObj.arrUploadedFileList.length;
+            //    for (var i = 0; i < uploadedFileLen; i++) {
+            //        logBox.innerHTML += paramObj.arrUploadedFileList[i].uploadName + ', ' + paramObj.arrUploadedFileList[i].uploadPath + '</br>';
+
+            //        // originName: paramObj.arrUploadedFileList[i].originName
+            //        // fileSize: paramObj.arrUploadedFileList[i].fileSize
+            //        // uploadName: paramObj.arrUploadedFileList[i].uploadName
+            //        // uploadPath: paramObj.arrUploadedFileList[i].uploadPath
+            //        // logicalPath: paramObj.arrUploadedFileList[i].logicalPath
+            //        // order: paramObj.arrUploadedFileList[i].order
+            //        // status: paramObj.arrUploadedFileList[i].status
+            //        // customValue: paramObj.arrUploadedFileList[i].customValue
+            //        // responseCustomValue: paramObj.arrUploadedFileList[i].responseCustomValue
+            //    }
+            //}
+        }
+
+        function addWebFileList(info, bReset) {
+            if (bReset === true) {
+                RAONKUPLOAD.ResetUpload('kdownload');
+            }
+
+            RAONKUPLOAD.AddUploadedFile('1', info.fileName, info.uploadedPath, info.fileSize, '', 'kdownload');
+        }
+
+        // 모든 파일 다운로드 완료 이벤트
+        function RAONKUPLOAD_DownloadCompleteAllFile(uploadID, paramObj) {
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += '다운로드 완료 <br/>';
+        }
+    </script>
+
+    <script type="text/javascript">
+        var G_localStorageName = 'KUploadZipTest';
+        function inputPassword(inputNode, viewNodeId) {
+            document.getElementById(viewNodeId).innerHTML = inputNode.value;
+        }
+
+        function saveFileInfoToLocalStorage(info) {
+            var _value = RAONKUPLOAD.util.jsonToString(info);
+            window.localStorage[G_localStorageName] = _value;
+        }
+
+        function loadFileInfoFromLocalStorage() {
+            var _value = window.localStorage[G_localStorageName];
+            if (_value) {
+                var info = RAONKUPLOAD.util.stringToJson(_value);
+                addWebFileList(info);
+            }
+        }
+    </script>
+</head>
+<body style="text-align:center;">
+    <!-- 예제 1 -->
+    <ul class="info_lst_box">
+        <li>
+            <span style="font-size:15px;">[업로드] 첨부된 폴더 및 파일을 하나의 zip 파일로 압축하여 전송합니다.</span>
+        </li>
+    </ul>
+
+    <div class="btn_lst_box">
+        <span style="font-weight: bold; font-size: 13px;">업로드한 파일은 하단 다운로드 컴포넌트에 자동으로 추가되어 다운로드 테스트도 바로 하실 수 있습니다.<br />아래의 설정값을 넣은 후 전송하면 해당 설정값이 적용되어 업로드 됩니다.</span><br /><br />
+        <span>1) 압축 파일명 : </span><input id="zipFileName" type="text" /><span style="font-size:14px;"> .zip</span><span> (입력하지 않으면 guid 값으로 업로드 됩니다.)</span><br /><br />
+        <span>2) 압축 암호 : </span>
+        <input id="zipPassword" type="password" onkeyup="javascript: inputPassword(this, 'zipPasswordView')"/> <span id="zipPasswordView"></span><br /><br />
+        <div id="zipUploadHolder" style="width: 800px; height: 200px; overflow: auto; margin: 0 auto;"></div>
+    </div>
+
+    <!-- 예제 2 -->
+    <br />
+    <ul class="info_lst_box">
+        <li>
+            <span style="font-size:15px;">[다운로드] 압축 파일을 다운로드한 후 자동으로 압축 해제합니다.</span>
+        </li>
+    </ul>
+
+    <div class="btn_lst_box">
+        <span style="font-weight: bold; font-size: 13px;">
+            페이지 새로고침을 하여도 다운로드 테스트를 하실 수 있습니다. (마지막에 업로드한 zip 파일이 추가 됩니다.)<br />
+
+        </span><br /><br />
+        <span>1) 압축 암호 : </span>
+        <input id="zipPassword2" type="password" onkeyup="javascript: inputPassword(this, 'zipPasswordView2')" /> <span id="zipPasswordView2"></span><br /><br />
+        <span>2) 다운로드 후 : </span>
+        <select id="afterDownloadOption"><option value="1">다운로드 폴더에 압축 해제</option><option value="2">다운로드 폴더 + 파일명 폴더에 압축 해제</option></select>
+        <br /><br />
+        <div id="zipDownloadHolder" style="width: 800px; height: 150px; overflow: auto; margin: 0 auto;"></div>
+    </div>
+    <br />
+    <script type="text/javascript">
+        // 해당 config 이외의 설정도 가능합니다. (www.raonk.com > 개발센터 참조)
+        var uploadConfig = {
+            Id: "kupload",
+            Width: "100%",
+            Height: "100%",
+            UploadHolder: "zipUploadHolder",
+            Runtimes: 'agent',
+            FolderTransfer: '1',
+
+            CompressUploadAllFile: { // 압축 전송 설정
+                Use: '1',
+                FileName: '',
+                Password: '',
+                Level: '3'
+            }
+        };
+
+        var upload = new RAONKUpload(uploadConfig);
+    </script>
+
+    <script type="text/javascript">
+        // 해당 config 이외의 설정도 가능합니다. (www.raonk.com > 개발센터 참조)
+        var uploadConfig = {
+            Id: "kdownload",
+            Width: "100%",
+            Height: "100%",
+            Mode: 'download',
+            ButtonBarView: 'download',
+            UploadHolder: "zipDownloadHolder",
+            Runtimes: 'agent',
+
+            // 압축 해제 설정
+            AgentAutoDecompression: '2',
+            AgentAutoDecompressionPassword: '',
+            
+            Event: {
+                CreationComplete: DownloadComponentCreated
+            }
+        };
+
+        var upload = new RAONKUpload(uploadConfig);
+    </script>
+
+    <br /><br />
+    <!-- 로그영역 -->
+    <div id="logBox" class="logBox" style="overflow: auto;"></div><br />
+    <!-- //로그영역 -->
+</body>
+</html>

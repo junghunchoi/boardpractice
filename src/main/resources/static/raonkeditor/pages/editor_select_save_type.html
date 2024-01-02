@@ -1,0 +1,466 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Save Type</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var KEDITORTOP = parent;
+        var KEditorLayerFrame = KEDITORTOP.KEDITORDOC.getElementById("raonk_frame_" + KEDITORTOP.G_CURRKEDITOR.ID);
+        if (KEDITORTOP.G_CURRKEDITOR.dialogWindow != null) {
+            KEDITORTOP = KEditorLayerFrame.contentWindow.KEDITORTOP;
+        }
+        var KEditorLayerWin = KEditorLayerFrame.contentWindow;
+
+        document.write('<link href="' + KEditorLayerWin._k_editor._config.popupCssUrl + '?t=' + KEDITORTOP.RAONKEDITOR.UrlStamp + '" rel="stylesheet" type="text/css" />');
+        if (KEditorLayerWin._k_editor._config.customCssUrlDetailApply == "1") {
+            document.write('<link href="' + KEditorLayerWin._k_editor._config.style.customCssUrl  + "?t=" + KEDITORTOP.RAONKEDITOR.UrlStamp + '" rel="stylesheet" type="text/css" />');
+        }
+        document.write('<scr' + 'ipt src="' + KEditorLayerWin._k_editor._config.dialogJSUrl + '?t=' + KEDITORTOP.RAONKEDITOR.UrlStamp + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var _iframeWin = LayerWin.getIframeWin();
+        var _iframeDoc = LayerWin.getIframeDoc();
+		var editor_id = LayerWin.G_USE_EDITOR_ID;
+        var currEditor = KEditorLayerWin._k_editor;
+        var doesNotExistOldFileName = (currEditor.strOldSaveFileName == '' || currEditor.strOldSaveFileName == undefined) ? true : false;
+        var useSaveIconCnt = 0;
+		var isSaveIconUse = false;
+		var isSaveAsIconUse = true;
+		var isSaveImageIconUse = false;
+        var isSavePdfIconUse = false;
+        // 저장 UX 및 프로세스 통합 아이콘 옵션값에 따라 아이콘 순서 변경 가능하도록 개선 by jooyoung 23.05.30
+        var showIconList = currEditor._config.selectSaveTypeIconShowIconList;
+        var showIconListLength = currEditor._config.selectSaveTypeIconShowIconList.length;
+        var saveIconIdx = 0;
+        var saveAsIconIdx = 1;
+        var saveImageIconIdx = 2;
+        var savePdfIconIdx = 3;
+
+        function page_loaded_event() {
+			var temp_table = document.getElementById('temp_table');
+
+            if (showIconListLength == 0 || showIconListLength == 4) {
+                isSaveIconUse = true;
+                isSaveImageIconUse = true;
+                isSavePdfIconUse = true;
+            } else {
+                // 저장 UX 및 프로세스 통합 아이콘 옵션값 추가 by jooyoung 23.05.25
+                if (showIconListLength > 0) {
+                    for (var listIdx = 0; listIdx < showIconListLength; listIdx++) {
+                        var tempIconName = showIconList[listIdx];
+                        if (tempIconName == 'save') {
+                            isSaveIconUse = true;
+                        } else if (tempIconName == 'p_convertimage') {
+                            isSaveImageIconUse = true;
+                        } else if (tempIconName == 'p_convertpdf') {
+                            isSavePdfIconUse = true;
+                        }
+                    }
+                    if (showIconList.indexOf('save_as') == -1) {
+                        isSaveAsIconUse = false;
+                    }
+                }
+            }
+
+            var riLength = currEditor.remove_item.length;
+            for (var ri = 0; ri < riLength; ri++) {
+                var _icon_id3 = currEditor.remove_item[ri];
+                if (_icon_id3.indexOf("p_") == 0) {
+                    var pluginTemp3 = _icon_id3.split("_");
+                    if (pluginTemp3[1] == 'convertimage') {
+                        isSaveImageIconUse = false;
+                        if (showIconList.indexOf('p_convertimage') !== -1) {
+                            showIconList.splice(showIconList.indexOf('p_convertimage'), 1);
+                        }
+                    } else if (pluginTemp3[1] == 'convertpdf') {
+                        isSavePdfIconUse = false;
+                        if (showIconList.indexOf('p_convertpdf') !== -1) {
+                            showIconList.splice(showIconList.indexOf('p_convertpdf'), 1);
+                        }
+                    }
+                } else if (_icon_id3 == 'save') {
+                    isSaveIconUse = false;
+                    if (showIconList.indexOf('save') !== -1) {
+                        showIconList.splice(showIconList.indexOf('save'), 1);
+                    }
+                } else if (_icon_id3 == 'save_as') {
+                    isSaveAsIconUse = false;
+                    if (showIconList.indexOf('save_as') !== -1) {
+                        showIconList.splice(showIconList.indexOf('save_as'), 1);
+                    }
+                }
+            }
+
+            // 저장 UX 및 프로세스 통합 아이콘 옵션값에 따라 아이콘 순서 변경 가능하도록 개선 by jooyoung 23.05.30
+            showIconListLength = showIconList.length;
+            // 옵션 리스트 순서대로 추가
+            for (var li = 0; li < showIconListLength; li++) {
+                var tempHtml = '';
+                if (showIconList[li] == "save") {
+                    saveIconIdx = li;
+                    temp_table.rows[0].children[li].children[0].id = 'temp_a_st01';
+                    temp_table.rows[0].children[li].children[0].children[0].id = 'temp_span_st01';
+                    temp_table.rows[0].children[li].children[0].children[0].className = 'st01';
+                    temp_table.rows[0].children[li].children[1].id = 'temp_span_st01_div';
+
+                    tempHtml = '<span id="temp_span_st01_div_span"></span>';
+
+                } else if (showIconList[li] == "save_as") {
+                    saveAsIconIdx = li;
+                    temp_table.rows[0].children[li].children[0].id = 'temp_a_st02';
+                    temp_table.rows[0].children[li].children[0].children[0].id = 'temp_span_st02';
+                    temp_table.rows[0].children[li].children[0].children[0].className = 'st02';
+
+                    tempHtml = '<span id="temp_span_st02_div_span1"></span><br />';
+                    tempHtml += '<span id="temp_span_st02_div_span2"></span>';
+
+                } else if (showIconList[li] == "p_convertimage") {
+                    saveImageIconIdx = li;
+
+                    temp_table.rows[0].children[li].children[0].id = 'temp_a_st03';
+                    temp_table.rows[0].children[li].children[0].children[0].id = 'temp_span_st03';
+                    temp_table.rows[0].children[li].children[0].children[0].className = 'st03';
+
+                    tempHtml = '<select id="temp_select_st03">';
+                    tempHtml += '<option value="jpg">jpg</option>';
+                    tempHtml += '<option value="png">png</option>';
+                    tempHtml += '<option value="webp">webp</option>';
+                    tempHtml += '</select><br />';
+                    tempHtml += '<span id="temp_span_st03_div_span"></span>';
+
+                } else if (showIconList[li] == "p_convertpdf") {
+                    savePdfIconIdx = li;
+
+                    temp_table.rows[0].children[li].children[0].id = 'temp_a_st04';
+                    temp_table.rows[0].children[li].children[0].children[0].id = 'temp_span_st04';
+                    temp_table.rows[0].children[li].children[0].children[0].className = 'st04';
+
+                    tempHtml = '<span>PDF</span><br />';
+                    tempHtml += '<span id="temp_span_st04_div_span"></span>';
+                }
+
+                temp_table.rows[0].children[li].children[1].insertAdjacentHTML('afterbegin', tempHtml);
+            }
+
+            // 옵션 리스트에 없는 아이콘 순차적 추가
+            if (showIconList.indexOf('save') == -1) {
+                saveIconIdx = showIconListLength;
+                showIconListLength++;
+
+                temp_table.rows[0].children[saveIconIdx].children[0].id = 'temp_a_st01';
+                temp_table.rows[0].children[saveIconIdx].children[0].children[0].id = 'temp_span_st01';
+                temp_table.rows[0].children[saveIconIdx].children[0].children[0].className = 'st01';
+                temp_table.rows[0].children[saveIconIdx].children[1].id = 'temp_span_st01_div';
+
+                var tempHtml = '<span id="temp_span_st01_div_span"></span>';
+                temp_table.rows[0].children[saveIconIdx].children[1].insertAdjacentHTML('afterbegin', tempHtml);
+            }
+            if (showIconList.indexOf('save_as') == -1) {
+                saveAsIconIdx = showIconListLength;
+                showIconListLength++;
+
+                temp_table.rows[0].children[saveAsIconIdx].children[0].id = 'temp_a_st02';
+                temp_table.rows[0].children[saveAsIconIdx].children[0].children[0].id = 'temp_span_st02';
+                temp_table.rows[0].children[saveAsIconIdx].children[0].children[0].className = 'st02';
+
+                var tempHtml = '<span id="temp_span_st02_div_span1"></span><br />';
+                tempHtml += '<span id="temp_span_st02_div_span2"></span>';
+                temp_table.rows[0].children[saveAsIconIdx].children[1].insertAdjacentHTML('afterbegin', tempHtml);
+            }
+            if (showIconList.indexOf('p_convertimage') == -1) {
+                saveImageIconIdx = showIconListLength;
+                showIconListLength++;
+
+                temp_table.rows[0].children[saveImageIconIdx].children[0].id = 'temp_a_st03';
+                temp_table.rows[0].children[saveImageIconIdx].children[0].children[0].id = 'temp_span_st03';
+                temp_table.rows[0].children[saveImageIconIdx].children[0].children[0].className = 'st03';
+
+                var tempHtml = '<select id="temp_select_st03">';
+                tempHtml += '<option value="jpg">jpg</option>';
+                tempHtml += '<option value="png">png</option>';
+                tempHtml += '<option value="webp">webp</option>';
+                tempHtml += '</select><br />';
+                tempHtml += '<span id="temp_span_st03_div_span"></span>';
+                temp_table.rows[0].children[saveImageIconIdx].children[1].insertAdjacentHTML('afterbegin', tempHtml);
+            }
+            if (showIconList.indexOf('p_convertpdf') == -1) {
+                savePdfIconIdx = showIconListLength;
+                showIconListLength++;
+
+                temp_table.rows[0].children[savePdfIconIdx].children[0].id = 'temp_a_st04';
+                temp_table.rows[0].children[savePdfIconIdx].children[0].children[0].id = 'temp_span_st04';
+                temp_table.rows[0].children[savePdfIconIdx].children[0].children[0].className = 'st04';
+
+                var tempHtml = '<span>PDF</span><br />';
+                tempHtml += '<span id="temp_span_st04_div_span"></span>';
+                temp_table.rows[0].children[savePdfIconIdx].children[1].insertAdjacentHTML('afterbegin', tempHtml);
+            }
+
+			if (isSaveIconUse) {
+				useSaveIconCnt++;
+                temp_table.rows[0].children[saveIconIdx].style.display = 'table-cell';
+			}
+			if (isSaveAsIconUse) {
+				useSaveIconCnt++;
+                temp_table.rows[0].children[saveAsIconIdx].style.display = 'table-cell';
+			}
+			if (isSaveImageIconUse) {
+				useSaveIconCnt++;
+                temp_table.rows[0].children[saveImageIconIdx].style.display = 'table-cell';
+			}
+			if (isSavePdfIconUse) {
+				useSaveIconCnt++;
+                temp_table.rows[0].children[savePdfIconIdx].style.display = 'table-cell';
+			}
+
+            var _skin_name = LayerWin.getDialogSkinName(LayerWin._k_editor);
+
+            document.getElementById('btn_ok').innerHTML = LayerWin.RAONKEditor_lang.ok_cancel.ok;
+            document.getElementById('btn_ok').parentNode.title = LayerWin.RAONKEditor_lang.ok_cancel.ok;
+            document.getElementById('btn_cancel').innerHTML = LayerWin.RAONKEditor_lang.ok_cancel.cancel;
+			document.getElementById('btn_cancel').parentNode.title = LayerWin.RAONKEditor_lang.ok_cancel.cancel;
+
+			document.getElementById('span_title').innerHTML = LayerWin.RAONKEditor_lang.select_save_type.title;
+			document.getElementById('temp_a_st01').title = LayerWin.RAONKEditor_lang.select_save_type.save_btn_title;
+			document.getElementById('temp_span_st01_div_span').innerHTML = LayerWin.RAONKEditor_lang.select_save_type.save_btn_text_1;
+			document.getElementById('temp_a_st02').title = LayerWin.RAONKEditor_lang.select_save_type.save_as_btn_title;
+			document.getElementById('temp_span_st02_div_span1').innerHTML = LayerWin.RAONKEditor_lang.select_save_type.save_as_btn_text_1;
+			document.getElementById('temp_span_st02_div_span2').innerHTML = LayerWin.RAONKEditor_lang.select_save_type.save_as_btn_text_2;
+			document.getElementById('temp_a_st03').title = LayerWin.RAONKEditor_lang.select_save_type.save_img_btn_title;
+			document.getElementById('temp_span_st03_div_span').innerHTML = LayerWin.RAONKEditor_lang.select_save_type.save_img_btn_text;
+			document.getElementById('temp_a_st04').title = LayerWin.RAONKEditor_lang.select_save_type.save_pdf_btn_title;
+			document.getElementById('temp_span_st04_div_span').innerHTML = LayerWin.RAONKEditor_lang.select_save_type.save_pdf_btn_text;
+
+			if (useSaveIconCnt == 4) {
+				document.getElementById("keditor_dialog_box").className = 'K_edITor_ED_Popup_Type01 K_edITor_PUi_' + _skin_name;
+			} else {
+				document.getElementById("keditor_dialog_box").className = 'K_edITor_ED_Popup_Type03 K_edITor_PUi_' + _skin_name;
+			}
+
+            var btn_ok_a = document.getElementById('btn_ok_a');
+            KEDITORTOP.RAONKEDITOR.util.addEvent(btn_ok_a, 'click', function () { save_type_validate(); });
+
+            var temp_dbclick_action = function (evt) {
+
+                var click_cell = LayerWin.getClickCell(evt, 'td');
+
+				var isUseKMangerAndClassNameIsSt01 = false;
+                if (currEditor._config.useKManager == '1' && click_cell.children[0].children[0].id == 'temp_span_st01')
+					isUseKMangerAndClassNameIsSt01 = true;
+
+				if (isSaveAsIconUse) {
+					var oldFileName = currEditor.strOldSaveFileName;
+					if ((oldFileName == '' || oldFileName == undefined) && isUseKMangerAndClassNameIsSt01) {
+						return;
+					}
+				}
+                
+                for (var i in click_cell.childNodes) {
+                    if (click_cell.childNodes[i].nodeType == 1) {
+                        save_type_validate();
+                        break;
+                    }
+                }
+            };
+
+			//이미지 영역을 클릭했을 때에만 더블클릭이벤트 동작되도록 수정 by jooyoung 23.05.24
+			//KEDITORTOP.RAONKEDITOR.util.addEvent(temp_table, 'dblclick', temp_dbclick_action);
+            KEDITORTOP.RAONKEDITOR.util.addEvent(document.getElementById('temp_a_st01'), 'dblclick', temp_dbclick_action);
+            KEDITORTOP.RAONKEDITOR.util.addEvent(document.getElementById('temp_a_st02'), 'dblclick', temp_dbclick_action);
+            KEDITORTOP.RAONKEDITOR.util.addEvent(document.getElementById('temp_a_st03'), 'dblclick', temp_dbclick_action);
+            KEDITORTOP.RAONKEDITOR.util.addEvent(document.getElementById('temp_a_st04'), 'dblclick', temp_dbclick_action);
+
+            // 저장 UX 및 프로세스 통합 아이콘 옵션값에 따라 아이콘 순서 변경 가능하도록 개선 by jooyoung 23.05.30
+            //var firstA = document.getElementById('temp_span_st01').parentNode;
+            var firstA = temp_table.rows[0].children[0].children[0];
+
+            // 동적 구분선 추가
+			if (useSaveIconCnt == 4) {// 아이콘이 4개인 경우
+                temp_table.rows[0].children[1].className = 'con_te_btn con_te_contour';
+                temp_table.rows[0].children[2].className = 'con_te_btn con_te_contour';
+                temp_table.rows[0].children[3].className = 'con_te_btn con_te_contour';
+			}
+            if (useSaveIconCnt == 3) {// 아이콘이 3개인 경우
+                temp_table.rows[0].children[1].className = 'con_te_btn con_te_contour';
+                temp_table.rows[0].children[2].className = 'con_te_btn con_te_contour';
+			}
+			if (useSaveIconCnt == 2) {// 아이콘이 2개인 경우
+                temp_table.rows[0].children[2].className = 'con_te_btn';
+                temp_table.rows[0].children[1].className = 'con_te_btn con_te_contour';
+            }
+			
+            if (currEditor._config.useKManager == '0') {
+				var spanTag = document.createElement('span');
+				spanTag.innerHTML = LayerWin.RAONKEditor_lang.select_save_type.save_btn_text_2;
+
+				var brTag = document.createElement('br');
+				document.getElementById('temp_span_st01_div_span').innerHTML = LayerWin.RAONKEditor_lang.select_save_type.save_btn_text_1;
+				document.getElementById("temp_span_st01_div").insertAdjacentHTML("afterbegin", spanTag.outerHTML + brTag.outerHTML);
+
+            } else {
+                temp_table.rows[0].children[saveIconIdx].children[1].children[0].style.lineHeight = "40px";
+				//다른이름저장을 사용 안할 경우 포커스 처리 및 저장버튼 활성화
+				if (!isSaveAsIconUse) {
+                    temp_table.rows[0].children[0].className = 'con_te_on_btn';
+                } else if (isSaveIconUse) { //다른이름저장과 저장을 동시에 사용할 경우 최초의 저장버튼은 비활성화되도록 처리
+                    //document.getElementById('temp_span_st01').parentNode.parentNode.className = 'con_te_btn_noHover';
+                    if (saveIconIdx == 0) {
+                        document.getElementById('temp_span_st01').parentNode.parentNode.className = 'con_te_btn_noHover';
+                    } else {
+                        document.getElementById('temp_span_st01').parentNode.parentNode.className = 'con_te_btn_noHover con_te_contour';
+                    }
+                    if (doesNotExistOldFileName && temp_table.rows[0].children[0].children[0].id == 'temp_a_st01') {
+                        firstA = temp_table.rows[0].children[1].children[0];
+                        temp_table.rows[0].children[1].className = 'con_te_on_btn con_te_contour';
+                    } else {
+                        temp_table.rows[0].children[0].className = 'con_te_on_btn';
+                    }
+				}
+			}
+            
+            setCursorPos(firstA, true, false);
+            LayerWin.setFocusFirstAndLast(document, firstA);
+        }
+
+        function save_type_validate() {
+
+            var select_tem = LayerWin.getElementsByClass('con_te_on_btn', document);
+			var select_tem_cmd;
+            if (select_tem.length == 1) {
+				select_tem_cmd = select_tem[0].getElementsByTagName("span")[0].className;
+            }
+
+			switch (select_tem_cmd) {
+				case 'st01':
+					select_tem_cmd = 'save';  // 1. 파일(html)로 저장
+					break;
+				case 'st02':
+					select_tem_cmd = 'save_as';  // 2. 다른 이름으로 저장(agent전용)
+					break;
+				case 'st03':
+					select_tem_cmd = 'p_convertimage';  // 3. 이미지로 저장
+					break;
+				case 'st04':
+					select_tem_cmd = 'p_convertpdf';  // 4. pdf로 저장
+					break;
+			}
+
+			var select_box;
+			var select_option;
+
+			// 작성된 내용이 없으면 이미지/PDF 저장하지 않도록 처리
+			if (select_tem_cmd == 'p_convertimage' || select_tem_cmd == 'p_convertpdf') {
+				var isEmpty = KEDITORTOP.RAONKEDITOR.isEmpty(KEDITORTOP.G_CURRKEDITOR.ID);
+				if (isEmpty) {
+					alert(LayerWin.RAONKEditor_lang.select_save_type.empty_message);
+					return;
+				}
+			}			
+
+			if (select_tem_cmd == 'p_convertimage') {
+				select_box = document.getElementById('temp_select_st03');
+				select_option = select_box.options[select_box.selectedIndex].value;
+            }
+
+			currEditor.strSavedExtension = select_option;
+			
+			currEditor._editorCommands(editor_id, select_tem_cmd);
+			event_popup_close();
+        }
+
+        function fnSaveTypeClickAction(obj) {
+
+            var isUseKMangerAndClassNameIsSt01 = false;
+            if (currEditor._config.useKManager == '1' && obj.children[0].children[0].className == 'st01')
+                isUseKMangerAndClassNameIsSt01 = true;
+
+            var temp_table = document.getElementById('temp_table');
+
+            // 저장 UX 및 프로세스 통합 아이콘 옵션값에 따라 아이콘 순서 변경 가능하도록 개선 by jooyoung 23.05.30
+			var _td_array = LayerWin.getElementsByClass('con_te_on_btn', document);
+
+			for (var i = 0; i < _td_array.length; i++) {
+                // 이전 on상태 아이콘
+                if (_td_array[i].children[0].children[0].className == temp_table.rows[0].children[0].children[0].children[0].className) {
+                    _td_array[i].className = 'con_te_btn';
+                } else {
+                    _td_array[i].className = 'con_te_btn con_te_contour';
+                }
+            }
+			
+            if (isSaveAsIconUse && doesNotExistOldFileName && isUseKMangerAndClassNameIsSt01) {
+                var temp_table = document.getElementById('temp_table');
+                if (saveIconIdx == 0) {
+                    temp_table.rows[0].children[saveIconIdx].className = 'con_te_btn_noHover';
+                } else {
+                    temp_table.rows[0].children[saveIconIdx].className = 'con_te_btn_noHover con_te_contour';
+                }
+                if (saveAsIconIdx == 0) {
+                    temp_table.rows[0].children[saveAsIconIdx].className = 'con_te_on_btn';
+                } else {
+                    temp_table.rows[0].children[saveAsIconIdx].className = 'con_te_on_btn con_te_contour';
+                }
+            } else {
+                // on으로 바뀔 아이콘
+                if (obj.children[0].children[0].className == temp_table.rows[0].children[0].children[0].children[0].className) {
+                    obj.className = 'con_te_on_btn';
+                } else {
+                    obj.className = 'con_te_on_btn con_te_contour';
+                }
+            }
+        }
+    </script>
+</head>
+<body style="margin:0px; padding:0px; " onload="page_loaded_event(); page_dialog_loaded_event();">
+    <div id="keditor_dialog_box" class="">
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span id="span_title" class="subject"></span><span class="text">K Editor</span>
+            <div class="close">
+                <a href="javascript:event_popup_close();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / Save_Type  -->
+        <div class="EdiTor_Popup_contents view">
+            <div class="contents">
+                <div class="con con_th">
+                    <table cellpadding="0" cellspacing="0" id="temp_table">
+                        <tr>
+                            <td style="display: none;" class="con_te_on_btn" onclick="javascript:fnSaveTypeClickAction(this);">
+                                <a href="javascript:void(0);"><span></span></a>
+                                <div></div>
+                            </td>
+                            <td style="display: none;" class="con_te_btn" onclick="javascript:fnSaveTypeClickAction(this);">
+                                <a href="javascript:void(0);"><span></span></a>
+                                <div></div>
+                            </td>
+                            <td style="display: none;" class="con_te_btn" onclick="javascript:fnSaveTypeClickAction(this);">
+                                <a href="javascript:void(0);"><span></span></a>
+                                <div></div>
+                            </td>
+                            <td style="display: none;" class="con_te_btn" onclick="javascript:fnSaveTypeClickAction(this);">
+                                <a href="javascript:void(0);"><span></span></a>
+                                <div></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- // Contents -->
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <a href="javascript:void(0);" class="confirm" id="btn_ok_a"><span id="btn_ok"></span></a>
+            <a href="javascript:event_popup_close();" class="cancel" id="abtn_cancel"><span id="btn_cancel"></span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

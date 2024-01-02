@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">           
+    <h3 class="title">K Editor :: AllowImageFileType</h3>
+    <p class="ttl">
+        XML : &#60;allow_image_file_type&#62;.....&#60;/allow_image_file_type&#62;, Script : AllowImageFileType<br />
+        XML : &#60;allow_image_file_type max_file_size="....."&#62;&#60;/allow_image_file_type&#62;, Script : MaxImageFileSize
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        이미지 삽입 시 허용할 확장자를 설정합니다.<br />
+        이미지 삽입 시 허용할 최대 파일 사이즈를 제한합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="firebrick">XML : allow_image_file_type, Script : AllowImageFileType</span>&nbsp;&nbsp; 확장자를 ","(콤마)로 구분하여 입력합니다. <br />
+        <span class="firebrick">XML : max_file_size, Script : MaxImageFileSize</span>&nbsp;&nbsp; 용량을 바이트단위까지 입력합니다.
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>이미지 삽입 시 허용할 확장자를 "jpg,png"로 설정합니다.</b>
+<b>이미지 삽입 시 허용할 최대 파일 사이즈를 "5MB"로 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;uploader_setting&#62;
+    .....
+    &#60;allow_image_file_type max_file_size="5MB"&#62;jpg,png&#60;/allow_image_file_type&#62;
+    .....
+&#60;/uploader_setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            AllowImageFileType: "jpg,png",
+            MaxImageFileSize: "5MB"
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

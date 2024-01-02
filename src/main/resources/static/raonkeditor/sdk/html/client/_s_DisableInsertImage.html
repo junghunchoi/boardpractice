@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <h3 class="title">K Editor :: DisableInsertImage</h3>
+    <p class="ttl">XML : &#60;disable_insert_image&#62;.....&#60;/disable_insert_image&#62;, Script : DisableInsertImage</p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        모든 이미지를 삽입(업로드)하는 기능을 제한하도록 설정합니다.<br />
+        두개 이상인 경우 ,(쉼표)로 구분합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        "all" 로 설정 시 모든 이미지를 삽입(업로드)하는 기능을 제한합니다.<br />
+        문서 배경 이미지, 하이퍼링크, 이미지 삽입, 붙여넣기, 표 배경, 셀 배경, 비디오 섬네일에 적용됩니다.
+        <br /><br />
+        doc_bg_image : 문서 배경 이미지<br />
+        hyperlink : 하이퍼링크<br />
+        image : 이미지 삽입<br />
+        paste_image : 붙여넣기<br />
+        table : 표 배경<br />
+        cell : 셀 배경<br />
+        video_poster : 비디오 섬네일
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>문서 배경 이미지, 하이퍼링크의 이미지 삽입을 비활성화합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;disable_insert_image&#62;doc_bg_image,hyperlink&#60;/disable_insert_image&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            DisableInsertImage: 'doc_bg_image,hyperlink'
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

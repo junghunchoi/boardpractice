@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">        
+    <span class="pl_type">[Agent 전용]</span>    
+    <h3 class="title">K Upload :: AutoRecoveryTransfer</h3>
+    <p class="ttl">
+        XML : &#60;auto_recovery_transfer&#62;.....&#60;/auto_recovery_transfer&#62;, Script : AutoRecoveryTransfer <br />
+        XML : &#60;auto_recovery_transfer auto_transfer="....."&#62;&#60;/auto_recovery_transfer&#62;, Script : AutoTransfer <br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        자동 복구 업/다운로드 기능을 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="firebrick">auto_recovery_transfer</span>&nbsp;&nbsp;"0" 으로 설정시 자동 복구 업/다운로드 사용하지 않고, <br />
+        <span style="margin-left:132px;"></span>"1" 로 설정시 창을 닫거나 OS종료시에도 자동 복구 업/다운로드를 진행하도록 설정하고,<br />
+        <span style="margin-left:132px;"></span>"2" 로 설정시 "1" 설정의 기능에 취소기능을 포함하도록 설정합니다.<br />
+        <span class="firebrick">auto_transfer</span>&nbsp;&nbsp;"0" 으로 설정시 업로드 로드 후 자동 복구건이 있어도 즉시 업/다운로드를 진행하지않고,<br />
+        <span style="margin-left:80px;"></span>"1" 로 설정시 업로드 로드 후 자동 복구건이 있으면 즉시 업/다운로드를 진행합니다.<br />
+        <span style="margin-left:80px;"></span>(auto_recovery_transfer 기능을 사용할 시 적용됩니다.)
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>자동 복구 업/다운로드 기능을 취소가 가능하도록 사용하고 업로드 후 자동복구건이 존재하면 바로 수행하도록 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;auto_recovery_transfer auto_transfer="1"&#62;2&#60;/auto_recovery_transfer&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            AutoRecoveryTransfer: "2",
+            AutoTransfer: "1"
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <h3 class="title">K Editor :: TableTemplateListUrl</h3>
+    <p class="ttl">
+        XML : &#60;template_list_url&#62;.....&#60;/template_list_url&#62;, Script : TableTemplateListUrl<br />
+        XML : &#60;template_list_url use_basic_template=""&#62;.....&#60;/template_list_url&#62;, Script : UseBasicTemplate<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        <span class="txt">
+            <span class="firebrick">XML : template_list_url, Script : TableTemplateListUrl</span>&nbsp;&nbsp;웹으로 접근 가능한 리턴 XML 리턴 타입의 사용자 표 템플릿 url을 경로를 설정합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : use_basic_template, Script : UseBasicTemplate</span>&nbsp;&nbsp;기본 표 템플릿 사용 여부를 설정합니다.
+        </span><br />
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML : use_basic_template, Script : UseBasicTemplate</span>&nbsp;&nbsp;0인 경우 기본 표 템플릿 사용 안 함, 1인 경우 기본 표 템플릿 사용함을 의미합니다.
+        </span><br />
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>사용자 표 템플릿 경로를 설정하고, 기본 표 템플릿을 사용하지 않습니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;template_list_url use_basic_template="0"&#62;/template/TableTemplateList.xml&#60;/template_list_url&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            TableTemplateListUrl: {
+                TableTemplateListUrl: '/template/TableTemplateList.xml',
+                UseBasicTemplate: '0'
+            }
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

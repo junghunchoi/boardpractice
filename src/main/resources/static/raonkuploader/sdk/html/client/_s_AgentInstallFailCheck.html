@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">        
+    <span class="pl_type">[Agent 전용]</span>    
+    <h3 class="title">K Upload :: AgentInstallFailCheck</h3>
+    <p class="ttl">
+        XML : &#60;agent_install_fail_check&#62;.....&#60;/agent_install_fail_check&#62;,<br />
+        Script : AgentInstallFailCheck.Use <br />
+        XML : &#60;agent_install_fail_check stop_install_check="....."&#62;&#60;/agent_install_fail_check&#62;,<br />
+        Script : AgentInstallFailCheck.StopInstallCheck <br />
+        XML : &#60;agent_install_fail_check time="....."&#62;&#60;/agent_install_fail_check&#62;,<br />
+        Script : AgentInstallFailCheck.Time <br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        Agent 설치의 실패 또는 중단의 체크여부를 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        <span class="firebrick">stop_install_check</span>&nbsp;&nbsp;false 로 설정 시 AgentInstallFailCheck를 중단하지 않도록 설정하고,<br />
+        <span cstyle="margin-left:80px;"></span>true 로 설정 시 time에 설정된 체크 이후 AgentInstallFailCheck를 중단합니다.
+        <span class="firebrick">time</span>&nbsp;&nbsp;팝업후 Agent 설치의 실패를 체크하는 시간단위를 설정합니다. (단위: 초)<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>팝업 이후 60초 뒤 Agent 설치의 실패를 체크하고 이후 AgentInstallFailCheck를 중단합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;agent_install_fail_check stop_install_check="1" time="60"&#62;1&#60;/agent_install_fail_check&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            AgentInstallFailCheck: {
+                Use : "1",
+                StopInstallCheck : "1",
+                Time : "60"
+            }
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+    <div class="right_con">
+        <span class="pl_type">[Agent 전용]</span>
+        <h3 class="title">K Upload :: AddLocalFolderDirectlyExWithCallback</h3>
+        <p class="ttl">void AddLocalFolderDirectlyExWithCallback(options, callback, uploadID)</p>
+        <p class="txt">
+            로컬폴더를 업로드 영역에 추가합니다.<br />
+            성공여부를 callback으로 받습니다.
+        </p>
+        <p class="mttl01">return value</p>
+        <p class="txt">
+            없음.
+        </p>
+        <p class="mttl01">parameters</p>
+        <p class="txt">
+            <span class="firebrick">options</span>&nbsp;&nbsp;로컬폴더의 경로 정보를 담고 있는 object 변수 입니다. (상세내용은 하단 sample code를 참고하세요.)<br />
+            <span class="firebrick">callback</span>&nbsp;&nbsp;성공여부를 리턴받는 callback function 입니다. (상세내용은 하단 sample code를 참고하세요.)<br />
+            <span class="firebrick">uploadID</span>&nbsp;&nbsp;실행할 업로드의 id를 의미합니다.<br />
+        </p>
+        <p class="mttl01">remarks</p>
+        <p class="txt">
+            <span class="firebrick">폴더전송 기능</span>을 <span class="firebrick">사용함</span>으로 설정한 경우에만 동작합니다.
+</p>
+        <p class="mttl01">sample code</p>
+        <div class="cord">
+            <pre class="pre">
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;	
+&#60;script type="text/javascript"&#62;
+        function addLocalFolders() {
+            var callback = function (failed) {
+                if (failed) { // 실패한 파일이 있는 경우 (에러 또는 용량 제한 등의 필터링)
+                    console.log(failed);
+                    /*
+                        failed.data : array
+                        failed.data = [
+                            {
+                                type: string, -> 'error': 오류인 경우, 'filtered': 사이즈, 확장자 제한 등으로 필터링된 경우
+                                index: number, -> 실패된 폴더의 index
+                                reason: string -> 실패 원인
+                            },
+                            ...
+                        ]
+
+                        failed.data.length : 실패한 폴더 개수
+                    */
+                } else { // failed 변수가 null 이면 성공
+                    console.log('success');
+                }
+            };
+
+            var fileDataArray = [
+                {
+                    path: 'c:\\testfolder1\\'
+                },
+                {
+                    path: 'c:\\testfolder2\\'
+                },
+                ...
+            ];
+
+            var options = {
+                addFiles: false, // 생략가능(기본값: false), true로 적용 시 폴더안의 파일들이 컴포넌트에 추가 됩니다.
+                folderDataArray: folderDataArray
+            };
+
+            RAONKUPLOAD.AddLocalFolderDirectlyExWithCallback(options, callback, 'upload1');
+        }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px;"  
+        &#60;script type="text/javascript"&#62;
+            new RAONKUpload({Id: 'upload1'});
+        &#60;/script&#62;       
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

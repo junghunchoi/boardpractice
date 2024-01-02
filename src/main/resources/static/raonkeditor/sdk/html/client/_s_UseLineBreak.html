@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Editor Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">
+    <h3 class="title">K Editor :: UseLineBreakLineBreak</h3>
+    <p class="ttl">
+        XML : &#60;use_line_break&#62;.....&#60;/use_line_break&#62;, Script : UseLineBreakLineBreak.UseLineBreak<br />
+        XML : &#60;use_line_break word_break_type=""&#62;.....&#60;/use_line_break&#62;, Script : WordBreakType<br />
+        XML : &#60;use_line_break word_wrap_type=""&#62;.....&#60;/use_line_break&#62;, Script : WordWrapType<br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용 됩니다.</b><br />
+        줄 바꿈 기능 사용 여부 및 줄 바꿈 기준, 가로길이를 설정합니다.
+    </p>
+    <p class="mttl01">remarks</p>
+    <p class="txt">
+        <span class="txt">
+            <span class="firebrick">XML : use_line_break, Script : UseLineBreak</span>&nbsp;&nbsp;기본값은 "0" 이며 사용 안함, "1" 로 설정 시 줄 바꿈 기능을 사용합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : word_break_type, Script : WordBreakType</span>&nbsp;&nbsp;기본값은 "0" 이며 기본값, "1" 로 설정 시 글자단위, "2"로 설정 시 단어단위로 줄바꿈 합니다.
+        </span><br />
+        <span class="txt">
+            <span class="firebrick">XML : word_wrap_type, Script : WordWrapType</span>&nbsp;&nbsp;기본값은 "0" 이며 사용 안함, "1" 로 설정 시 글 내용의 가로길이를 맞추도록 설정합니다.
+        </span><br />
+    </p>
+    <p class="mttl01">sample code</p>
+    <div class="cord">
+        <pre class="pre">
+<b>줄 바꿈 기능을 단어단위로 글 내용의 가로길이를 맞춰서 하도록 설정합니다..</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;use_line_break word_break_type="2" word_wrap_type="1"&#62;1&#60;/use_line_break&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            UseLineBreakLineBreak: {
+                UseLineBreak: '1',
+                WordBreakType: '2',
+                WordWrapType: '1'
+            }
+        }
+
+        new RAONKEditor(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>
+    </div>
+    </div>
+</div>
+</body>
+</html>

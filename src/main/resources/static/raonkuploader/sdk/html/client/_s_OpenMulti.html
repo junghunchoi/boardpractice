@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>K Upload Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="raonkhelp_content_right">
+<div class="right_con">           
+    <span class="pl_type">[Agent 전용]</span> 
+    <h3 class="title">K Upload :: OpenMulti</h3>
+    <p class="ttl">
+        XML : &#60;open_multi&#62;.....&#60;/open_multi&#62;, Script : OpenMulti <br />
+    </p>
+    <p class="txt">
+        <b>Script 설정이 우선 적용됩니다.</b><br />
+        파일 열기 시 여러 파일을 열기 가능하도록 또는 한 파일만 열기 가능하도록 설정합니다.<br />
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        기본값은 "0" 이며 설정 시 파일 열기시 한 파일만 열도록 설정하고,<br />
+        "1" 으로 설정 시 파일 열기시 여러 파일을 열기 가능하도록 설정합니다.<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>파일 열기시 여러 파일을 열기 가능하도록 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;uploader_setting&#62;
+    .....
+    &#60;open_multi&#62;1&#60;/open_multi&#62;
+    .....
+&#60;/uploader_setting&#62;
+.....
+
+<b>Script</b>
+
+&#60;script type="text/javascript" src="raonkupload/js/raonkupload.js"&#62;&#60;/script&#62;
+	
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:800px;height:200px"&#62;  
+    &#60;script type="text/javascript"&#62;
+        var raonkParam = {
+            .....
+            OpenMulti: "1"
+        }
+
+        new RAONKUpload(raonkParam);
+    &#60;/script&#62;
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

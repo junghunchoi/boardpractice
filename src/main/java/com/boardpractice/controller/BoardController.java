@@ -60,6 +60,7 @@ public class BoardController {
 	@PostMapping("/register")
 	@Transactional
 	public RedirectView register(@RequestBody RequestData requestData) {
+		log.info("/register");
 		int bno = boardService.insertBoard(requestData.getBoard());
 		requestData.getFiles().forEach(files -> {
 			files.setBno((long) bno);
@@ -70,6 +71,7 @@ public class BoardController {
 
 	@GetMapping("/modify")
 	public void modifyGET(@RequestParam Long bno, Model model) {
+
 		Board board = boardService.selectById(bno);
 
 		model.addAttribute("board", board);
@@ -81,6 +83,8 @@ public class BoardController {
 	@PostMapping("/modify")
 	@ResponseBody
 	public String  modify(@RequestBody RequestData requestData) {
+		log.info("/modify");
+		log.info("requestData", requestData);
 		Board board = requestData.getBoard();
 		List<Files> files = requestData.getFiles();
 
@@ -89,6 +93,8 @@ public class BoardController {
 			file.setBno(board.getBno());
 			boardService.insertFiles(file);
 		});
+		log.info("board", board);
+		log.info("files", files);
 
 		return "/board/read?bno=" + board.getBno();
 	}

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>K EDITOR Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="raonkhelp_content_right">
+        <div class="right_con ">
+            <h3 class="title">K Editor :: SetFontFormat</h3>
+            <p class="ttl">void SetFontFormat(formatType, editorName)</p>
+            <p class="txt">
+                에디터 디자인 영역에서 선택 영역의 글자 서식을 설정합니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">formatType</span>&nbsp;&nbsp;설정할 글자 서식을 의미합니다.<br />
+                <span class="firebrick">editorName</span>&nbsp;&nbsp;에디터의 ID를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                formatType이 bold일 경우 굵게를 의미합니다.<br />
+                formatType이 italic일 경우 이탤릭을 의미합니다.<br />
+                formatType이 underline일 경우 밑줄을 의미합니다.<br />
+                formatType이 strike_through일 경우 취소선을 의미합니다.<br />
+                formatType이 superscript일 경우 위 첨자를 의미합니다.<br />
+                formatType이 subscript일 경우 아래 첨자를 의미합니다.<br />
+                formatType이 remove_format일 경우 글자 서식 삭제를 의미합니다.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+    function setFontFormat() {
+        // 선택한 영역의 글자 서식을 '굵게'로 설정합니다.
+        var formatType = 'bold';
+
+        RAONKEDITOR.setFontFormat(formatType, 'editor1');
+    }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;
+    &#60;script type="text/javascript"&#62;
+        new RAONKEditor({Id:'editor1'});
+    &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

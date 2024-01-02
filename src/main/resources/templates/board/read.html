@@ -8,6 +8,8 @@
   <link rel="stylesheet" th:href="@{/css/read.css}" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Brush+Script"
         rel="stylesheet">
+  <script type="text/javascript" src="/raonkeditor/js/raonkeditor.js"></script>
+  <script type="text/javascript" src="/raonkuploader/js/raonkupload.js"></script>
 </head>
 
 <div class="readArea">
@@ -17,30 +19,68 @@
     <a th:href="@{/board/remove(bno=${board.bno})}" class="deleteBtn">삭제</a>
   </div>
   <input type="text" name="title" class="boardtitle" th:value="${board.title}" readonly>
-  <div id="editor_iframe_wrapper">
-    <iframe id="editor_iframe" th:src="@{http://10.10.0.157:8080/board/editor(bno=${board.bno})}"
-            scrolling="no"></iframe>
+  <div>
+    <script type="text/javascript">
+      var params = {
+        Id: 'editor1',
+        Mode: 'view',
+      }
+
+      new RAONKEditor(params);
+    </script>
   </div>
-  <div class="upload_iframe_wrapper">
-      <iframe id="uploader_iframe"
-              th:src="@{http://10.10.0.157:8080/board/uploader(bno=${board.bno})}"
-              scrolling="no"></iframe>
+  <div style=" margin-top: 20px;">
+    <script type="text/javascript">
+      new RAONKUpload({Id: 'upload1', Mode: 'view'});
+    </script>
   </div>
 </div>
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script th:src="@{/js/common.js}"></script>
+<!--<script th:src="@{/js/common.js}"></script>-->
 <script th:src="@{/js/read.js}"></script>
 
 
 <script th:inline="javascript">
   const files = [[${files}]];
+  const board = [[${board}]];
 
-  if(files.length === 0) {
-    document.getElementById('uploader_iframe').remove();
+  RAONKEDITOR.setBodyValue(board.content, 'editor1');
+
+  function RAONKUPLOAD_CreationComplete(uploadID) {
+
+    // callBack 이벤트 설정
+    // 파일추가 완료 후 발생하며, 파라미터 Object내에 API동작을 완료한 uploadID를 포함하여 반환합니다.
+    var callBackEvt = function (paramObj) {
+      console.log(paramObj.uploadName + ": 파일추가 완료.");
+    }
+
+    // Case_1
+    // fileList로 추가
+    // 파일 Object를 fileList 배열로 추가합니다.
+
+    var fileList = [];
+    console.log(files);
+
+    files.forEach((file) => {
+      var fileObj = {
+        uniqueKey: file.uuid,
+        originName: file.filename,
+        webPath: "D:\\file\\raonkdownload\\"+file.uuid+"."+file.filename.split(".")[1],
+        size: "",
+        customValue: "",
+      };
+      fileList.push(fileObj);
+    });
+
+    var paramObj_1 = {
+      fileList: fileList,
+      uploadName: "upload1"
+    };
+
+    RAONKUPLOAD.AddUploadedFileAsObject(paramObj_1, callBackEvt);
   }
-
 
   document.querySelector(".deleteBtn").addEventListener("click", function (e) {
     if (confirm("삭제하시겠습니까?")) {
@@ -56,8 +96,6 @@
     }
     e.preventDefault();
   });
-
-
 
 
 </script>

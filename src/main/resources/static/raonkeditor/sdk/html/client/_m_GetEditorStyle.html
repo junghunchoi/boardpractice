@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>K EDITOR Developer Manual</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="raonkhelp_content_right">
+        <div class="right_con ">
+            <h3 class="title">K Editor :: GetEditorStyle</h3>
+            <p class="ttl">String GetEditorStyle(element, propertyName, editorName)</p>
+            <p class="txt">
+                에디터 작성 영역에 있는 요소의 스타일 속성을 가지고 옵니다.
+            </p>
+            <p class="mttl01">return value</p>
+            <p class="txt">
+                에디터 작성 영역에 있는 요소의 스타일 속성이 리턴 됩니다.<br />
+                propertyName이 all일 경우 Object로 요소의 모든 속성이 리턴 됩니다.
+            </p>
+            <p class="mttl01">parameters</p>
+            <p class="txt">
+                <span class="firebrick">element</span>&nbsp;&nbsp;요소를 의미합니다.<br />
+                <span class="firebrick">propertyName</span>&nbsp;&nbsp;스타일 속성을 의미합니다.<br />
+                <span class="firebrick">editorName</span>&nbsp;&nbsp;에디터의 ID를 의미합니다.
+            </p>
+            <p class="mttl01">remarks</p>
+            <p class="txt">
+                없음.
+            </p>
+            <p class="mttl01">sample code</p>
+            <div class="cord">
+                <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="raonkeditor/js/raonkeditor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+    function getEditorStyle() {
+        // id가 'elementId'인 요소
+        var element = RAONKEDITOR.getElementById('elementId', 'editor1');
+
+        // id가 'elementId'인 요소의 모든 스타일을 가지고 옵니다.
+        var style = RAONKEDITOR.getEditorStyle(element, 'all', 'editor1');
+    }
+&#60;/script&#62;	
+
+&#60;!-- ..... 생략 ..... --&#62;
+ 
+&#60;div style="width:900px;height:550px"&#62;
+    &#60;script type="text/javascript"&#62;
+        new RAONKEditor({Id:'editor1'});
+    &#60;/script&#62;
+&#60;/div&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;/body&#62;
+&#60;/html&#62;
+        </pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

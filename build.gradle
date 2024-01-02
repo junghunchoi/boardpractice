@@ -22,7 +22,12 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
     implementation 'junit:junit:4.13.1'
+    implementation 'log4j:log4j:1.2.17'
+    implementation 'org.apache.log4j.Logger:log4j:1.2.17'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
     compileOnly 'org.projectlombok:lombok'
@@ -32,7 +37,11 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.0.0'
-
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.9'
+    implementation files('lib/com.raonwiz.keditor.jar')
+    implementation files('lib/commons-fileupload-1.4.jar')
+    implementation files('lib/com.raonwiz.kupload.jar')
+    implementation 'commons-io:commons-io:2.8.0'
 }
 
 test {

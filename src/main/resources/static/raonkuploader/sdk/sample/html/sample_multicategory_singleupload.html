@@ -1,0 +1,270 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>K Upload Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+    <link href="../css/sample.common.css" rel="stylesheet" />
+    <script src="../vender/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../js/sample.common.js" type="text/javascript"></script>
+    <!-- 샘플 페이지 동작을 위한 파일입니다. -->
+
+    <script src="../../../js/raonkupload.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var G_UploadID;
+
+        // 생성완료 이벤트
+        function RAONKUPLOAD_CreationComplete(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML = '업로드 생성 완료 : ' + uploadID + '<br/>';
+        }
+
+        // 파일 추가전 이벤트 (추가되는 파일 개수 만큼 발생합니다.)
+        function RAONKUPLOAD_BeforeAddFile(uploadID, paramObj) {
+            // 같은 카테고리 內 동일한 파일명으로 추가할 수 없도록 처리
+
+            var ret = true;
+            var addFileName = paramObj.strName;
+
+            var index = fn_getFileIndexByName(addFileName, G_CurrentCategory);
+            if (index !== -1) {
+                alert("같은 카테고리 內 동일한 파일은 등록 불가");
+                ret = false;
+            }
+
+            return ret;
+        }
+
+        // 파일 추가 후 이벤트 (추가되는 파일 개수 만큼 발생합니다.)
+        function RAONKUPLOAD_AfterAddFile(uploadID, paramObj) {
+            // 이 페이지에서는 파일 추가 시 "카테고리" 값을 넣어주도록 되어있습니다.
+            RAONKUPLOAD.SetFileCustomValue(-1, G_CurrentCategory, uploadID);
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += paramObj.strName + ' 파일에 ' + G_CurrentCategory + ' 값을 추가하였습니다.' + '<br/>';
+        }
+
+        // 파일 전체 추가 완료후 이벤트
+        function RAONKUPLOAD_AfterAddAllFile(uploadID, paramObj) {
+            // 파일 추가 완료 후 처리할 내용
+            var _htmlTemplate = '';
+            _htmlTemplate += '<li style="padding: 3px 71px 3px 48px; height: 17px; line-height: 17px; border-bottom: 1px solid #ededee; position: relative; zoom: 1">';
+            _htmlTemplate += '#fileName# (#fileSize#) <a href="#" onclick="fn_deleteFile(this, \'#fileName#\', \'' + G_CurrentCategory + '\');" style="position: absolute; right: 2px; display: inline-block; color: red; font-size: 11pt;">x</a>';
+            _htmlTemplate += '</li>';
+
+            var fileUploadLists = fileUploadList = "";
+            for (var idx = 0, len = paramObj.arrFileList.length, fileInfo; idx < len; idx++) {
+                fileInfo = paramObj.arrFileList[idx];
+
+                fileUploadList = _htmlTemplate.replace(/#fileName#/ig, fileInfo.strName);
+                fileUploadList = fileUploadList.replace("#fileSize#", fileInfo.nSize);
+
+                fileUploadLists += fileUploadList;
+            }
+
+            $("#" + G_CurrentCategory).append(fileUploadLists);
+        }
+
+        // 전송 전 이벤트
+        function RAONKUPLOAD_BeforeUpload(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += '업로드 시작 : ' + uploadID + '<br/>';
+        }
+
+        // 전송완료 이벤트
+        function RAONKUPLOAD_UploadComplete(uploadID) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+
+            // K Upload는 array, json, xml, text delimit 방식으로 결과값을 제공합니다.
+
+            // 파일에 대한 정보 중 업로드가 완료된 파일의 정보(업로드 된 파일경로,업로드 된 파일명)는
+            // RAONKUPLOAD_UploadComplete 이벤트 안에서만 추출이 가능합니다.
+
+            var dataArray = RAONKUPLOAD.GetListInfo('array', uploadID);
+            //var dataJson = RAONKUPLOAD.GetListInfo('json', uploadID);
+            //var dataText = RAONKUPLOAD.GetListInfo('text', uploadID);
+            //var dataXml = RAONKUPLOAD.GetListInfo('xml', uploadID);
+
+            // 신규 업로드된 파일
+            var arrayNew = dataArray.newFile;
+            if (arrayNew) fn_newArrayToString(arrayNew);
+            //var jsonNew = dataJson.newFile;
+            //if (jsonNew) fn_newJsonToString(jsonNew);
+            //var xmlNew = dataXml.newFile;
+            //if (xmlNew) fn_newXmlToString(xmlNew);
+            //var textNew = dataText.newFile;
+            //if (textNew) fn_newTextToString(textNew, uploadID);
+
+            // 삭제된 파일
+            var arrayDel = dataArray.deleteFile;
+            if (arrayDel) fn_delArrayToString(arrayDel);
+            //var jsonDel = dataJson.deleteFile;
+            //if (jsonDel) fn_delJsonToString(jsonDel);
+            //var xmlDel = dataXml.deleteFile;
+            //if (xmlDel) fn_delXmlToString(xmlDel);
+            //var textDel = dataText.deleteFile;
+            //if (textDel) fn_delTextToString(textDel, uploadID);
+
+            logBox.innerHTML += '<br/>' + '업로드 완료 : ' + G_UploadID + '<br/>';
+        }
+
+        // 오류 이벤트
+        function RAONKUPLOAD_OnError(uploadID, paramObj) {
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += 'Error : ' + paramObj.strCode + ', ' + paramObj.strMessage + '<br/>';
+
+            if (paramObj.arrUploadedFileList != null && paramObj.arrUploadedFileList != '') {
+                logBox.innerHTML += '업로드 된 파일 리스트 - <br/>';
+                var uploadedFileLen = paramObj.arrUploadedFileList.length;
+                for (var i = 0; i < uploadedFileLen; i++) {
+                    logBox.innerHTML += paramObj.arrUploadedFileList[i].uploadName + ', ' + paramObj.arrUploadedFileList[i].uploadPath + '</br>';
+
+                    // originName: paramObj.arrUploadedFileList[i].originName
+                    // fileSize: paramObj.arrUploadedFileList[i].fileSize
+                    // uploadName: paramObj.arrUploadedFileList[i].uploadName
+                    // uploadPath: paramObj.arrUploadedFileList[i].uploadPath
+                    // logicalPath: paramObj.arrUploadedFileList[i].logicalPath
+                    // order: paramObj.arrUploadedFileList[i].order
+                    // status: paramObj.arrUploadedFileList[i].status
+                    // customValue: paramObj.arrUploadedFileList[i].customValue
+                    // responseCustomValue: paramObj.arrUploadedFileList[i].responseCustomValue
+                }
+            }
+        }
+
+        // 취소 이벤트
+        function RAONKUPLOAD_UploadingCancel(uploadID, paramObj) {
+            G_UploadID = uploadID;
+
+            var logBox = document.getElementById("logBox");
+            logBox.innerHTML += '전송 취소 이벤트 : ' + G_UploadID + '<br/>';
+
+            if (paramObj.arrUploadedFileList != null && paramObj.arrUploadedFileList != '') {
+                logBox.innerHTML += '업로드 된 파일 리스트 - <br/>';
+                var uploadedFileLen = paramObj.arrUploadedFileList.length;
+                for (var i = 0; i < uploadedFileLen; i++) {
+                    logBox.innerHTML += paramObj.arrUploadedFileList[i].uploadName + ', ' + paramObj.arrUploadedFileList[i].uploadPath + '</br>';
+
+                    // originName: paramObj.arrUploadedFileList[i].originName
+                    // fileSize: paramObj.arrUploadedFileList[i].fileSize
+                    // uploadName: paramObj.arrUploadedFileList[i].uploadName
+                    // uploadPath: paramObj.arrUploadedFileList[i].uploadPath
+                    // logicalPath: paramObj.arrUploadedFileList[i].logicalPath
+                    // order: paramObj.arrUploadedFileList[i].order
+                    // status: paramObj.arrUploadedFileList[i].status
+                    // customValue: paramObj.arrUploadedFileList[i].customValue
+                    // responseCustomValue: paramObj.arrUploadedFileList[i].responseCustomValue
+                }
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        var G_CurrentCategory = 'category1';
+
+        function fn_getFileIndexByName(fileName, categoryType) {
+            var ret = -1;
+            var fileList = RAONKUPLOAD.GetListInfo('array');
+            for (var idx = 0, len = fileList.mergeFile.length, fileObj; idx < len; idx++) {
+                fileObj = fileList.mergeFile[idx];
+
+                if (fileObj.customValue === categoryType && fileObj.originalName === fileName) {
+
+                    ret = fileObj.order;
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
+        function fn_openFileDialog(categoryType) {
+            G_CurrentCategory = categoryType;
+
+            RAONKUPLOAD.OpenFileDialog();
+        }
+
+        function fn_deleteFile(obj, fileName, categoryType) {
+            var index = fn_getFileIndexByName(fileName, categoryType);
+            if (index !== -1) {
+                RAONKUPLOAD.SetSelectFile(index, 0);
+                RAONKUPLOAD.DeleteSelectedFile();
+
+                obj.parentNode.parentNode.removeChild(obj.parentNode);
+            }
+        }
+    </script>
+</head>
+<body style="text-align:center;">
+    <!-- 예제 1 -->
+    <ul class="info_lst_box">
+        <li>• 다중 카테고리에 대하여 하나의 업로드 객체를 이용하여 처리하는 예시입니다.</li>
+    </ul>
+
+    <div class="btn_lst_box">
+        카테고리 1 →
+        <button type="button" value="파일추가" class="input_image" onclick="fn_openFileDialog('category1')" id="file_add_btn">파일추가</button><span id="file_add_nbsp">&nbsp;</span>
+    </div>
+    <div style="width: 800px; height: 60px; overflow: auto; margin: 0 auto;">
+        <ul id="category1" style="list-style: none; text-align: left;"></ul>
+    </div>
+
+    <div class="btn_lst_box">
+        카테고리 2 →
+        <button type="button" value="파일추가" class="input_image" onclick="fn_openFileDialog('category2')" id="file_add_btn">파일추가</button><span id="file_add_nbsp">&nbsp;</span>
+    </div>
+    <div style="width: 800px; height: 60px; overflow: auto; margin: 0 auto;">
+        <ul id="category2" style="list-style: none; text-align: left;"></ul>
+    </div>
+
+    <br />
+    <div>↓ 아래 업로드 영역은 실제로 숨김처리 필요 ↓</div>
+    <br />
+    <div id="component_holder" style="width: 800px; margin: 0 auto;"></div>
+    <script type="text/javascript">
+        // 해당 config 이외의 설정도 가능합니다. (www.raonk.com > 개발센터 참조)
+        var uploadConfig = {
+            Id: "kupload",
+            Height: "150px",
+            UploadHolder: "component_holder",
+            AllowDuplicationFile: '1', // 중복파일 허용
+            DisableAlertMessage: {
+                DisableDeleteConfirm: '1'
+            }
+            //Runtimes: 'agent'
+            //InitXml: "raonkupload.config.xml",
+            //SkinName: "blue",
+            //Width: "200px",
+            //MaxTotalFileSize: "20GB",
+            //MaxOneFileSize: "20KB",
+            //MaxTotalFileCount: "9",
+            //MultiFileSelect: false,
+            //ExtensionAllowOrLimit: "0",
+            //ExtensionArr: "png",
+            //FolderNameRule: "/uploadfolder",
+            //Mode: "view", // edit, view
+            //ButtonBarEdit: "add,send,remove,remove_all",
+            //ButtonBarView: "open,download,download_all", // 0 일경우 버튼바 보이지 않음.
+            //Lang: "en-us", // ko-kr, en-us, ja-jp, zh-cn, zh-tw
+            //IgnoreSameUploadName: "1"
+        };
+
+        var upload = new RAONKUpload(uploadConfig);
+    </script>
+
+    <br /><br />
+    <!-- 로그영역 -->
+    <div id="logBox" class="logBox" style="overflow: auto;"></div>
+    <!-- //로그영역 -->
+</body>
+</html>
