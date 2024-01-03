@@ -7,13 +7,9 @@ import com.boardpractice.dto.RequestData;
 import com.boardpractice.entity.Board;
 import com.boardpractice.entity.Files;
 import com.boardpractice.service.BoardService;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -23,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -83,8 +77,6 @@ public class BoardController {
 	@PostMapping("/modify")
 	@ResponseBody
 	public String  modify(@RequestBody RequestData requestData) {
-		log.info("/modify");
-		log.info("requestData", requestData);
 		Board board = requestData.getBoard();
 		List<Files> files = requestData.getFiles();
 
@@ -93,8 +85,6 @@ public class BoardController {
 			file.setBno(board.getBno());
 			boardService.insertFiles(file);
 		});
-		log.info("board", board);
-		log.info("files", files);
 
 		return "/board/read?bno=" + board.getBno();
 	}

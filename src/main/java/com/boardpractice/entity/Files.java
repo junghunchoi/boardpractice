@@ -23,6 +23,7 @@ public class Files {
 	private String filename;
 	private LocalDateTime regDate;
 	private String status;
+	private int size;
 
 
 }

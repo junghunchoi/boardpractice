@@ -14,6 +14,7 @@ function RAONKUPLOAD_UploadComplete(uploadID) {
     const file = {}
     file.filename = uploadList.originalName[i];
     file.uuid = uploadList.fileId[i];
+    file.size = uploadList.size[i];
     requestData.files.push(file);
   }
 
@@ -45,3 +46,4 @@ document.getElementById('goToListButton').addEventListener('click',
 
       }
     });
+

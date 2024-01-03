@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <RaonKEditor>
   <license>
-    <product_key>6P5Q6-U5W2-4W42-5W2X2</product_key>
-	<license_key>mFh8yxgZzxzflQ55zXpWkxzflFOWt+METnWgKnWDPnWGQhZXAfm5ws5kCb4RgsVIC0m5kuvVlQ1VlXgMlxl1kRv5lhYUtXhkqyqezv4rt8lkxFEmxUYWludXkxvVkxhWtXdUlxO=</license_key>
-	<license_key_html5>NlK9dcaqgcgeMi88gWQVHcgeMlGVR+rFsOVaXOVEhOVmiKqWAeN8bf8HDy5jafUoD1N8HSTUMi2UMWarMcM2HjT8MKZtRWKHIdIvgT5JR9MHclFNctZVMSuWHcTUHcKVRWutMcG=</license_key_html5>
+    <product_key>4RF4N-L2Q2-D2G4-J7AZ8</product_key>
+	<license_key>maebmv1ZxueqlQ8vlSD5kyI0pzI1t+9oLnWjJnW4Fn9wOnMyKAWjJhZay5NYQ6XYQKxZPwUkCb4RgsVIC0m5kuvUkRvUkRhMlxy0tXO8lhYUt5zvrzqoyOZxt8lklRhWmt5Ulr5UlUYWluv1</license_key>
+	<license_key_html5>NxvyNT2qcSvIMi9TMkE8Hdo1Qgo2R+0PYOVwpOV5lO0bGOrdXAVwpKqxd8BZi3WZiXcqhbtHDy5jafUoD1N8HSTtHjTtHjKrMcd1RWG9MKZtR8gTJgIPdGqcR9MHMjKVNR8tMJ8tMtZVMST2</license_key_html5>
   </license>
   <xss_protection>
     <xss_use allow_events_attribute="1" desc="0: 사용안함, 1: 사용함, allow_events_attribute - 객체의 Attribute에 설정된 이벤트들을 허용할지 여부, 0:허용하지 않음 1: 허용">1</xss_use>
@@ -200,7 +200,7 @@
     <doc_lang>ko</doc_lang>
     <lang>ko-kr</lang>
     <width>900px</width>
-    <height>550px</height>
+    <height>350px</height>
     <skinname></skinname>
     <font_family>굴림</font_family>
     <font_size>12pt</font_size>
@@ -280,9 +280,9 @@
   </setting>
   <uploader_setting upload_image_file_object="1">
     <develop_langage desc=".NET(C#, ASP): NET, JAVA(JSP): JSP">JSP</develop_langage>
-    <handler_url>http://localhost:8080/keditor</handler_url>
+    <handler_url>http://10.10.0.157:8080/keditor</handler_url>
     <handler_url_save_for_notes desc="http://를 포함한 전체 경로"></handler_url_save_for_notes>
-    <save_foldername_rule desc="/, YYYY/, YYYY/MM/, YYYY/MM/DD/">YYYY/MM/</save_foldername_rule>
+    <save_foldername_rule desc="/, YYYY/, YYYY/MM/, YYYY/MM/DD/">/</save_foldername_rule>
     <save_filename_rule desc="GUID, REALFILENAME"></save_filename_rule>
     <save_filename_rule_ex desc="중복파일명처리, _ or # or i 중 택1 (i는 뒤에 숫자 자동증가)">_</save_filename_rule_ex>
     <image_auto_fit desc="0: 사용하지 않음, 1 : 에디터 Width 크기에 맞춤">1</image_auto_fit>

@@ -1,14 +1,7 @@
 function RAONKUPLOAD_CreationComplete(uploadID) {
-
-  // callBack 이벤트 설정
-  // 파일추가 완료 후 발생하며, 파라미터 Object내에 API동작을 완료한 uploadID를 포함하여 반환합니다.
   var callBackEvt = function (paramObj) {
     console.log(paramObj.uploadName + ": 파일추가 완료.");
   }
-
-  // Case_1
-  // fileList로 추가
-  // 파일 Object를 fileList 배열로 추가합니다.
 
   var fileList = [];
   console.log(files);
@@ -19,7 +12,7 @@ function RAONKUPLOAD_CreationComplete(uploadID) {
       originName: file.filename,
       webPath: "D:\\file\\raonkdownload\\" + file.uuid + "."
           + file.filename.split(".")[1],
-      size: "",
+      size: file.size,
       customValue: "",
     };
     fileList.push(fileObj);
@@ -39,6 +32,7 @@ function RAONKUPLOAD_UploadComplete(uploadID) {
 
   // 게시판 정보 추출
   const boardObject = {
+    bno: board.bno,
     title: document.getElementsByClassName("boardtitle")[0].value,
     content: RAONKEDITOR.getBodyDom('editor1').innerHTML
   };
@@ -55,6 +49,7 @@ function RAONKUPLOAD_UploadComplete(uploadID) {
       const file = {}
       file.filename = uploadList.originalName[i];
       file.uuid = uploadList.fileId[i];
+      file.size = uploadList.size[i];
       requestData.files.push(file);
     }
   }
@@ -75,5 +70,5 @@ document.getElementById('submitBtn').addEventListener('click', function () {
   var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
   var childButton = iframeDocument.getElementById("button_send");
 
-  childButton.click(); // 자식 iframe 내의 버튼 클릭 트리거
+  childButton.click();
 });

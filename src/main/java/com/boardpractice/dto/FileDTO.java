@@ -14,5 +14,6 @@ public class FileDTO {
 	private String uuid;
 	private LocalDateTime regDate;
 	private String status;
+	private int size;
 
 }

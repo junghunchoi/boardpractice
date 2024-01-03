@@ -51,14 +51,14 @@
   </select>
 
   <select id="selectFilesByID" resultType="com.boardpractice.entity.Files">
-    SELECT filename, uuid
+    SELECT filename, uuid, size
     FROM files
     WHERE bno = #{bno}
   </select>
 
   <insert id="insertFiles" parameterType="com.boardpractice.entity.Files">
-    INSERT INTO files (bno, filename, uuid)
-    VALUES (#{bno}, #{filename}, #{uuid})
+    INSERT INTO files (bno, filename, uuid, size)
+    VALUES (#{bno}, #{filename}, #{uuid}, #{size})
   </insert>
 
   <delete id="deleteFiles" parameterType="long">

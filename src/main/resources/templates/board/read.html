@@ -29,9 +29,9 @@
       new RAONKEditor(params);
     </script>
   </div>
-  <div style=" margin-top: 20px;">
+  <div id="uploadholder" style=" margin-top: 20px;">
     <script type="text/javascript">
-      new RAONKUpload({Id: 'upload1', Mode: 'view'});
+      new RAONKUpload({Id: 'upload1', UploadHolder:"uploadholder", Mode: 'view'});
     </script>
   </div>
 </div>
@@ -68,7 +68,7 @@
         uniqueKey: file.uuid,
         originName: file.filename,
         webPath: "D:\\file\\raonkdownload\\"+file.uuid+"."+file.filename.split(".")[1],
-        size: "",
+        size: file.size,
         customValue: "",
       };
       fileList.push(fileObj);

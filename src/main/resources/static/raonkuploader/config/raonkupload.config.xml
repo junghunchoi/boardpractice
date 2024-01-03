@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <RaonKUpload>
   <license>
-    <product_key>6P5Q6-U5W2-4W42-5W2X2</product_key>
+    <product_key>JA6IY-4O5E-H6X5-3KK16</product_key>
     <license_key>
-      mFh8yxgZzxzflQ55zXpWkxzflFOWt+METnWgKnWDPnWGQhZXAfm5ws5kCb4RgsVIC0m5kuvVlQ1VlXgMlxl1kRv5lhYUtXhkqyqezv4rt8lkxFEmxUYWludXkxvVkxhWtXdUlxO=
+      rSv9rzSZmv38qr8dmFO8kxmkrXv9t+WBYnMGLnW6ZnMxHhTLFexYJ1uZPkRYYgxLPehkCb4RgsVIC0m5kuvUkRvUkRhMlxy0tXyUluhklhZzyvVopypkyUZxtXdUlRpZluvZlulklRhVnh==
     </license_key>
     <license_key_html5>
-      NlK9dcaqgcgeMi88gWQVHcgeMlGVR+rFsOVaXOVEhOVmiKqWAeN8bf8HDy5jafUoD1N8HSTUMi2UMWarMcM2HjT8MKZtRWKHIdIvgT5JR9MHclFNctZVMSuWHcTUHcKVRWutMcG=
+      JkT0JgkqNT49IJ9uNlG9HcNHJWT0R+VCZOrmYOV3qOrcnKsYlvcZp2SqhHjZZacYhvKHDy5jafUoD1N8HSTtHjTtHjKrMcd1RWdtMSKHMKqgdTUPQdQHdtqcRWutMjQqMSTqMSMHMjKUOK
     </license_key_html5>
   </license>
   <setting>
@@ -158,7 +158,7 @@
   </setting>
   <uploader_setting>
     <develop_langage desc=".NET(C#, ASP): NET, JAVA(JSP): JSP">JSP</develop_langage>
-    <handler_url>http://localhost:8080/kupload</handler_url>
+    <handler_url>http://10.10.0.157:8080/kupload</handler_url>
     <viewer_handler_url desc="웹표준모드 전용"></viewer_handler_url>
     <download_handler_url></download_handler_url>
     <folder_name_rule desc="년월일폴더는 yyyy/ 또는 yyyy/mm 등으로 입력, 그 외에는 일반 폴더">/</folder_name_rule>

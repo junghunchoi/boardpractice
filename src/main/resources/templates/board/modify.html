@@ -37,14 +37,13 @@
   function functionToRun() {
     let editorArea = document.querySelector('.editorArea');
     if (editorArea) {
-      const board = [[${board}]]; // Thymeleaf 표현식은 HTML 문서 내에서만 유효
+      const board = [[${board}]];
       editorArea.innerHTML = board.content;
       clearInterval(intervalId);
     }
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!--<script th:src="@{/js/modify.js}"></script>-->
 <script th:inline="javascript">
   const files = [[${files}]];
 
